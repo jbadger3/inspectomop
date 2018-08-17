@@ -18,14 +18,13 @@ A large portion of research in data science involves data munging; the process o
 
 `OHDSI: Observational Health Data Sciences and Informatics`
 `OMOP: Observation Medical Outcomes Partnership` 
-# Main Features
+## Main Features
 
 - Automatic 
 
-# SQL Dialect Compatibility
+## SQL Dialect Compatibility
 
 | dialect | inspectomop (python) | SQLRender (R) | 
-| ----  | ---                   | ---       |
 | BigQuery | No \* | Yes |
 | Impala | Yes \* | Yes |
 | Netezza | No \* | Yes |
@@ -33,13 +32,12 @@ A large portion of research in data science involves data munging; the process o
 | PostgreSQL | Yes | Yes |
 | Redshift | Yes \* | Yes
 | SQL Server | Yes | Yes |
-| SQLite | Yes | Unknown  |
+| SQLite | Yes | Unknown |
 
-\* 
-- BigQuery : python DB-API, but no sqlalchemy dialect as of 8/17/2018 (https://github.com/GoogleCloudPlatform/google-cloud-python/issues/3603)
-- Impala : external dialect available via [impyla](https://pypi.org/project/impyla/) package
-- Redshift : external dialect available via [sqlalchemy-redshift](https://pypi.org/project/sqlalchemy-redshift/) package
-
+#### \* BigQuery : python DB-API, but no sqlalchemy dialect as of 8/17/2018 (https://github.com/GoogleCloudPlatform/google-cloud-python/issues/3603)
+#### \* Impala : external dialect available via [impyla](https://pypi.org/project/impyla/) package
+#### \* Netezza : python DB-API, but no sqlalchemy dialect as of 8/17/2018
+#### \* Redshift : external dialect available via [sqlalchemy-redshift](https://pypi.org/project/sqlalchemy-redshift/) package
 
 # Where to get it
 
