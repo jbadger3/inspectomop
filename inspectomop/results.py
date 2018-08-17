@@ -36,4 +36,4 @@ class _Results(ResultProxy):
                 yield pd.DataFrame(data=rows, columns=columns)
             if not rows:
                 break
- 
+
