@@ -47,7 +47,7 @@ def concepts_for_concept_ids(concept_ids, inspector,return_columns=None):
     vocabulary = inspector.tables['vocabulary']
     columns = [concept.concept_id, concept.concept_name, concept.concept_code, concept.concept_class_id, concept.standard_concept, concept.vocabulary_id, vocabulary.vocabulary_name]
     if return_columns:
-        columns = filter((lambda x: x in columns, filter_columns))
+        columns = filter((lambda x: x in columns, return_columns))
     
     statement = select(columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.vocabulary_id == vocabulary.vocabulary_id)
    
