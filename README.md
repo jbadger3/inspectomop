@@ -22,9 +22,9 @@ A large portion of research in data science involves data munging; the process o
 
 - Automatic 
 
-# SQL dialect Compatibility
+# SQL Dialect Compatibility
 
-| DBMS  | inspectomopo (python) | SQLRender (R) | 
+| dialect | inspectomopo (python) | SQLRender (R) | 
 | ----  | ---                   | ---       |
 | BigQuery | No \* | Yes |
 | Impala | Yes \* | Yes |
@@ -34,6 +34,7 @@ A large portion of research in data science involves data munging; the process o
 | Redshift | Yes \* | Yes
 | SQL Server | Yes | Yes |
 | SQLite | Yes | Unknown  |
+| --- | --- | --- |
 \*
 BigQuery : python DB-API, but no sqlalchemy dialect as of 8/17/2018 (https://github.com/GoogleCloudPlatform/google-cloud-python/issues/3603)
 Impala : external dialect available via [impyla !](https://pypi.org/project/impyla/) package
