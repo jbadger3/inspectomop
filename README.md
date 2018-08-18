@@ -1,6 +1,5 @@
 # InspectOMOP
 
-
 ## What is it?
 
 **inspectomop** is a lightweight python 3 package that assists in the extraction of electronic health record(EHR) data from relational databases following the OHDSI OMOP Common Data Model(CDM) standard v>=5.  
@@ -11,15 +10,8 @@
 ## Why was this built?
 A large portion of data science research is spent on ETL (Extraction, Transformation, and Loading).  If the data are stored in a relational database, the first step includes deciphering the database schema and figuring out how to write SQL queries that will properly gather the information of interest.  This can be both laborious and time consuming.  **inspectomop** attempts to simplify extracting data from the OMOP CDM with an API that is easy to use, extensible, and SQL dialect agnostic. 
 
-## Developement of **inspectomop** follow three simple dictums:
-
-1.  Research is more fun when less time is spent data wrangling  
-
-2.  Don't reinvent the wheel
-
-3.  Caring is sharing
-
-One of the main benefits of adopting a CDM such as OMOP is that it promotes the sharing of ideas and methodology.  Queries in **inspectomop** are simple python functions of the format:
+One of the main benefits of adopting a CDM such as OMOP is that it promotes the sharing of ideas and methodology.  Queries in **inspectomop** are simple python functions  of the format:
+So using sqlAlchemy any user can create custom queries  that can be shared accross intitutions and database management systems.
 
 ```sh
 def my_query(inputs, inspector, retrun_columns='all'):
@@ -31,13 +23,9 @@ def my_query(inputs, inspector, retrun_columns='all'):
     return inspector.execute(statement) 
 ```
 
-
-So using sqlAlchemy any user can create custom queries  that can be shared accross intitutions and database management systems.
-
-
 ## Who is this for?
 
-**inspectomop** is for any python 3 programmers with an interest in interfacing with an EHR relational database formatted to follow the OMOP CDM standard.
+**inspectomop** is for any python 3 programmer with an interest in interfacing with an EHR relational database formatted to follow the OMOP CDM standard.
 
 The OHDSI group has developed and excellent library of tools written in R, but there are few, if any tools, for the python community.
 
