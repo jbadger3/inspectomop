@@ -60,7 +60,11 @@ Note: compatibility is based solely on the availability of dialects written for 
 #### \* Redshift : external dialect available via [sqlalchemy-redshift](https://pypi.org/project/sqlalchemy-redshift/) package
 
 # Where to get it
-* install using pip with `piip install inspectomop`
+* install from PyPI using pip  with
+'''sh 
+pip install inspectomop
+'''
+
 # Dependencies
 - [SQLAlchemy](https://www.sqlalchemy.org) 
 - [Pandas](https://pandas.pydata.org)
@@ -68,5 +72,5 @@ Note: compatibility is based solely on the availability of dialects written for 
 \* Developed using SQLAlchemy 1.2.1 and Pandas 0.22.0
 
 # License
-
+Feel free to fork, copy, share and contribute.  This software released under [GNU Affero GPLv3.0] (LICENSE.md)  
 
