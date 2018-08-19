@@ -72,5 +72,5 @@ pip install inspectomop
 \* Developed using SQLAlchemy 1.2.1 and Pandas 0.22.0
 
 # License
-Feel free to fork, copy, share and contribute.  This software released under [GNU Affero GPLv3.0] (<a href="https://github.com/jbadger3/inspectomop/tree/maste/LICENSE.md">)  
+Feel free to fork, copy, share and contribute.  This software released under [GNU Affero GPLv3.0] (https://github.com/jbadger3/inspectomop/tree/maste/LICENSE.md)  
 
