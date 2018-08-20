@@ -28,11 +28,14 @@ def concepts_for_concept_ids(concept_ids, inspector,return_columns=None):
     -------
     out : inspectomop.Results
 
-    Return Columns: [concept.concept_id, concept.concept_name, concept.class_id, 
-                    vocabulary.vocabulary_id, vocabulary.vocabulary_name]
+    Return Columns: [concept.concept_id, concept.concept_name,concept.concept_code, 
+        concept.class_id, concept.standard_concept, vocabulary.vocabulary_id, 
+        vocabulary.vocabulary_name]
     
     Original SQL
     ------------
+    https://github.com/OHDSI/OMOP-Queries
+
     G01: Find concept by concept ID
 
     SELECT C.concept_id, C.concept_name, C.concept_code, C.concept_class_id, 
