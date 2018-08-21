@@ -1,12 +1,16 @@
 import setuptools
-import inspectomop
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
+
+#load version info
+with open('inspectomop/VERSION.txt') as fh:
+	version = fh.read().strip()
+print(version)
 setuptools.setup(
         #descriptors
         name='inspectomop',
-        version=inspectomop.__version__,
+        version=version,
         description='Database query tool for the OMOP Common Data Model', 
         long_description=long_description,
         long_description_content_type="text/markdown",
@@ -20,7 +24,7 @@ setuptools.setup(
 
         #requirements/dependencies
         python_requires='>=3.0',
-        isntall_requires=['sqlalchemy','pandas'],
+        install_requires=['sqlalchemy','pandas'],
         packages=setuptools.find_packages(),
         )
 
