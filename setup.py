@@ -16,12 +16,11 @@ setuptools.setup(
         classifiers=[
             'Programming Language :: Python :: 3',
             'Operating System :: OS Independent',
-            ]
+            ],
 
         #requirements/dependencies
-        python_requires='>=3.0'
-        
-
+        python_requires='>=3.0',
+        isntall_requires=['sqlalchemy','pandas'],
         packages=setuptools.find_packages(),
         )
 
