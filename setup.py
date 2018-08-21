@@ -21,7 +21,10 @@ setuptools.setup(
             'Programming Language :: Python :: 3',
             'Operating System :: OS Independent',
             ],
-
+	
+	#extra_inclustions
+    	package_data={'': ['VERSION.txt']},
+    	include_package_data=True,
         #requirements/dependencies
         python_requires='>=3.0',
         install_requires=['sqlalchemy','pandas'],
