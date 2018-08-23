@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy import select
 from sqlalchemy.engine import reflection
 
-import pandas as pd
+import pandas as _pd
 
 from .results import Results
 
@@ -43,33 +43,34 @@ class Inspector():
         self.__tables = None
         self._sqlite_attach_list = None
 
+    def _tables_summary_df(self):
+        column_names = ['clinical','vocabulary','derived_element','health_system','health_economic'\
+            ,'metadata']
+        clinical = list(self.clinical_data_tables.keys())
+        clinical.sort()
+        vocab = list(self.vocabulary_tables.keys())
+        vocab.sort()
+        derived = list(self.derived_element_tables.keys())
+        derived.sort()
+        health_system = list(self.health_system_data_tables.keys())
+        health_system.sort()
+        health_economic = list(self.health_economic_data_tables.keys())
+        health_economic.sort()
+        metadata = list(self.metadata_tables.keys())
+        metadata.sort()
+        all_categories = [clinical,vocab,derived,health_system,health_economic,metadata]
+        max_length = len(max(all_categories,key=len))
+        for cat in all_categories:
+            while True:
+                if len(cat) != max_length:
+                    cat.append('')
+                else:
+                    break
+        data_dict = {col_name:table_names for col_name,table_names in zip(column_names,all_categories)}
+        return _pd.DataFrame(data_dict)
+
     def __str__(self):
-        def tables_summary_df():
-            column_names = ['clinical','vocabulary','derived_element','health_system','health_economic'\
-                ,'metadata']
-            clinical = list(self.clinical_data_tables.keys())
-            clinical.sort()
-            vocab = list(self.vocabulary_tables.keys())
-            vocab.sort()
-            derived = list(self.derived_element_tables.keys())
-            derived.sort()
-            health_system = list(self.health_system_data_tables.keys())
-            health_system.sort()
-            health_economic = list(self.health_economic_data_tables.keys())
-            health_economic.sort()
-            metadata = list(self.metadata_tables.keys())
-            metadata.sort()
-            all_categories = [clinical,vocab,derived,health_system,health_economic,metadata]
-            max_length = len(max(all_categories,key=len))
-            for cat in all_categories:
-                while True:
-                    if len(cat) != max_length:
-                        cat.append('')
-                    else:
-                        break
-            data_dict = {col_name:table_names for col_name,table_names in zip(column_names,all_categories)}
-            return pd.DataFrame(data_dict)
-        tables_df = tables_summary_df()
+        tables_df = self._tables_summary_df()
         return 'connection_url : {}\n\ntables:\n{}'.format(self.connection_url,tables_df)
 
     def __repr__(self):
@@ -200,7 +201,9 @@ class Inspector():
             raise KeyError('`{}` not found in tables.'.format(table_name))
         table = self.tables[table_name]
         data = [[col.name, col.type, col.nullable, col.primary_key] for col in table.__table__.columns.values()]
-        return pd.DataFrame(data, columns=['column','type','nullable','primary_key'])
+        return _pd.DataFrame(data, columns=['column','type','nullable','primary_key'])
+
+
 
     def execute(self, statement):
         """
