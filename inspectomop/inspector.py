@@ -5,7 +5,7 @@ from sqlalchemy.engine import reflection
 
 import pandas as pd
 
-from .results import _Results
+from .results import Results
 
 class Inspector():
     """
@@ -24,8 +24,8 @@ class Inspector():
 
     Notes
     -----
-        SQLite DBs require an additional '/' as in 'sqlite:///foo.db' and for an absolute path
-        this becomes four '/' as in 'sqlite:////abs/path/to/foo.db'.
+        SQLite DBs require an additional '/' as in 'sqlite:///foo.db' for a relative path and
+         'sqlite:////abs/path/to/foo.db' for an absolute path.
 
         See http://docs.sqlalchemy.org/en/latest/core/engines.html for more information about
         connection URLs and supported dialects.
@@ -33,59 +33,60 @@ class Inspector():
     Examples
     --------
     >>> import inspectomop as iomop
-    >>> iomop.Inspector('sqlite:///:memory:')
+    >>> connection_url = 'sqlite:///:memory:'
+    >>> iomop.Inspector(connection_url)
     """
+
     def __init__(self,connection_url):
         self.connection_url = connection_url
         self.__engine = create_engine(self.connection_url)
         self.__tables = None
         self._sqlite_attach_list = None
-    def __del__(self):
-        """TODO"""
+
     def __str__(self):
-        """TODO"""
+        def tables_summary_df():
+            column_names = ['clinical','vocabulary','derived_element','health_system','health_economic'\
+                ,'metadata']
+            clinical = list(self.clinical_data_tables.keys())
+            clinical.sort()
+            vocab = list(self.vocabulary_tables.keys())
+            vocab.sort()
+            derived = list(self.derived_element_tables.keys())
+            derived.sort()
+            health_system = list(self.health_system_data_tables.keys())
+            health_system.sort()
+            health_economic = list(self.health_economic_data_tables.keys())
+            health_economic.sort()
+            metadata = list(self.metadata_tables.keys())
+            metadata.sort()
+            all_categories = [clinical,vocab,derived,health_system,health_economic,metadata]
+            max_length = len(max(all_categories,key=len))
+            for cat in all_categories:
+                while True:
+                    if len(cat) != max_length:
+                        cat.append('')
+                    else:
+                        break
+            data_dict = {col_name:table_names for col_name,table_names in zip(column_names,all_categories)}
+            return pd.DataFrame(data_dict)
+        tables_df = tables_summary_df()
+        return 'connection_url : {}\n\ntables:\n{}'.format(self.connection_url,tables_df)
+
     def __repr__(self):
-        """TODO"""
+        return 'Inspector(\'{}\')'.format(self.connection_url)
 
-
-
-    def attach_sqlite_db(self,db_file, schema_name):
+    @property
+    def engine(self):
         """
-        For SQLite backends, tttaches an additional sqlite database file using 
-        'ATTACH DATABSE db_file AS schema_name'.
-        
-        ***This method can only be called if the dialect specified in connection_url is sqlite***
+        A convenience hook to the underlying sqlalchemy engine.
 
-        Parameters
-        ----------
-        db_file : String
-            A string giving a path to a database file.  Ex. 'databases/my_db_to_attach.db'    
-
-        schema_name : String
-           The name to associate with the attached schema
-
+        Use .execute() for submitting queries.
         """
-        def connect():
-            import sqlite3
-            connect_url = self.connection_url.replace('sqlite:///','')
-            connection = sqlite3.connect(connect_url)
-            cursor = connection.cursor()
-            for db_file, schema_name in self._sqlite_attach_list:
-                cursor.execute('attach database "{}" as {}'.format(db_file, schema_name))
-            return connection
-
-        assert self.__engine.dialect.name == 'sqlite', 'The dialect {} cannot be used with this method. Only "sqlite" dialect is supported'.format(dialect)
-        
-        if not self._sqlite_attach_list:
-            self._sqlite_attach_list = [(db_file, schema_name)]
-        else:
-            self._sqlite_attach_list.append((db_file, schema_name))
-        self.__tables = None #attaching a new database should force the tables to reload
-        self.__engine = create_engine(self.connection_url, creator=connect)
+        return self.__engine
 
     def _extract_table_classes(self):
         def add_tables(metadata):
-            for table_name,table in metadata.tables.items(): 
+            for table_name,table in metadata.tables.items():
                 #sqlalchemy requires a primary key in each table for automatic mapping to work.
                 #If no primary key is found, set the default primary key to be the first column in each table.
                 if len(table.primary_key) == 0:
@@ -114,16 +115,6 @@ class Inspector():
         self.__tables = tables
 
     @property
-    def engine(self):
-        """
-        A convenience hook to the underlying sqlalchemy engine.  
-        
-        Use .execute() for submitting queries. 
-
-        """
-        return self.__engine
-
-    @property
     def tables(self):
         if not self.__tables:
             self._extract_table_classes()
@@ -143,7 +134,7 @@ class Inspector():
     def clinical_data_tables(self):
         table_names = ['person','observation_period','specimen','death','visit_occurrence','visit_detail','procedure_occurrence','drug_exposure','device_exposure','condition_occurrence','measurement','note','note_nlp','observation','fact_relationship']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
-    
+
     @property
     def health_system_data_tables(self):
         table_names = ['location','care_site','provider']
@@ -159,13 +150,51 @@ class Inspector():
         table_names = ['cohort','cohort_attribute','drug_era','dose_era','condition_era']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
+
+
+    def attach_sqlite_db(self,db_file, schema_name):
+        """
+        For SQLite backends, attaches an additional sqlite database file using
+        'ATTACH DATABSE db_file AS schema_name'.
+
+        ***This method can only be called if the dialect specified in connection_url is sqlite***
+
+        Parameters
+        ----------
+        db_file : String
+            A string giving a path to a database file.  Ex. 'databases/my_db_to_attach.db'
+
+        schema_name : String
+           The name to associate with the attached schema
+        """
+        def connect():
+            import sqlite3
+            connect_url = self.connection_url.replace('sqlite:///','')
+            connection = sqlite3.connect(connect_url)
+            cursor = connection.cursor()
+            for db_file, schema_name in self._sqlite_attach_list:
+                cursor.execute('attach database "{}" as {}'.format(db_file, schema_name))
+            return connection
+
+        assert self.__engine.dialect.name == 'sqlite', 'The dialect {} cannot be used with this method. Only "sqlite" dialect is supported'.format(dialect)
+
+        if not self._sqlite_attach_list:
+            self._sqlite_attach_list = [(db_file, schema_name)]
+        else:
+            self._sqlite_attach_list.append((db_file, schema_name))
+        self.__tables = None #attaching a new database should force the tables to reload
+        self.__engine = create_engine(self.connection_url, creator=connect)
+
+
+
     def table_info(self,table_name):
         """
-        Return a pd.DataFrame describing the fields of a table. 
+        Return a Pandas DataFrame describing the fields of a table.
 
         Parameters
         ----------
         table_name : String
+
         """
         if table_name not in self.tables.keys():
             raise KeyError('`{}` not found in tables.'.format(table_name))
@@ -179,58 +208,28 @@ class Inspector():
 
         Parameters
         ----------
-        statement : string or sqlalchemy select object
-            
-            statement can be a string containing and SQL statemment such as
-            'SELECT concept_name from concept where concept_id = 0'  
-          - a 'select' object created using sqlalchemy and the underlying table structures from Inspector.tables
-          - a string containing an SQL statement.  
-        
-        """
-        results_proxy = self.engine.execute(statement)
-        return _Results(results_proxy)
-       
-    def concept_names(self, concept_ids,return_pandas=True, all_fields=False):
-        """
-        Given a list of *_concept_id fields returns the corresponding names from the concept table of the
-        standard vocabularies.
+        statement : sqlalchemy object or string
+            sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables
+                e.g. select([concept]).where(concept.concept_id==0)
 
-        Parameters
-        ----------
-        concept_ids : iterable of type list, pandas.Series, or 1D np.array
+            strings - can be a string containing an SQL statemment such as
+                e.g. \'SELECT concept_name from concept where concept_id = 0\'
 
         Returns
         -------
-        out : pandas.df with columns [concept_id, concept_name] or an iterable  sqlalchemy.engine.result.ResultProxy if 
-            return_pandas is False
+            out : Results object
+
+            The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as
+            pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall
 
         Notes
         -----
-                  
+            *** Use of raw SQL strings is not recommended as they bypass the dialect translation and security
+            provided by using SQLAlchemy ***
 
-        Examples
+        See Also
         --------
-        >>> insp = iomop.Inspector(connection_url)
-        >>> concept_ids = [0, 1, 2, 3, 4, 5]
-        >>> insp.concept_names(concept_ids)
-           concept_id             concept_name
-        0           0      No matching concept
-        1           1                   Domain
-        2           2                   Gender
-        3           3                     Race
-        4           4                Ethnicity
-        5           5  Observation period type
-        
+        inpsectomop.Results, inspectomop.queries
         """
-
-        assert 'concept' in self.tables.keys(), 'concept table not found!'
-
-        concept = self.tables['concept']
-        sel_concepts = select([concept.concept_id, concept.concept_name]).where(concept.concept_id.in_(concept_ids))
-        results = pd.read_sql_query(sel_concepts,self.engine)
-        return results
-
-
-
-
-            
+        results_proxy = self.engine.execute(statement)
+        return Results(results_proxy)

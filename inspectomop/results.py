@@ -1,9 +1,9 @@
 from sqlalchemy.engine.result import ResultProxy
 import pandas as pd
 
-class _Results(ResultProxy):
+class Results(ResultProxy):
     """
-    private subclass of sqlalchemy.engine.result.ResultProxy
+    Subclass of sqlalchemy.engine.result.ResultProxy
     Adds additional methods as_pandas and as_pandas_chunks
     """
     def __init__(self, results_proxy):
@@ -36,4 +36,3 @@ class _Results(ResultProxy):
                 yield pd.DataFrame(data=rows, columns=columns)
             if not rows:
                 break
-

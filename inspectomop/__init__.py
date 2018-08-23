@@ -1,11 +1,11 @@
-import os
+import os as _os
 
-pkg_base_path = os.path.dirname(__file__)
+_pkg_base_path = _os.path.dirname(__file__)
 
-with open(os.path.join(pkg_base_path, 'VERSION.txt')) as fh:
-    version = fh.read().strip()
+with open(_os.path.join(_pkg_base_path, 'VERSION.txt')) as _fh:
+    _version = _fh.read().strip()
 
-__version__ = version
+__version__ = _version
 
 from inspectomop.inspector import Inspector
 from inspectomop import queries
