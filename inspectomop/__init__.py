@@ -9,4 +9,4 @@ __version__ = version
 
 from inspectomop.inspector import Inspector
 from inspectomop import queries
-
+from inspectomop import test
