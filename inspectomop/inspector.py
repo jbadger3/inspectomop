@@ -91,7 +91,7 @@ class Inspector():
                 #sqlalchemy requires a primary key in each table for automatic mapping to work.
                 #If no primary key is found, set the default primary key to be the first column in each table.
                 if len(table.primary_key) == 0:
-                    table.primary_key._reload([table.c[table.c.keys()[0]]]) #first field is always primary key for OMOP CDM tables
+                    table.primary_key._reload([table.c[table.c.keys()[0]]])
             Base = automap_base(metadata=metadata)
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():
