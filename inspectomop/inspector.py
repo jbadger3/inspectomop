@@ -1,11 +1,12 @@
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, Table, Column,String,Integer, ForeignKey
 from sqlalchemy import select
 from sqlalchemy.engine import reflection
 
 import pandas as _pd
 
 from .results import Results
+from ._table_definitions import _table_definitions
 
 class Inspector():
     """
@@ -85,13 +86,20 @@ class Inspector():
         """
         return self.__engine
 
+
+
     def _extract_table_classes(self):
         def add_tables(metadata):
             for table_name,table in metadata.tables.items():
+                print(table_name)
                 #sqlalchemy requires a primary key in each table for automatic mapping to work.
                 #If no primary key is found, set the default primary key to be the first column in each table.
-                if len(table.primary_key) == 0:
-                    table.primary_key._reload([table.c[table.c.keys()[0]]]) #first field is always primary key for OMOP CDM tables
+                #if len(table.primary_key) == 0:
+                #    table.primary_key._reload([table.c[table.c.keys()[0]]]) #first field is always primary key for OMOP CDM tables
+                if self.engine.dialect.name == 'sqlite':
+                    table_name = table_name.split('.')[-1]
+                if table_name in table_definitions.keys():
+                    table_definitions[table_name](metadata)
             Base = automap_base(metadata=metadata)
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():
@@ -101,12 +109,14 @@ class Inspector():
 
         inspector = reflection.Inspector.from_engine(self.engine)
         tables = {}
-
+        table_definitions = _table_definitions()
         if self.engine.dialect.name == 'sqlite':
             schema_names = inspector.get_schema_names()
+
             for schema in schema_names:
                 metadata = MetaData(schema=schema)
                 metadata.reflect(bind=self.engine)
+                print(len(metadata.tables.keys()))
                 add_tables(metadata)
         else:
             metadata = MetaData()
