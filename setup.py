@@ -23,7 +23,7 @@ setuptools.setup(
             ],
 	
 	#extra_inclustions
-    	package_data={'': ['VERSION.txt']},
+    	package_data={'': ['VERSION.txt','*.sqlite3']},
     	include_package_data=True,
         #requirements/dependencies
         python_requires='>=3.0',
