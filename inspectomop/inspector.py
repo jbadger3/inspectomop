@@ -96,7 +96,6 @@ class Inspector():
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():
                 assert table_name not in tables.keys(), 'A table named {} was found more than once!'.format(table_name)
-                print(table_name)
                 tables[table_name] = table
 
 
