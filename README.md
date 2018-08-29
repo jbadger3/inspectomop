@@ -66,7 +66,7 @@ pip install inspectomop
 ```
 
 # Dependencies
-- [SQLAlchemy](https://www.sqlalchemy.org) 
+- [SQLAlchemy v>=1.2](https://www.sqlalchemy.org) 
 - [Pandas](https://pandas.pydata.org)
 
 \* Developed using SQLAlchemy 1.2.1 and Pandas 0.22.0

@@ -96,6 +96,7 @@ class Inspector():
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():
                 assert table_name not in tables.keys(), 'A table named {} was found more than once!'.format(table_name)
+                print(table_name)
                 tables[table_name] = table
 
 
@@ -103,7 +104,7 @@ class Inspector():
         tables = {}
 
         if self.engine.dialect.name == 'sqlite':
-            schema_names = inspector.get_schema_names()
+            schema_names = inspector.get_schema_names() #return [] for sqlalchemy versions < 1.2
             for schema in schema_names:
                 metadata = MetaData(schema=schema)
                 metadata.reflect(bind=self.engine)

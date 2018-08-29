@@ -27,7 +27,7 @@ setuptools.setup(
     	include_package_data=True,
         #requirements/dependencies
         python_requires='>=3.0',
-        install_requires=['sqlalchemy','pandas'],
+        install_requires=['sqlalchemy>=1.2','pandas'],
         packages=setuptools.find_packages(),
         )
 
