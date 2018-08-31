@@ -1,3 +1,3 @@
 from .general import *
 from .drug import *
-from .concdition import *
+from .condition import *
