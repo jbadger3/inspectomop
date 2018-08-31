@@ -83,7 +83,7 @@ def condition_concepts_for_condition_name(condition_name, inspector,return_colum
                 .where(_and_(\
                 _or_(c.vocabulary_id.in_(vocab_ids), _func.lower(c.concept_class_id)==concept_class_id),\
                 c.concept_class_id != None,\
-                _or_(_func.lower(c.concept_name).ilike('%{}%'.format(concept_name.lower())),\
-                    _func.lower(cs.concept_synonym_name).ilike('%{}%'.format(concept_name.lower())))))\
+                _or_(_func.lower(c.concept_name).ilike('%{}%'.format(condition_name.lower())),\
+                    _func.lower(cs.concept_synonym_name).ilike('%{}%'.format(condition_name.lower())))))\
                 .distinct()
     return inspector.execute(statement)
