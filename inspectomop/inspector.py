@@ -1,8 +1,8 @@
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine,event, MetaData
 from sqlalchemy import select
 from sqlalchemy.engine import reflection
-
+from sqlalchemy.pool import StaticPool
 import pandas as _pd
 
 from .results import Results
@@ -39,7 +39,11 @@ class Inspector():
 
     def __init__(self,connection_url):
         self.connection_url = connection_url
-        self.__engine = create_engine(self.connection_url)
+        if connection_url.startswith('sqlite'):
+            self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
+        else:
+            self.__engine = create_engine(self.connection_url)
+        
         self.__tables = None
         self._sqlite_attach_list = None
 
