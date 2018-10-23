@@ -369,7 +369,7 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
     c = _alias(inspector.tables['concept'],'c')
     va = _alias(inspector.tables['vocabulary'], 'va')
 
-    columns = [c.c.concept_id, c.c.concept_name, c.c.concept_code, c.c.concept_class_id,\
+    columns = [c.c.concept_id.label('ancestor_concept_id'), c.c.concept_name.label('ancestor_concept_name'), c.c.concept_code.label('ancestor_concept_code'), c.c.concept_class_id.label('ancestor_concept_class_id'),\
                c.c.vocabulary_id, va.c.vocabulary_name, a.c.min_levels_of_separation, \
                a.c.max_levels_of_separation]
     if return_columns:
@@ -432,7 +432,7 @@ def descendants_for_concept_id(concept_id, inspector,return_columns=None):
     c = _alias(inspector.tables['concept'],'c')
     va = _alias(inspector.tables['vocabulary'], 'va')
 
-    columns = [c.c.concept_id, c.c.concept_name, c.c.concept_code, c.c.concept_class_id,\
+    columns = [c.c.concept_id.label('descendant_concept_id'), c.c.concept_name.label('descendant_concept_name'), c.c.concept_code.label('descendant_concept_code'), c.c.concept_class_id.label('descendant_concept_class_id'),\
                c.c.vocabulary_id, va.c.vocabulary_name, a.c.min_levels_of_separation, \
                a.c.max_levels_of_separation]
     if return_columns:
