@@ -13,10 +13,10 @@ A large portion of data science research is spent on ETL (Extraction, Transforma
 One of the main benefits of adopting a CDM such as OMOP is that it promotes the sharing of ideas and methodology.  Queries in **inspectomop** are simple python functions so using sqlAlchemy any user can create custom queries that can be shared across institutions and database management systems.
 
 ```sh
-def my_query(inputs, inspector, retrun_columns='all'):
+def my_query(inputs, inspector):
 
     # create SQL agnostic query usually of the form
-
+    
     statement = select([columns]).where(inputs == criteria)
 
     return inspector.execute(statement)
