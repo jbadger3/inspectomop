@@ -239,3 +239,132 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
                     c.c.vocabulary_id == v.c.vocabulary_id,\
                     ca.c.descendant_concept_id == concept_id))
     return inspector.execute(statement)
+
+def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Find all indications for a drug given a concept_id.
+
+    Parameters
+    ----------
+    concept_id : int
+        
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings representing the columns to return from the query
+        *see Returns section below for full list
+
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    return_columns: ['relationship_name','concept_id','concept_name',
+                     'vocabulary_id', 'vocabulary_name']
+
+    Original SQL
+    ------------
+    D13: Find indications as condition concepts for a drug
+    SELECT
+        r.relationship_name as type_of_indication,
+        c.concept_id as indication_concept_id,
+        c.concept_name as indication_concept_name,
+        c.vocabulary_id as indication_vocabulary_id,
+        vn.vocabulary_name as indication_vocabulary_name
+    FROM
+        concept c,
+        vocabulary vn,
+        relationship r,
+    ( -- collect all indications from the drugs, ingredients and pharmaceutical preps and the type of relationship
+        SELECT DISTINCT
+            r.relationship_id rid,
+            r.concept_id_2 cid
+        FROM concept c
+        INNER JOIN ( -- collect onesie clinical and branded drug if query is ingredient
+        SELECT onesie.cid concept_id
+        FROM (
+            SELECT
+                a.descendant_concept_id cid,
+                count(\*) cnt
+            FROM concept_ancestor a
+            INNER JOIN (
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.ancestor_concept_id=19005968 AND
+            a.descendant_concept_id=c.concept_id AND
+            c.vocabulary_id=8
+        ) cd on cd.concept_id=a.descendant_concept_id
+        INNER JOIN concept c on c.concept_id=a.ancestor_concept_id
+        WHERE c.concept_level=2
+        GROUP BY a.descendant_concept_id
+        ) onesie
+        where onesie.cnt=1
+        UNION -- collect ingredient if query is clinical and branded drug
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.descendant_concept_id=19005968 AND
+            a.ancestor_concept_id=c.concept_id AND
+            c.vocabulary_id=8
+        UNION -- collect pharmaceutical preparation equivalent to which NDFRT has reltionship
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.descendant_concept_id=19005968 AND
+            a.ancestor_concept_id=c.concept_id AND
+            lower(c.concept_class)='pharmaceutical preparations'
+        UNION -- collect itself
+    SELECT 19005968
+    ) drug ON drug.concept_id=c.concept_id
+    INNER JOIN concept_relationship r on c.concept_id=r.concept_id_1 -- allow only indication relationships
+    WHERE
+    r.relationship_id IN (21,23,155,156,126,127,240,241)
+
+    ) ind
+    WHERE
+    ind.cid=c.concept_id AND
+    r.relationship_id=ind.rid AND
+    vn.vocabulary_id=c.vocabulary_id AND
+    sysdate BETWEEN c.valid_start_date AND c.valid_end_date;
+
+    Alternate 
+    select a.min_levels_of_separation as a_min,
+      an.concept_id as an_id, an.concept_name as an_name, an.vocabulary_id as an_vocab, an.domain_id as an_domain, an.concept_class_id as an_class,
+        de.concept_id as de_id, de.concept_name as de_name, de.vocabulary_id as de_vocab, de.domain_id as de_domain, de.concept_class_id as de_class
+        from concept an
+        join concept_ancestor a on a.ancestor_concept_id=an.concept_id
+        join concept de on de.concept_id=a.descendant_concept_id
+        where an.concept_class_id in ('Ind / CI', 'Indication') -- One is for NDFRT, the other for FDB Indications
+        and de.vocabulary_id in ('RxNorm', 'RxNorm Extension') -- You don't need that if you join directly with DRUG_EXPOSURE
+        and lower(an.concept_name) like '%diabetes%'
+"""
+    c = _alias(inspector.tables['concept'],'c')
+    de  = _alias(inspector.tables['concept'],'de')
+    an = _alias(inspector.tables['concept'],'an')
+    a = _alias(inspector.tables['concept_ancestor'],'a')
+    r = _alias(inspector.tables['concept_relationship'],'r')
+    j1 = _join(a, an, a.c.ancestor_concept_id == an.c.concept_id)
+    j2 = _join(de, j1, de.c.concept_id == a.c.descendant_concept_id)
+    j3 = _join(j2, r, r.c.concept_id_1 == an.c.concept_id)
+    domain_id = 'Condition'
+    j4 = _join(j3, c, _and_(c.c.concept_id == r.c.concept_id_2, c.c.domain_id==domain_id))
+
+    concept_class_ids = ['Ind / CI', 'Indication']
+    vocab_ids= ['RxNorm']
+
+
+    columns = [c.c.concept_id.label('c_concept_id'),c.c.concept_name.label('c_concept_name'),a.c.min_levels_of_separation, an.c.concept_id.label('an_concept_id'), an.c.concept_name.label('an_concept_name'), an.c.vocabulary_id.label('an_vocab'), de.c.concept_id.label('de_concept_id'), de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                select_from(j4).where(_and_(an.c.concept_class_id.in_(concept_class_ids), de.c.vocabulary_id.in_(vocab_ids), de.c.concept_id == concept_id))
+
+
+    return inspector.execute(statement)
