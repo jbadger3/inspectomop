@@ -346,16 +346,16 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
     Original SQL
     ------------
     G08: Find ancestors for a given concept
-    SELECT  C.concept_id as ancestor_concept_id, 
-            C.concept_name as ancestor_concept_name, 
-            C.concept_code as ancestor_concept_code, 
-            C.concept_class_id as ancestor_concept_class_id, 
-            C.vocabulary_id, 
-            VA.vocabulary_name, 
-            A.min_levels_of_separation, 
+    SELECT  C.concept_id as ancestor_concept_id,
+            C.concept_name as ancestor_concept_name,
+            C.concept_code as ancestor_concept_code,
+            C.concept_class_id as ancestor_concept_class_id,
+            C.vocabulary_id,
+            VA.vocabulary_name,
+            A.min_levels_of_separation,
             A.max_levels_of_separation
-    FROM    concept_ancestor A, 
-            concept C, 
+    FROM    concept_ancestor A,
+            concept C,
             vocabulary VA
     WHERE A.ancestor_concept_id = C.concept_id
           AND C.vocabulary_id = VA.vocabulary_id
@@ -409,16 +409,16 @@ def descendants_for_concept_id(concept_id, inspector,return_columns=None):
     Original SQL
     ------------
     G09: Find descendants for a given concept
-    SELECT  C.concept_id as ancestor_concept_id, 
-            C.concept_name as ancestor_concept_name, 
-            C.concept_code as ancestor_concept_code, 
-            C.concept_class_id as ancestor_concept_class_id, 
-            C.vocabulary_id, 
-            VA.vocabulary_name, 
-            A.min_levels_of_separation, 
+    SELECT  C.concept_id as ancestor_concept_id,
+            C.concept_name as ancestor_concept_name,
+            C.concept_code as ancestor_concept_code,
+            C.concept_class_id as ancestor_concept_class_id,
+            C.vocabulary_id,
+            VA.vocabulary_name,
+            A.min_levels_of_separation,
             A.max_levels_of_separation
-    FROM    concept_ancestor A, 
-            concept C, 
+    FROM    concept_ancestor A,
+            concept C,
             vocabulary VA
     WHERE A.ancestor_concept_id = C.concept_id
           AND C.vocabulary_id = VA.vocabulary_id
@@ -444,4 +444,201 @@ def descendants_for_concept_id(concept_id, inspector,return_columns=None):
                     a.c.ancestor_concept_id != a.c.descendant_concept_id, \
                     a.c.ancestor_concept_id == concept_id)). \
                     order_by(c.c.vocabulary_id, a.c.min_levels_of_separation)
+    return inspector.execute(statement)
+
+def parents_for_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Find all descendant concepts for a concept_id.
+
+    Parameters
+    ----------
+    concept_id : integer
+        concept_id of interest from the concept table
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings for column names to return
+        * see Results below for full list
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    Return Columns: ['parent_concept_id', 'parent_concept_name', 'parent_concept_code',\
+                     'parent_concept_class_id', 'parent_concept_vocabulary_id', 'parent_concept_vocab_name']
+
+    Original SQL
+    ------------
+    G10: Find parents for a given concept
+    SELECT
+        A.concept_id Parent_concept_id,
+        A.concept_name Parent_concept_name,
+        A.concept_code Parent_concept_code,
+        A.concept_class_id Parent_concept_class_id,
+        A.vocabulary_id Parent_concept_vocab_ID,
+        VA.vocabulary_name Parent_concept_vocab_name
+    FROM
+        concept_ancestor CA,
+        concept A,
+        concept D,
+        vocabulary VA
+    WHERE
+        CA.descendant_concept_id = 192671
+        AND CA.min_levels_of_separation = 1
+        AND CA.ancestor_concept_id = A.concept_id
+        AND A.vocabulary_id = VA.vocabulary_id
+        AND CA.descendant_concept_id = D.concept_id
+        AND sysdate BETWEEN A.valid_start_date
+        AND A.valid_end_date;
+"""
+    ca = _alias(inspector.tables['concept_ancestor'],'ca')
+    a = _alias(inspector.tables['concept'],'a')
+    d = _alias(inspector.tables['concept'], 'd')
+    va = _alias(inspector.tables['vocabulary'], 'va')
+    levels_of_sep = 1
+
+    columns = [a.c.concept_id.label('parent_concept_id'), a.c.concept_name.label('parent_concept_name'), a.c.concept_code.label('parent_concept_code'), a.c.concept_class_id.label('parent_concept_class_id'),\
+               a.c.vocabulary_id.label('parent_concept_vocabulary_id'), va.c.vocabulary_name.label('parent_concept_vocab_name')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                where(_and_(\
+                    ca.c.descendant_concept_id == concept_id,\
+                    ca.c.min_levels_of_separation == levels_of_sep, \
+                    ca.c.ancestor_concept_id == a.c.concept_id,\
+                    a.c.vocabulary_id == va.c.vocabulary_id,\
+                    ca.c.descendant_concept_id == d.c.concept_id))
+
+    return inspector.execute(statement)
+
+def children_for_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Find all child concepts for a concept_id.
+
+    Parameters
+    ----------
+    concept_id : integer
+        concept_id of interest from the concept table
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings for column names to return
+        * see Results below for full list
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    Return Columns: ['child_concept_id','child_concept_name', 'child_concept_code', 'child_concept_class_id',\
+               'child_concept_vocabulary_id', 'child_concept_vocab_name']
+
+    Original SQL
+    ------------
+    G11: Find children for a given concept
+    SELECT
+        D.concept_id Child_concept_id,
+        D.concept_name Child_concept_name,
+        D.concept_code Child_concept_code,
+        D.concept_class_id Child_concept_class_id, 
+        D.vocabulary_id Child_concept_vocab_ID,
+        VS.vocabulary_name Child_concept_vocab_name
+    FROM
+        concept_ancestor CA,
+        concept D,
+        vocabulary VS
+    WHERE
+        CA.ancestor_concept_id = 192671
+        AND CA.min_levels_of_separation = 1
+        AND CA.descendant_concept_id = D.concept_id
+        AND D.vocabulary_id = VS.vocabulary_id
+        AND sysdate BETWEEN D.valid_start_date
+        AND D.valid_end_date;
+"""
+    ca = _alias(inspector.tables['concept_ancestor'],'ca')
+    d = _alias(inspector.tables['concept'], 'd')
+    vs = _alias(inspector.tables['vocabulary'], 'vs')
+    levels_of_sep = 1
+
+    columns = [d.c.concept_id.label('child_concept_id'), d.c.concept_name.label('child_concept_name'), d.c.concept_code.label('child_concept_code'), d.c.concept_class_id.label('child_concept_class_id'),\
+               d.c.vocabulary_id.label('child_concept_vocabulary_id'), vs.c.vocabulary_name.label('child_concept_vocab_name')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                where(_and_(\
+                    ca.c.ancestor_concept_id == concept_id,\
+                    ca.c.min_levels_of_separation == levels_of_sep, \
+                    ca.c.descendant_concept_id == d.c.concept_id,\
+                    d.c.vocabulary_id == vs.c.vocabulary_id))
+
+    return inspector.execute(statement)
+
+
+def siblings_for_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Find all sibling concepts for a concept_id i.e.(concepts that share common parents).
+
+    Parameters
+    ----------
+    concept_id : integer
+        concept_id of interest from the concept table
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings for column names to return
+        * see Results below for full list
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    Return Columns: ['sibling_concept_id', 'sibling_concept_name','sibling_concept_code','sibling_concept_class_id',
+        'sibling_concept_vocabulary_id,'parent_concept_id','parent_concept_name']
+
+    Original SQL
+    ------------
+    SELECT
+        s.concept_id AS sibling_concept_id,
+        s.concept_name AS sibling_concept_name,
+        a.concept_id AS parent_concept_id,
+        a.concept_name AS parent_concept_name
+    FROM
+        main.concept AS s,
+        main.concept AS a,
+        main.concept_ancestor AS ca,
+        main.vocabulary AS va,
+        main.concept AS d,
+        main.concept_ancestor AS ca2
+    WHERE
+        ca.descendant_concept_id = concept_id
+        AND ca.min_levels_of_separation = 1
+        AND ca.ancestor_concept_id = a.concept_id
+        AND a.vocabulary_id = va.vocabulary_id
+        AND ca.descendant_concept_id = d.concept_id
+        AND ca2.ancestor_concept_id = ca.ancestor_concept_id
+        AND s.concept_id = ca2.descendant_concept_id
+
+"""
+    ca = _alias(inspector.tables['concept_ancestor'],'ca')
+    ca2 = _alias(inspector.tables['concept_ancestor'], 'ca2')
+    a = _alias(inspector.tables['concept'],'a')
+    d = _alias(inspector.tables['concept'], 'd')
+    s = _alias(inspector.tables['concept'], 's')
+    va = _alias(inspector.tables['vocabulary'], 'va')
+    levels_of_sep = 1
+
+    columns = [s.c.concept_id.label('sibling_concept_id'), s.c.concept_name.label('sibling_concept_name'),\
+        s.c.concept_code.label('sibling_concept_code'),s.c.concept_class_id.label('sibling_concept_class_id'),\
+        s.c.vocabulary_id.label('sibling_concept_vocabulary_id'),a.c.concept_id.label('parent_concept_id'), a.c.concept_name.label('parent_concept_name')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                where(_and_(\
+                    ca.c.descendant_concept_id == concept_id,\
+                    ca.c.min_levels_of_separation == levels_of_sep, \
+                    ca.c.ancestor_concept_id == a.c.concept_id,\
+                    a.c.vocabulary_id == va.c.vocabulary_id,\
+                    ca.c.descendant_concept_id == d.c.concept_id,\
+                    ca2.c.ancestor_concept_id == ca.c.ancestor_concept_id,\
+                    s.c.concept_id == ca2.c.descendant_concept_id)
+                    )
     return inspector.execute(statement)
