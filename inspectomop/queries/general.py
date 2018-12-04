@@ -1,7 +1,7 @@
 """
 General OMOP data queries.
 
-Addapted from: https://github.com/OHDSI/OMOP-Queries
+Adapted from: https://github.com/OHDSI/OMOP-Queries
 """
 
 from sqlalchemy import select as _select, join as _join,\
@@ -175,67 +175,6 @@ def standard_vocab_for_source_code(source_code,source_vocab_id, inspector,return
     statement = _select(columns).distinct().select_from(j2).where(_and_(cr.c.relationship_id==relationship_id,c1.c.concept_code == source_code,c1.c.vocabulary_id == source_vocab_id))
     return inspector.execute(statement)
 
-def concepts_and_descendants_for_source_code(source_code,source_vocab_id, inspector):
-    """
-    TODO
-
-    Find all concepts that are direct maps of a source code and all descendants of those concepts.
-
-    Parameters
-    ----------
-    source_codes : string
-        alphanumeric source_codes to query on e.g ICD-9 ['250.00','250.01']
-
-    source_vocab_id : string
-        vocabulary_id from the vocabulary table e.g 'ICD9CM'
-            see https://github.com/OHDSI/CommonDataModel/wiki/VOCABULARY for a full list
-
-    inspector : inspectomop.Inspector object
-
-    return_columns : list of table.column attributes
-        if specfied, only returns the specified columns in the results
-
-    Returns
-    -------
-    out : inspectomop.Results
-
-    Return Columns:
-
-    Original SQL
-    ------------
-    G06: Find concepts and their descendants that are covered by a given source code
-
-    WITH dm AS ( -- collect direct maps
-    SELECT  c1.concept_code as source_code,
-            c1.vocabulary_id,
-            c1.domain_id,
-            c2.concept_id        as target_concept_id,
-            c2.concept_name      as target_concept_name,
-            c2.concept_code      as target_concept_code,
-            c2.concept_class_id  as target_concept_class,
-            c2.vocabulary_id     as target_concept_vocab_id,
-            'Direct map'         as target_Type
-    FROM  concept_relationship cr
-    JOIN concept c1 ON cr.concept_id_1 = c1.concept_id
-    JOIN concept c2 ON cr.concept_id_2 = c2.concept_id
-    WHERE   cr.relationship_id = 'Maps to'
-    AND     c1.concept_code IN ('410.0')
-    AND     c1.vocabulary_id = 'ICD9CM'
-    AND     sysdate BETWEEN cr.valid_start_date AND cr.valid_end_date)
-    SELECT dm.source_code,
-           dm.vocabulary_id,
-           dm.domain_id,
-           dc.concept_id        AS        target_concept_id,
-           dc.concept_name        AS target_concept_name,
-           dc.concept_code AS target_concept_code,
-           dc.concept_class_id AS target_concept_class,
-           dc.vocabulary_id AS target_concept_vocab_id,
-        'Descendant of direct map' as target_Type
-    FROM concept_ancestor ca -- collect descendants which includes ancestor itself
-    JOIN dm ON ca.ancestor_concept_id = dm.target_concept_id
-    JOIN concept dc ON ca.descendant_concept_id = dc.concept_id
-    WHERE dc.standard_concept = 'S';
-    """
 
 def related_concepts_for_concept_id(concept_id, inspector,return_columns=None):
     """
@@ -539,7 +478,7 @@ def children_for_concept_id(concept_id, inspector,return_columns=None):
         D.concept_id Child_concept_id,
         D.concept_name Child_concept_name,
         D.concept_code Child_concept_code,
-        D.concept_class_id Child_concept_class_id, 
+        D.concept_class_id Child_concept_class_id,
         D.vocabulary_id Child_concept_vocab_ID,
         VS.vocabulary_name Child_concept_vocab_name
     FROM
@@ -576,6 +515,9 @@ def children_for_concept_id(concept_id, inspector,return_columns=None):
 def siblings_for_concept_id(concept_id, inspector,return_columns=None):
     """
     Find all sibling concepts for a concept_id i.e.(concepts that share common parents).
+    This may or may not result in concepts that have a close clinical relationship, especially if
+    the query concept_id is already high up in the hierarchy or has multiple parents that diverge in
+    their meaning.  
 
     Parameters
     ----------
