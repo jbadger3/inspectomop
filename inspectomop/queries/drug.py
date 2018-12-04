@@ -1,7 +1,7 @@
 """
 Drug related OMOP data queries.
 
-Addapted from: https://github.com/OHDSI/OMOP-Queries
+Adapted from: https://github.com/OHDSI/OMOP-Queries
 """
 
 from sqlalchemy import select as _select, join as _join,\
@@ -59,7 +59,7 @@ def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None
         AND sysdate BETWEEN D.VALID_START_DATE AND D.VALID_END_DATE
         AND CA.descendant_concept_id IN (939355, 19102189, 19033566)
     """
-    
+
     a = _alias(inspector.tables['concept'],'a')
     d = _alias(inspector.tables['concept'], 'd')
     ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
@@ -123,7 +123,7 @@ def drugs_for_ingredient_concept_id(concept_id, inspector,return_columns=None):
         AND sysdate BETWEEN D.valid_start_date AND D.valid_end_date
         AND CA.ancestor_concept_id = 966991;
     """
-    
+
     a = _alias(inspector.tables['concept'],'a')
     d = _alias(inspector.tables['concept'], 'd')
     ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
@@ -145,7 +145,7 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,retu
     Parameters
     ----------
     ingredient_names : list
-        
+
 
     inspector : inspectomop.Inspector object
 
@@ -187,7 +187,7 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
     Parameters
     ----------
     concept_id : int
-        
+
 
     inspector : inspectomop.Inspector object
 
@@ -213,7 +213,7 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
         c1.vocabulary_id             Class_vocabulary_id,
         v1.vocabulary_name           Class_vocabulary_name,
         ca.min_levels_of_separation  Levels_of_Separation
-    FROM 
+    FROM
         concept_ancestor             ca,
         concept                      c1,
         vocabulary                   v1
@@ -228,7 +228,7 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
     c  = _alias(inspector.tables['concept'],'c')
     v = _alias(inspector.tables['vocabulary'], 'v')
     ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
- 
+
     columns = [c.c.concept_id, c.c.concept_name, c.c.concept_code, c.c.concept_class_id, v.c.vocabulary_name, ca.c.min_levels_of_separation]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
@@ -247,7 +247,7 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
     Parameters
     ----------
     concept_id : int
-        
+
 
     inspector : inspectomop.Inspector object
 
@@ -334,7 +334,7 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
     vn.vocabulary_id=c.vocabulary_id AND
     sysdate BETWEEN c.valid_start_date AND c.valid_end_date;
 
-    Alternate 
+    Alternate
     select a.min_levels_of_separation as a_min,
       an.concept_id as an_id, an.concept_name as an_name, an.vocabulary_id as an_vocab, an.domain_id as an_domain, an.concept_class_id as an_class,
         de.concept_id as de_id, de.concept_name as de_name, de.vocabulary_id as de_vocab, de.domain_id as de_domain, de.concept_class_id as de_class
@@ -357,14 +357,12 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
     j4 = _join(j3, c, _and_(c.c.concept_id == r.c.concept_id_2, c.c.domain_id==domain_id))
 
     concept_class_ids = ['Ind / CI', 'Indication']
-    vocab_ids= ['RxNorm']
-
+    vocab_ids= ['RxNorm', 'RxNorm Extension']
 
     columns = [c.c.concept_id.label('c_concept_id'),c.c.concept_name.label('c_concept_name'),a.c.min_levels_of_separation, an.c.concept_id.label('an_concept_id'), an.c.concept_name.label('an_concept_name'), an.c.vocabulary_id.label('an_vocab'), de.c.concept_id.label('de_concept_id'), de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).\
                 select_from(j4).where(_and_(an.c.concept_class_id.in_(concept_class_ids), de.c.vocabulary_id.in_(vocab_ids), de.c.concept_id == concept_id))
-
 
     return inspector.execute(statement)
