@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>inspectomop package &#8212; InspectOMOP 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="InspectOMOP 0.1.0 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="inspectomop-package">
+<h1>inspectomop package<a class="headerlink" href="#inspectomop-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inspectomop.queries.html">inspectomop.queries package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-care-site-module">inspectomop.queries.care_site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-condition-module">inspectomop.queries.condition module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#module-inspectomop.queries.drug">inspectomop.queries.drug module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#module-inspectomop.queries.general">inspectomop.queries.general module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-observation-module">inspectomop.queries.observation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-payer-plan-module">inspectomop.queries.payer_plan module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-person-module">inspectomop.queries.person module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#inspectomop-queries-procedure-module">inspectomop.queries.procedure module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.queries.html#module-inspectomop.queries">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inspectomop.test.html">inspectomop.test package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.test.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.test.html#module-inspectomop.test.test_connection_url">inspectomop.test.test_connection_url module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.test.html#module-inspectomop.test.test_inspector">inspectomop.test.test_inspector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspectomop.test.html#module-inspectomop.test">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-inspectomop.inspector">
+<span id="inspectomop-inspector-module"></span><h2>inspectomop.inspector module<a class="headerlink" href="#module-inspectomop.inspector" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="inspectomop.inspector.Inspector">
+<em class="property">class </em><code class="descclassname">inspectomop.inspector.</code><code class="descname">Inspector</code><span class="sig-paren">(</span><em>connection_url</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Creates an Inspector object which can be used to run OMOP data queries</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>connection_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) &#8211; A connection url of form &#8216;dialect+driver://username:password&#64;host:port/database&#8217;.
+The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>out</strong> &#8211; An Inspetor object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector">Inspector</a></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>SQLite DBs require an additional &#8216;/&#8217; as in &#8216;sqlite:///foo.db&#8217; for a relative path and</dt>
+<dd>&#8216;sqlite:////abs/path/to/foo.db&#8217; for an absolute path.</dd>
+</dl>
+<p>See <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/engines.html">http://docs.sqlalchemy.org/en/latest/core/engines.html</a> for more information about
+connection URLs and supported dialects.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspectomop</span> <span class="k">as</span> <span class="nn">iomop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connection_url</span> <span class="o">=</span> <span class="s1">&#39;sqlite:///:memory:&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iomop</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="n">connection_url</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="inspectomop.inspector.Inspector.attach_sqlite_db">
+<code class="descname">attach_sqlite_db</code><span class="sig-paren">(</span><em>db_file</em>, <em>schema_name</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.attach_sqlite_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>For SQLite backends, attaches an additional sqlite database file using
+&#8216;ATTACH DATABSE db_file AS schema_name&#8217;.</p>
+<p><strong>*This method can only be called if the dialect specified in connection_url is sqlite*</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>db_file</strong> (<em>String</em>) &#8211; A string giving a path to a database file.  Ex. &#8216;databases/my_db_to_attach.db&#8217;</li>
+<li><strong>schema_name</strong> (<em>String</em>) &#8211; The name to associate with the attached schema</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.clinical_data_tables">
+<code class="descname">clinical_data_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.clinical_data_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.derived_element_tables">
+<code class="descname">derived_element_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.derived_element_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.engine">
+<code class="descname">engine</code><a class="headerlink" href="#inspectomop.inspector.Inspector.engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience hook to the underlying sqlalchemy engine.</p>
+<p>Use .execute() for submitting queries.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="inspectomop.inspector.Inspector.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>statement</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes an SQL query on the OMOP CDM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statement</strong> (<em>sqlalchemy object or string</em>) &#8211; <dl class="docutils">
+<dt>sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables</dt>
+<dd>e.g. select([concept]).where(concept.concept_id==0)</dd>
+<dt>strings - can be a string containing an SQL statemment such as</dt>
+<dd>e.g. &#8216;SELECT concept_name from concept where concept_id = 0&#8217;</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>out</strong> (<em>Results object</em>)</li>
+<li><em>The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as</em></li>
+<li><em>pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall</em></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p><strong>* Use of raw SQL strings is not recommended as they bypass the dialect translation and security
+provided by using SQLAlchemy *</strong></p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-meth docutils literal"><span class="pre">inpsectomop.Results()</span></code>, <a class="reference internal" href="inspectomop.queries.html#module-inspectomop.queries" title="inspectomop.queries"><code class="xref py py-meth docutils literal"><span class="pre">inspectomop.queries()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.health_economic_data_tables">
+<code class="descname">health_economic_data_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.health_economic_data_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.health_system_data_tables">
+<code class="descname">health_system_data_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.health_system_data_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.metadata_tables">
+<code class="descname">metadata_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.metadata_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="inspectomop.inspector.Inspector.table_info">
+<code class="descname">table_info</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.table_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Pandas DataFrame describing the fields of a table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table_name</strong> (<em>String</em>) &#8211; </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.tables">
+<code class="descname">tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="inspectomop.inspector.Inspector.vocabulary_tables">
+<code class="descname">vocabulary_tables</code><a class="headerlink" href="#inspectomop.inspector.Inspector.vocabulary_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-inspectomop.results">
+<span id="inspectomop-results-module"></span><h2>inspectomop.results module<a class="headerlink" href="#module-inspectomop.results" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="inspectomop.results.Results">
+<em class="property">class </em><code class="descclassname">inspectomop.results.</code><code class="descname">Results</code><span class="sig-paren">(</span><em>results_proxy</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.engine.result.ResultProxy</span></code></p>
+<p>An interally used subclass of sqlalchemy.engine.result.ResultProxy
+that adds additional methods for retreving query results as Pandas DataFrames.</p>
+<p>See Results.as_pandas() and Results.as_pandas_chunks().</p>
+<dl class="method">
+<dt id="inspectomop.results.Results.as_pandas">
+<code class="descname">as_pandas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results.as_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all rows as a pandas DataFrame</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-meth docutils literal"><span class="pre">as_pandas_chunks()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="inspectomop.results.Results.as_pandas_chunks">
+<code class="descname">as_pandas_chunks</code><span class="sig-paren">(</span><em>chunksize</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results.as_pandas_chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a pandas DataFrame with n_rows = chunksize</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-meth docutils literal"><span class="pre">as_pandas()</span></code></a></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-inspectomop">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-inspectomop" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">inspectomop package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-inspectomop.inspector">inspectomop.inspector module</a></li>
+<li><a class="reference internal" href="#module-inspectomop.results">inspectomop.results module</a></li>
+<li><a class="reference internal" href="#module-inspectomop">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/inspectomop.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Jonathan Badger.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/source/inspectomop.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,8 +1,9 @@
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine,event, MetaData
 from sqlalchemy import select
 from sqlalchemy.engine import reflection
-
+from sqlalchemy.pool import StaticPool
+from sqlalchemy.sql import sqltypes
 import pandas as _pd
 
 from .results import Results
@@ -39,7 +40,11 @@ class Inspector():
 
     def __init__(self,connection_url):
         self.connection_url = connection_url
-        self.__engine = create_engine(self.connection_url)
+        if connection_url.startswith('sqlite'):
+            self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
+        else:
+            self.__engine = create_engine(self.connection_url)
+
         self.__tables = None
         self._sqlite_attach_list = None
 
@@ -87,11 +92,20 @@ class Inspector():
 
     def _extract_table_classes(self):
         def add_tables(metadata):
+            #sqlalchemy requires a primary key in each table for automatic mapping to work.
+            #If no primary key is found, set the default primary key to be the first column in each table.
             for table_name,table in metadata.tables.items():
-                #sqlalchemy requires a primary key in each table for automatic mapping to work.
-                #If no primary key is found, set the default primary key to be the first column in each table.
+                for col_name, col in table.c.items():
+                    if col_name.endswith('date'):
+                        if col.type != sqltypes.DATE:
+                            col.type = sqltypes.DATE()
+                    if col_name.endswith('datetime'):
+                        if col.type != sqltypes.DATETIME:
+                            col.type = sqltypes.DATETIME()
                 if len(table.primary_key) == 0:
                     table.primary_key._reload([table.c[table.c.keys()[0]]])
+
+
             Base = automap_base(metadata=metadata)
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():

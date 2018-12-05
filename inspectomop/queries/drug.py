@@ -1,7 +1,7 @@
 """
 Drug related OMOP data queries.
 
-Addapted from: https://github.com/OHDSI/OMOP-Queries
+Adapted from: https://github.com/OHDSI/OMOP-Queries
 """
 
 from sqlalchemy import select as _select, join as _join,\
@@ -11,6 +11,70 @@ from sqlalchemy import select as _select, join as _join,\
 
 
 __all__ = []
+
+def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None):
+    """
+    Get ingredients for brand or generic drug concept_ids.
+
+    Parameters
+    ----------
+    concept_id : list
+        concept_ids corresponding to brand or generic drug concept_ids
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings representing the columns to return from the query
+        *see Returns section below for full list
+
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    return_columns: ['drug_concept_id', 'drug_name', 'drug_concept_code', 'drug_concept_class',\
+                    'ingredient_concept_id', 'ingredient_name', 'ingredient_concept_code',\
+                    'ingredient_concept_class']
+
+    Original SQL
+    ------------
+    D03: Find ingredients of a drug
+    SELECT
+        D.Concept_Id         drug_concept_id,
+        D.Concept_Name       drug_name,
+        D.Concept_Code       drug_concept_code,
+        D.Concept_Class_id   drug_concept_class,
+        A.Concept_Id         ingredient_concept_id,
+        A.Concept_Name       ingredient_name,
+        A.Concept_Code       ingredient_concept_code,
+        A.Concept_Class_id   ingredient_concept_class
+    FROM
+        full_201706_omop_v5.concept_ancestor CA,
+        full_201706_omop_v5.concept A,
+        full_201706_omop_v5.concept D
+    WHERE
+        CA.descendant_concept_id = D.concept_id
+        AND CA.ancestor_concept_id = A.concept_id
+        AND LOWER(A.concept_class_id) = 'ingredient'
+        AND sysdate BETWEEN A.VALID_START_DATE AND A.VALID_END_DATE
+        AND sysdate BETWEEN D.VALID_START_DATE AND D.VALID_END_DATE
+        AND CA.descendant_concept_id IN (939355, 19102189, 19033566)
+    """
+
+    a = _alias(inspector.tables['concept'],'a')
+    d = _alias(inspector.tables['concept'], 'd')
+    ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
+    columns = [d.c.concept_id.label('drug_concept_id'), d.c.concept_id.label('drug_name'), d.c.concept_code.label('drug_concept_code'), d.c.concept_class_id.label('drug_concept_class'), a.c.concept_id.label('ingredient_concept_id'), a.c.concept_name.label('ingredient_name'), a.c.concept_code.label('ingredient_concept_code'), a.c.concept_class_id.label('ingredient_concept_class')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                where(_and_(\
+                    ca.c.descendant_concept_id == d.c.concept_id,\
+                    ca.c.ancestor_concept_id == a.c.concept_id,\
+                    a.c.concept_class_id == 'Ingredient',\
+                    ca.c.descendant_concept_id.in_(concept_ids)))
+    return inspector.execute(statement)
+
+
 
 def drugs_for_ingredient_concept_id(concept_id, inspector,return_columns=None):
     """
@@ -59,7 +123,7 @@ def drugs_for_ingredient_concept_id(concept_id, inspector,return_columns=None):
         AND sysdate BETWEEN D.valid_start_date AND D.valid_end_date
         AND CA.ancestor_concept_id = 966991;
     """
-    
+
     a = _alias(inspector.tables['concept'],'a')
     d = _alias(inspector.tables['concept'], 'd')
     ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
@@ -68,11 +132,7 @@ def drugs_for_ingredient_concept_id(concept_id, inspector,return_columns=None):
         d.c.concept_id.label('drug_concept_id'), d.c.concept_name.label('drug_name'),\
         d.c.concept_code.label('drug_concept_code'), d.c.concept_class_id.label('drug_concept_class_id')]
     if return_columns:
-        col_list = ['ingredient_concept_id', 'ingredient_name', \
-            'ingredient_concept_code', 'ingredient_concept_class_id', \
-            'drug_concept_id', 'drug_name','drug_concept_code', \
-            'drug_concept_class_id']
-        columns = list(filter(lambda x: x in col_list, return_columns))
+        columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).where(_and_(ca.c.ancestor_concept_id==a.c.concept_id,\
         ca.c.descendant_concept_id == d.c.concept_id, ca.c.ancestor_concept_id == concept_id))
     return inspector.execute(statement)
@@ -85,7 +145,7 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,retu
     Parameters
     ----------
     ingredient_names : list
-        
+
 
     inspector : inspectomop.Inspector object
 
@@ -116,7 +176,193 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,retu
     concept_class_id = 'Ingredient'
     columns = [concept.concept_name.label('ingredient_name'),concept.concept_id]
     if return_columns:
-        col_list = ['concept_id', 'ingredient_name']
-        columns = list(filter(lambda x: x in col_list, return_columns))
+        columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).where(_and_(concept.vocabulary_id == vocab_id, concept.concept_class_id == concept_class_id, _func.lower(concept.concept_name).in_(map(str.lower,ingredient_names))))
+    return inspector.execute(statement)
+
+def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Returns drug classes for drug or ingredient concept_ids.
+
+    Parameters
+    ----------
+    concept_id : int
+
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings representing the columns to return from the query
+        *see Returns section below for full list
+
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    return_columns: ['concept_id','concept_name','concept_code','concept_class_id',
+                     'vocabulary_id', 'vocabulary_name']
+
+    Original SQL
+    ------------
+    D08: Find drug classes for a drug or ingredient
+    SELECT
+        c1.concept_id                Class_Concept_Id,
+        c1.concept_name              Class_Name,
+        c1.concept_code              Class_Code,
+        c1.concept_class_id          Classification,
+        c1.vocabulary_id             Class_vocabulary_id,
+        v1.vocabulary_name           Class_vocabulary_name,
+        ca.min_levels_of_separation  Levels_of_Separation
+    FROM
+        concept_ancestor             ca,
+        concept                      c1,
+        vocabulary                   v1
+    WHERE
+        ca.ancestor_concept_id = c1.concept_id
+        AND    c1.vocabulary_id IN ('NDFRT', 'ETC', 'ATC', 'VA Class')
+        AND    c1.concept_class_id IN ('ATC','VA Class','Mechanism of Action','Chemical Structure','ETC','Physiologic Effect')
+        AND    c1.vocabulary_id = v1.vocabulary_id
+        AND    ca.descendant_concept_id = 1545999
+        AND    sysdate BETWEEN c1.valid_start_date AND c1.valid_end_date;
+    """
+    c  = _alias(inspector.tables['concept'],'c')
+    v = _alias(inspector.tables['vocabulary'], 'v')
+    ca = _alias(inspector.tables['concept_ancestor'] ,'ca')
+
+    columns = [c.c.concept_id, c.c.concept_name, c.c.concept_code, c.c.concept_class_id, v.c.vocabulary_name, ca.c.min_levels_of_separation]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                where(_and_(\
+                    ca.c.ancestor_concept_id == c.c.concept_id,\
+                    c.c.vocabulary_id.in_(['ATC','VA Class','Mechanism of Action','Chemical Structure','ETC','Physiologic Effect']),\
+                    c.c.vocabulary_id == v.c.vocabulary_id,\
+                    ca.c.descendant_concept_id == concept_id))
+    return inspector.execute(statement)
+
+def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
+    """
+    Find all indications for a drug given a concept_id.
+
+    Parameters
+    ----------
+    concept_id : int
+
+
+    inspector : inspectomop.Inspector object
+
+    return_columns : list of strings representing the columns to return from the query
+        *see Returns section below for full list
+
+
+    Returns
+    -------
+    out : inspectomop.Results
+
+    return_columns: ['relationship_name','concept_id','concept_name',
+                     'vocabulary_id', 'vocabulary_name']
+
+    Original SQL
+    ------------
+    D13: Find indications as condition concepts for a drug
+    SELECT
+        r.relationship_name as type_of_indication,
+        c.concept_id as indication_concept_id,
+        c.concept_name as indication_concept_name,
+        c.vocabulary_id as indication_vocabulary_id,
+        vn.vocabulary_name as indication_vocabulary_name
+    FROM
+        concept c,
+        vocabulary vn,
+        relationship r,
+    ( -- collect all indications from the drugs, ingredients and pharmaceutical preps and the type of relationship
+        SELECT DISTINCT
+            r.relationship_id rid,
+            r.concept_id_2 cid
+        FROM concept c
+        INNER JOIN ( -- collect onesie clinical and branded drug if query is ingredient
+        SELECT onesie.cid concept_id
+        FROM (
+            SELECT
+                a.descendant_concept_id cid,
+                count(\*) cnt
+            FROM concept_ancestor a
+            INNER JOIN (
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.ancestor_concept_id=19005968 AND
+            a.descendant_concept_id=c.concept_id AND
+            c.vocabulary_id=8
+        ) cd on cd.concept_id=a.descendant_concept_id
+        INNER JOIN concept c on c.concept_id=a.ancestor_concept_id
+        WHERE c.concept_level=2
+        GROUP BY a.descendant_concept_id
+        ) onesie
+        where onesie.cnt=1
+        UNION -- collect ingredient if query is clinical and branded drug
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.descendant_concept_id=19005968 AND
+            a.ancestor_concept_id=c.concept_id AND
+            c.vocabulary_id=8
+        UNION -- collect pharmaceutical preparation equivalent to which NDFRT has reltionship
+        SELECT c.concept_id
+        FROM
+            concept c,
+            concept_ancestor a
+        WHERE
+            a.descendant_concept_id=19005968 AND
+            a.ancestor_concept_id=c.concept_id AND
+            lower(c.concept_class)='pharmaceutical preparations'
+        UNION -- collect itself
+    SELECT 19005968
+    ) drug ON drug.concept_id=c.concept_id
+    INNER JOIN concept_relationship r on c.concept_id=r.concept_id_1 -- allow only indication relationships
+    WHERE
+    r.relationship_id IN (21,23,155,156,126,127,240,241)
+
+    ) ind
+    WHERE
+    ind.cid=c.concept_id AND
+    r.relationship_id=ind.rid AND
+    vn.vocabulary_id=c.vocabulary_id AND
+    sysdate BETWEEN c.valid_start_date AND c.valid_end_date;
+
+    Alternate
+    select a.min_levels_of_separation as a_min,
+      an.concept_id as an_id, an.concept_name as an_name, an.vocabulary_id as an_vocab, an.domain_id as an_domain, an.concept_class_id as an_class,
+        de.concept_id as de_id, de.concept_name as de_name, de.vocabulary_id as de_vocab, de.domain_id as de_domain, de.concept_class_id as de_class
+        from concept an
+        join concept_ancestor a on a.ancestor_concept_id=an.concept_id
+        join concept de on de.concept_id=a.descendant_concept_id
+        where an.concept_class_id in ('Ind / CI', 'Indication') -- One is for NDFRT, the other for FDB Indications
+        and de.vocabulary_id in ('RxNorm', 'RxNorm Extension') -- You don't need that if you join directly with DRUG_EXPOSURE
+        and lower(an.concept_name) like '%diabetes%'
+"""
+    c = _alias(inspector.tables['concept'],'c')
+    de  = _alias(inspector.tables['concept'],'de')
+    an = _alias(inspector.tables['concept'],'an')
+    a = _alias(inspector.tables['concept_ancestor'],'a')
+    r = _alias(inspector.tables['concept_relationship'],'r')
+    j1 = _join(a, an, a.c.ancestor_concept_id == an.c.concept_id)
+    j2 = _join(de, j1, de.c.concept_id == a.c.descendant_concept_id)
+    j3 = _join(j2, r, r.c.concept_id_1 == an.c.concept_id)
+    domain_id = 'Condition'
+    j4 = _join(j3, c, _and_(c.c.concept_id == r.c.concept_id_2, c.c.domain_id==domain_id))
+
+    concept_class_ids = ['Ind / CI', 'Indication']
+    vocab_ids= ['RxNorm', 'RxNorm Extension']
+
+    columns = [c.c.concept_id.label('c_concept_id'),c.c.concept_name.label('c_concept_name'),a.c.min_levels_of_separation, an.c.concept_id.label('an_concept_id'), an.c.concept_name.label('an_concept_name'), an.c.vocabulary_id.label('an_vocab'), de.c.concept_id.label('de_concept_id'), de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
+    if return_columns:
+        columns = [col for col in columns if col.name in return_columns]
+    statement = _select(columns).\
+                select_from(j4).where(_and_(an.c.concept_class_id.in_(concept_class_ids), de.c.vocabulary_id.in_(vocab_ids), de.c.concept_id == concept_id))
+
     return inspector.execute(statement)
