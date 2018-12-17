@@ -21,7 +21,7 @@ Interoperability is an important goal in healthcare and medical informatics rese
    :align: center
    :alt: interoperability diagram
 
-   **Interoperability problems and solutions:** P1. Data cannot be directly shared between EHRs.  S1.  Adopting a CDM  P2. SQL queries are not universally portable across RDBMs. S2. InspectOMOP, an SQL dialect agnostic python package.
+   **Interoperability problems and solutions:** **P1.** Data cannot be directly shared between EHRs.  **S1.**  Adopt the OMOP CDM  **P2.** SQL queries are not universally portable across RDBMs. **S2.** InspectOMOP, an SQL dialect agnostic python package.
 
 Table of Contents
 =================

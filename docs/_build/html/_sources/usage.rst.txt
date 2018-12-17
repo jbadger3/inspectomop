@@ -22,7 +22,7 @@ Inspectors require a single parameter, `connection_url`, for instantiation:
    connection_url = iomop.test.test_connection_url()
    inspector = iomop.Inspector(connection_url)
 
-`connection_url` is a database URL defined by `SQLAlchemy <https://docs.sqlalchemy.org/en/latest/>`__ that describes how to connect to your database.  A database URL has three main components: a dialect, driver, and URL.  The dialect indicates what type of backend you wish to connect to.  You can use any supported by SQLAlchemy (MySql, SQLite, Postgres, etc.) out-of-the-box or a dialect written by a third party.  See the full list `here <https://docs.sqlalchemy.org/en/latest/dialects/index.html>`__.  The driver indicates which python DBAPI library you wish to use to run your queries.  The SQLAlchemy dialects often contain a default DBAPI, so this may or may not be necessary depending on your configuration. Finally, the URL indicates where to looks for the database and includes options for supplying a username and password.
+`connection_url` is a database URL defined by `SQLAlchemy <https://docs.sqlalchemy.org/en/latest/>`__ that describes how to connect to your database.  A database URL has three main components: a dialect, driver, and URL.  The dialect indicates what type of backend DB you wish to connect to.  You can use any supported by SQLAlchemy (MySql, SQLite, Postgres, etc.) out-of-the-box or a dialect written by a third party.  See the full list `here <https://docs.sqlalchemy.org/en/latest/dialects/index.html>`__.  The driver indicates which python DBAPI library you wish to use to run your queries.  The SQLAlchemy dialects often contain a default DBAPI, so this may or may not be necessary depending on your configuration. Finally, the URL indicates where to look for the database and includes options for supplying a username and password.
 
 ::
 
@@ -97,7 +97,7 @@ There are a variety of built in queries available in the :ref:`queries` submodul
    # retrieve concepts for a list of concept_ids
    from inspectomop.queries.general import concepts_for_concept_ids
 
-   concept_ids = [2,3,4,7,8,10, 46287342, 46271022]
+   concept_ids = [2, 3, 4, 7, 8, 10, 46287342, 46271022]
    return_columns = ['concept_name', 'concept_id']
    concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns).fetchall()
 
@@ -152,7 +152,7 @@ Creating custom queries
 
 From SQLAlchemy SQL Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Statements built out of constructs from SQLAlchemy's *SQL Expression API* make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion and is agnostic to the DBMS serving the OMOP CDM data.  While there is no guarantee that `every` query will work with `every` backend, most of the basic selects, joins, etc should run without issue.
+Statements built out of constructs from SQLAlchemy's *SQL Expression API* make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion.  While there is no guarantee that `every` query will work with `every` backend, most of the basic selects, joins, etc should run without issue.
 
 SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the `SQL Expression Language Tutorial <https://docs.sqlalchemy.org/en/rel_1_2/core/tutorial.html>`__ and note the warning below.
 
@@ -163,6 +163,7 @@ Below are a few simple examples of using SQLAlchemy expression language construc
    Tables from Inspector.tables are actually mapped to ORM objects.  These are *NOT* the same as `Table` objects from the SQLAlchemy Core API, although they can be used in nearly identical fashion in SQL Expressions with the following caveat about accessing table columns:
 
    .. ipython:: python
+      :okexcept:
 
       from sqlalchemy import alias
       p = inspector.tables['person']
@@ -230,7 +231,7 @@ Example:
 
 Sharing custom queries as functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Custom queries that may prove useful to the OMOP CDM community and **inspectomop** users can easily be shared by wrapping them in a function and following a standard recipe.  `View the source code <https://github.com/jbadger3/inspectomop>`__ on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).
+Custom queries that may prove useful to the OMOP CDM community can easily be shared by wrapping them in a function and following a standard recipe.  `View the source code <https://github.com/jbadger3/inspectomop>`__ on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).
 
 In general, consider the following:
 

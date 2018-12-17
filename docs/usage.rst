@@ -163,6 +163,7 @@ Below are a few simple examples of using SQLAlchemy expression language construc
    Tables from Inspector.tables are actually mapped to ORM objects.  These are *NOT* the same as `Table` objects from the SQLAlchemy Core API, although they can be used in nearly identical fashion in SQL Expressions with the following caveat about accessing table columns:
 
    .. ipython:: python
+      :okexcept:
 
       from sqlalchemy import alias
       p = inspector.tables['person']

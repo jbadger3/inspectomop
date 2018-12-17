@@ -58,7 +58,7 @@
 <span class="gp">In [3]: </span><span class="n">inspector</span> <span class="o">=</span> <span class="n">iomop</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="n">connection_url</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><cite>connection_url</cite> is a database URL defined by <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/">SQLAlchemy</a> that describes how to connect to your database.  A database URL has three main components: a dialect, driver, and URL.  The dialect indicates what type of backend you wish to connect to.  You can use any supported by SQLAlchemy (MySql, SQLite, Postgres, etc.) out-of-the-box or a dialect written by a third party.  See the full list <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/dialects/index.html">here</a>.  The driver indicates which python DBAPI library you wish to use to run your queries.  The SQLAlchemy dialects often contain a default DBAPI, so this may or may not be necessary depending on your configuration. Finally, the URL indicates where to looks for the database and includes options for supplying a username and password.</p>
+<p><cite>connection_url</cite> is a database URL defined by <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/">SQLAlchemy</a> that describes how to connect to your database.  A database URL has three main components: a dialect, driver, and URL.  The dialect indicates what type of backend DB you wish to connect to.  You can use any supported by SQLAlchemy (MySql, SQLite, Postgres, etc.) out-of-the-box or a dialect written by a third party.  See the full list <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/dialects/index.html">here</a>.  The driver indicates which python DBAPI library you wish to use to run your queries.  The SQLAlchemy dialects often contain a default DBAPI, so this may or may not be necessary depending on your configuration. Finally, the URL indicates where to look for the database and includes options for supplying a username and password.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;dialect+driver://username:password@host:port/database&#39;</span>
 </pre></div>
 </div>
@@ -139,7 +139,7 @@
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># retrieve concepts for a list of concept_ids</span>
 <span class="gp">In [13]: </span><span class="kn">from</span> <span class="nn">inspectomop.queries.general</span> <span class="kn">import</span> <span class="n">concepts_for_concept_ids</span>
 
-<span class="gp">In [14]: </span><span class="n">concept_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">46287342</span><span class="p">,</span> <span class="mi">46271022</span><span class="p">]</span>
+<span class="gp">In [14]: </span><span class="n">concept_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">46287342</span><span class="p">,</span> <span class="mi">46271022</span><span class="p">]</span>
 
 <span class="gp">In [15]: </span><span class="n">return_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;concept_name&#39;</span><span class="p">,</span> <span class="s1">&#39;concept_id&#39;</span><span class="p">]</span>
 
@@ -254,7 +254,7 @@
 <h2>Creating custom queries<a class="headerlink" href="#creating-custom-queries" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="from-sqlalchemy-sql-expressions">
 <h3>From SQLAlchemy SQL Expressions<a class="headerlink" href="#from-sqlalchemy-sql-expressions" title="Permalink to this headline">¶</a></h3>
-<p>Statements built out of constructs from SQLAlchemy’s <em>SQL Expression API</em> make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion and is agnostic to the DBMS serving the OMOP CDM data.  While there is no guarantee that <cite>every</cite> query will work with <cite>every</cite> backend, most of the basic selects, joins, etc should run without issue.</p>
+<p>Statements built out of constructs from SQLAlchemy’s <em>SQL Expression API</em> make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion.  While there is no guarantee that <cite>every</cite> query will work with <cite>every</cite> backend, most of the basic selects, joins, etc should run without issue.</p>
 <p>SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the <a class="reference external" href="https://docs.sqlalchemy.org/en/rel_1_2/core/tutorial.html">SQL Expression Language Tutorial</a> and note the warning below.</p>
 <p>Below are a few simple examples of using SQLAlchemy expression language constructs for running queries on the OMOP CDM.</p>
 <div class="admonition warning">
@@ -271,12 +271,12 @@
 <span class="gh">Out[31]: </span><span class="go">sqlalchemy.ext.automap.person</span>
 
 <span class="gp">In [32]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x1230527d8&gt;</span>
+<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x11c286db0&gt;</span>
 
 <span class="go"># p_alias is an Alias object.</span>
 <span class="go"># Columns must be accessed using .c.column</span>
 <span class="gp">In [33]: </span><span class="n">p_alias</span>
-<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x123180278; p_alias&gt;</span>
+<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x11c3c5d68; p_alias&gt;</span>
 
 <span class="gp">In [34]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
 <span class="go">                                                                                                                                                                                    Out[34]: Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
@@ -393,7 +393,7 @@
 </div>
 <div class="section" id="sharing-custom-queries-as-functions">
 <h3>Sharing custom queries as functions<a class="headerlink" href="#sharing-custom-queries-as-functions" title="Permalink to this headline">¶</a></h3>
-<p>Custom queries that may prove useful to the OMOP CDM community and <strong>inspectomop</strong> users can easily be shared by wrapping them in a function and following a standard recipe.  <a class="reference external" href="https://github.com/jbadger3/inspectomop">View the source code</a> on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).</p>
+<p>Custom queries that may prove useful to the OMOP CDM community can easily be shared by wrapping them in a function and following a standard recipe.  <a class="reference external" href="https://github.com/jbadger3/inspectomop">View the source code</a> on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).</p>
 <p>In general, consider the following:</p>
 <ul class="simple">
 <li>appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. <cite>concepts_for_concept_ids</cite></li>
