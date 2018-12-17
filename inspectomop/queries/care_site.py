@@ -1,5 +1,6 @@
 """
 Care site related OMOP data queries.
+====================================
 
 Adapted from: https://github.com/OHDSI/OMOP-Queries
 """
@@ -9,36 +10,35 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
-
-__all__ = []
-
 def facility_counts_by_type(inspector, return_columns=None):
     """
     Returns facility counts by type in the OMOP CDM i.e. # Inpatient Hospitals, Offices, etc.
 
     Parameters
     ----------
-    inspector : inspectomop.Inspector object
-
-    return_columns : list of strings representing the columns to return from the query
-        *see Returns section below for full list
+    inspector : inspectomop.inspector.Inspector
+    return_columns : list of str, optional
+        - optional subset of columns to return from the query
+        - columns : ['place_of_service', 'place_of_service_concept_id', 'facility_count']
 
     Returns
     -------
-    out : inspectomop.Results
+    results : inspectomop.results.Results
+        a cursor-like object with methods such as fetchone(), fetchmany() etc.
 
-    return_columns: ['place_of_service', 'place_of_service_concept_id', 'facility_count']
-
+    Notes
+    -----
     Original SQL
-    ------------
-    CS01: Care site place of service counts
-    select
-        cs.place_of_service_concept_id,
-        count(1) places_of_service_count
-	from care_site cs
-	group by
-        cs.place_of_service_concept_id
-	order by 1;
+
+    CS01: Care site place of service counts::
+
+        SELECT
+            cs.place_of_service_concept_id,
+            count(1) places_of_service_count
+        FROM care_site cs
+        GROUP BY
+            cs.place_of_service_concept_id
+        ORDER BY 1;
     """
 
     c = _alias(inspector.tables['concept'],'c')
@@ -57,29 +57,32 @@ def patient_counts_by_care_site_type(inspector, return_columns=None):
 
     Parameters
     ----------
-    inspector : inspectomop.Inspector object
-    return_columns : list of strings representing the columns to return from the query
-        *see Returns section below for full list
+    inspector : inspectomop.inspector.Inspector
+    return_columns : list of str, optional
+        - optional subset of columns to return from the query
+        - columns : ['place_of_service', 'place_of_service_concept_id', 'patient_count']
 
     Returns
     -------
-    out : inspectomop.Results
-    return_columns: ['place_of_service', 'place_of_service_concept_id', 'patient_count']
+    results : inspectomop.results.Results
 
+    Notes
+    -----
     Original SQL
-    ------------
-    CS02: Patient count per care site place of service.
-    select
-        cs.place_of_service_concept_id,
-        count(1) num_patients
-	from
-        care_site cs,
-        person p
-	where
-        p.care_site_id = cs.care_site_id
-	group by
-        cs.place_of_service_concept_id
-	order by 1;
+
+    CS02: Patient count per care site place of service::
+
+        SELECT
+            cs.place_of_service_concept_id,
+            count(1) num_patients
+        FROM
+            care_site cs,
+            person p
+        WHERE
+            p.care_site_id = cs.care_site_id
+        GROUP BY
+            cs.place_of_service_concept_id
+        ORDER BY 1;
     """
 
     c = _alias(inspector.tables['concept'],'c')

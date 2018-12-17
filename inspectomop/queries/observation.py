@@ -16,47 +16,54 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
     ----------
     keyword : str
         e.x. 'LDL'
-    inspector : inspectomop.Inspector object
-    return_columns : list of strings representing the columns to return from the query
-        *see Returns section below for full list
+    inspector : inspectomop.inspector.Inspector
+    return_columns : list of str, optional
+        - optional subset of columns to return from the query
+        - columns : ['concept_id','concept_name','concept_code', 'concept_class_id', 'vocabulary_id',
+            'vocabulary_name']
 
     Returns
     -------
-    out : inspectomop.Results
+    results : inspectomop.results.Results
 
-    return_columns : ['concept_id','concept_name','concept_code', 'concept_class_id', 'vocabulary_id',
-        'vocabulary_name']
-
+    Notes
+    -----
     Original SQL
-    ------------
-    O1: Find a Observation from a keyword
-	SELECT  T.Entity_Concept_Id,
-	        T.Entity_Name,
-	        T.Entity_Code,
-	        T.Entity_Type,
-	        T.Entity_concept_class_id,
-	        T.Entity_vocabulary_id,
-	        T.Entity_vocabulary_name
-	FROM   (
-	       SELECT  C.concept_id       Entity_Concept_Id,
-	               C.concept_name     Entity_Name,
-	               C.concept_code     Entity_Code,
-	               'Concept'          Entity_Type,
-	               C.concept_class_id    Entity_concept_class_id,
-	               C.vocabulary_id    Entity_vocabulary_id,
-	               V.vocabulary_name  Entity_vocabulary_name,
-	               C.valid_start_date,
-	               C.valid_end_date
-	       FROM    concept         C,
-	               vocabulary      V
-	       WHERE  C.vocabulary_id IN ('LOINC', 'UCUM')
-	       AND    C.concept_class_id IS NOT NULL
-	       AND    C.standard_concept = 'S'
-	       AND    C.vocabulary_id = V.vocabulary_id
-	       ) T
-	WHERE  REGEXP_INSTR(LOWER(REPLACE(REPLACE(T.Entity_Name, ' ', ''), '-', '')),
-	             LOWER(REPLACE(REPLACE('LDL' , ' ', ''), '-', ''))) > 0
-	AND     sysdate BETWEEN T.valid_start_date AND T.valid_end_date
+
+    O1: Find a Observation from a keyword::
+
+        SELECT
+            T.Entity_Concept_Id,
+            T.Entity_Name,
+            T.Entity_Code,
+            T.Entity_Type,
+            T.Entity_concept_class_id,
+            T.Entity_vocabulary_id,
+            T.Entity_vocabulary_name
+        FROM   (
+            SELECT
+                C.concept_id       Entity_Concept_Id,
+                C.concept_name     Entity_Name,
+                C.concept_code     Entity_Code,
+                'Concept'          Entity_Type,
+                C.concept_class_id    Entity_concept_class_id,
+                C.vocabulary_id    Entity_vocabulary_id,
+                V.vocabulary_name  Entity_vocabulary_name,
+                C.valid_start_date,
+                C.valid_end_date
+            FROM
+                concept         C,
+                vocabulary      V
+            WHERE
+                C.vocabulary_id IN ('LOINC', 'UCUM') AND
+                C.concept_class_id IS NOT NULL AND
+                C.standard_concept = 'S' AND
+                C.vocabulary_id = V.vocabulary_id
+    	       ) T
+    	WHERE
+            REGEXP_INSTR(LOWER(REPLACE(REPLACE(T.Entity_Name, ' ', ''), '-', '')),
+                LOWER(REPLACE(REPLACE('LDL' , ' ', ''), '-', ''))) > 0 AND
+            sysdate BETWEEN T.valid_start_date AND T.valid_end_date
     """
 
     c = _alias(inspector.tables['concept'], 'c')

@@ -17,21 +17,26 @@ def counts_by_years_of_coverage(inspector):
 
     Parameters
     ----------
-    inspector : inspectomop.Inspector object
+    inspector : inspectomop.inspector.Inspector
 
     Returns
     -------
-    out : Pandas.DataFrame
+    df : pandas.DataFrame
 
+    Notes
+    -----
     Original SQL
-    ------------
-    PP01: Continuous years with patient counts
-    SELECT
-        floor((p.payer_plan_period_end_date - p.payer_plan_period_start_date)/365) AS year_int,
-        count(1) AS num_patients
-	FROM payer_plan_period p
-	GROUP BY floor((p.payer_plan_period_end_date - p.payer_plan_period_start_date)/365)
-	ORDER BY 1;
+
+    PP01: Continuous years with patient counts::
+
+        SELECT
+            floor((p.payer_plan_period_end_date - p.payer_plan_period_start_date)/365) AS year_int,
+            count(1) AS num_patients
+    	FROM
+            payer_plan_period p
+    	GROUP BY
+            floor((p.payer_plan_period_end_date - p.payer_plan_period_start_date)/365)
+    	ORDER BY 1;
     """
     p = _alias(inspector.tables['payer_plan_period'], 'p')
 
@@ -54,27 +59,33 @@ def patient_distribution_by_plan_type(inspector):
 
     Parameters
     ----------
-    inspector : inspectomop.Inspector object
+    inspector : inspectomop.inspector.Inspector
 
     Returns
     -------
-    out : inspectomop.Results
+    results : inspectomop.results.Results
 
+    Notes
+    -----
     Original SQL
-    ------------
-    PP02: Patient distribution by plan type
-    select
-	  t.plan_source_value,
-	  t.pat_cnt as num_patients,
-	  100.00\*t.pat_cnt/ (sum(t.pat_cnt) over()) perc_of_total_count
-	from (
-        select p.plan_source_value,
-        count(1) as pat_cnt
-        from payer_plan_period p
-        group by p.plan_source_value
-        ) t
-	order by
-        t.plan_source_value;
+
+    PP02: Patient distribution by plan type::
+
+        SELECT
+    	  t.plan_source_value,
+    	  t.pat_cnt AS num_patients,
+    	  100.00\*t.pat_cnt/ (sum(t.pat_cnt) over()) perc_of_total_count
+    	FROM (
+            SELECT
+                p.plan_source_value,
+                count(1) AS pat_cnt
+            FROM
+                payer_plan_period p
+            GROUP BY
+                p.plan_source_value
+            ) t
+    	ORDER BY
+            t.plan_source_value;
     """
     p = _alias(inspector.tables['payer_plan_period'], 'p')
     columns = [p.c.plan_source_value, _func.count(p.c.plan_source_value).label('count')]

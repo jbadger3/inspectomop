@@ -4,9 +4,12 @@ from sqlalchemy import select
 from sqlalchemy.engine import reflection
 from sqlalchemy.pool import StaticPool
 from sqlalchemy.sql import sqltypes
+
 import pandas as _pd
 
 from .results import Results
+
+
 
 class Inspector():
     """
@@ -18,18 +21,15 @@ class Inspector():
         A connection url of form 'dialect+driver://username:password@host:port/database'.
         The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).
 
-    Returns
-    -------
-    out : Inspector
-        An Inspetor object
+    Attributes
+    ----------
+    connection_url : str
 
     Notes
     -----
-        SQLite DBs require an additional '/' as in 'sqlite:///foo.db' for a relative path and
-         'sqlite:////abs/path/to/foo.db' for an absolute path.
+    SQLite DBs require an additional '/' as in 'sqlite:///foo.db' for a relative path and 'sqlite:////abs/path/to/foo.db' for an absolute path.
 
-        See http://docs.sqlalchemy.org/en/latest/core/engines.html for more information about
-        connection URLs and supported dialects.
+    See http://docs.sqlalchemy.org/en/latest/core/engines.html for more information about connection URLs and supported dialects.
 
     Examples
     --------
@@ -39,7 +39,7 @@ class Inspector():
     """
 
     def __init__(self,connection_url):
-        self.connection_url = connection_url
+        self.__connection_url = connection_url
         if connection_url.startswith('sqlite'):
             self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
         else:
@@ -51,15 +51,15 @@ class Inspector():
     def _tables_summary_df(self):
         column_names = ['clinical','vocabulary','derived_element','health_system','health_economic'\
             ,'metadata']
-        clinical = list(self.clinical_data_tables.keys())
+        clinical = list(self.clinical_tables.keys())
         clinical.sort()
-        vocab = list(self.vocabulary_tables.keys())
+        vocab = list(self.vocabularies_tables.keys())
         vocab.sort()
-        derived = list(self.derived_element_tables.keys())
+        derived = list(self.derived_elements_tables.keys())
         derived.sort()
-        health_system = list(self.health_system_data_tables.keys())
+        health_system = list(self.health_system_tables.keys())
         health_system.sort()
-        health_economic = list(self.health_economic_data_tables.keys())
+        health_economic = list(self.health_economics_tables.keys())
         health_economic.sort()
         metadata = list(self.metadata_tables.keys())
         metadata.sort()
@@ -82,11 +82,18 @@ class Inspector():
         return 'Inspector(\'{}\')'.format(self.connection_url)
 
     @property
+    def connection_url(self):
+        """
+        A URL of the form 'dialect+driver://username:password@host:port/database' used to specify the dialect, location, etc. of the database.
+
+        """
+        return self.__connection_url
+    @property
     def engine(self):
         """
         A convenience hook to the underlying sqlalchemy engine.
 
-        Use .execute() for submitting queries.
+        Use Inspector.execute for submitting queries.
         """
         return self.__engine
 
@@ -97,10 +104,10 @@ class Inspector():
             for table_name,table in metadata.tables.items():
                 for col_name, col in table.c.items():
                     if col_name.endswith('date'):
-                        if col.type != sqltypes.DATE:
+                        if col.type != sqltypes.DATE and self.engine.dialect.name == 'sqlite':
                             col.type = sqltypes.DATE()
                     if col_name.endswith('datetime'):
-                        if col.type != sqltypes.DATETIME:
+                        if col.type != sqltypes.DATETIME and self.engine.dialect.name == 'sqlite':
                             col.type = sqltypes.DATETIME()
                 if len(table.primary_key) == 0:
                     table.primary_key._reload([table.c[table.c.keys()[0]]])
@@ -131,37 +138,58 @@ class Inspector():
 
     @property
     def tables(self):
+        """
+        A dictionary containing all OMOP CDM tables in the connected database.
+        """
         if not self.__tables:
             self._extract_table_classes()
         return self.__tables
 
     @property
-    def vocabulary_tables(self):
+    def vocabularies_tables(self):
+        """
+        A dictionary containing all of the ``Vocabularies`` OMOP CDM tables in the connected database.
+        """
         table_names = ['concept','vocabulary','domain','concept_class','concept_relationship','relationship','concept_synonym','concept_ancestor','source_to_concept_map','drug_strength','cohort_definition','attribute_definition']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
     @property
     def metadata_tables(self):
+        """
+        A dictionary containing all of the ``MetaData`` OMOP CDM tables in the connected database.
+        """
         table_names = ['cdm_source','metadata']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
     @property
-    def clinical_data_tables(self):
+    def clinical_tables(self):
+        """
+        A dictionary containing all of the ``Clinical`` OMOP CDM tables in the connected database.
+        """
         table_names = ['person','observation_period','specimen','death','visit_occurrence','visit_detail','procedure_occurrence','drug_exposure','device_exposure','condition_occurrence','measurement','note','note_nlp','observation','fact_relationship']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
     @property
-    def health_system_data_tables(self):
+    def health_system_tables(self):
+        """
+        A dictionary containing all of the ``Health System`` OMOP CDM tables in the connected database.
+        """
         table_names = ['location','care_site','provider']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
     @property
-    def health_economic_data_tables(self):
+    def health_economics_tables(self):
+        """
+        A dictionary containing all of the ``Health Economics`` OMOP CDM tables in the connected database.
+        """
         table_names = ['payer_plan_period','cost']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
     @property
-    def derived_element_tables(self):
+    def derived_elements_tables(self):
+        """
+        A dictionary containing all of the ``Derived Elements`` OMOP CDM tables in the connected database.
+        """
         table_names = ['cohort','cohort_attribute','drug_era','dose_era','condition_era']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
@@ -169,16 +197,12 @@ class Inspector():
 
     def attach_sqlite_db(self,db_file, schema_name):
         """
-        For SQLite backends, attaches an additional sqlite database file using
-        'ATTACH DATABSE db_file AS schema_name'.
-
-        ***This method can only be called if the dialect specified in connection_url is sqlite***
+        For SQLite backends, attaches an additional sqlite database file. Uses 'ATTACH DATABSE db_file AS schema_name'
 
         Parameters
         ----------
         db_file : String
             A string giving a path to a database file.  Ex. 'databases/my_db_to_attach.db'
-
         schema_name : String
            The name to associate with the attached schema
         """
@@ -204,12 +228,16 @@ class Inspector():
 
     def table_info(self,table_name):
         """
-        Return a Pandas DataFrame describing the fields of a table.
+        Return a Pandas DataFrame describing the fields and properties of a table.
 
         Parameters
         ----------
         table_name : String
 
+        Returns
+        -------
+        table_info : Pandas.DataFrame
+            columns are 'column', 'type', 'nullable', 'primary_key'
         """
         if table_name not in self.tables.keys():
             raise KeyError('`{}` not found in tables.'.format(table_name))
@@ -228,14 +256,12 @@ class Inspector():
         statement : sqlalchemy object or string
             sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables
                 e.g. select([concept]).where(concept.concept_id==0)
-
             strings - can be a string containing an SQL statemment such as
-                e.g. \'SELECT concept_name from concept where concept_id = 0\'
+                e.g. 'SELECT concept_name from concept where concept_id = 0'
 
         Returns
         -------
-            out : Results object
-
+        results : inspectomop.Results
             The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as
             pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall
 

@@ -18,40 +18,41 @@ def procedure_concepts_for_keyword(keyword, inspector,return_columns=None):
     ----------
     keyword : str
         e.x. 'artery bypass'
-    inspector : inspectomop.Inspector object
-    return_columns : list of strings representing the columns to return from the query
-        *see Returns section below for full list
+    inspector : inspectomop.inspector.Inspector
+    return_columns : list of str, optional
+        - optional subset of columns to return from the query
+        - columns : ['concept_id', 'concept_name', 'concept_code', 'concept_class_id', 'vocabulary_id', 'vocabulary_name']
 
     Returns
     -------
-    out : inspectomop.Results
+    results : inspectomop.results.Results
 
-    return_columns : []
-
+    Notes
+    -----
     Original SQL
-    ------------
-    P02: Find a procedure from a keyword.
-    SELECT C.concept_id         Entity_Concept_Id,
-           C.concept_name       Entity_Name,
-           C.concept_code       Entity_Code,
-           'Concept'            Entity_Type,
-           C.concept_class_id      Entity_concept_class_id,
-           C.vocabulary_id      Entity_vocabulary_id,
-           V.vocabulary_name    Entity_vocabulary_name
-    FROM   concept   C
-       INNER JOIN vocabulary V ON C.vocabulary_id = V.vocabulary_id
-       LEFT OUTER JOIN concept_synonym S ON C.concept_id = S.concept_id
-    WHERE  (
-                  C.vocabulary_id IN ('ICD9Proc', 'CPT4', 'HCPCS')
-           OR     LOWER(C.concept_class_id) = 'procedure'
-           )
-    AND    C.concept_class_id IS NOT NULL
-    AND    C.standard_concept = 'S'
-    AND    (
-                REGEXP_INSTR(LOWER(C.concept_name), LOWER('artery bypass')) > 0
-           OR   REGEXP_INSTR(LOWER(S.concept_synonym_name), LOWER('artery bypass')) > 0
-           )
-    AND    sysdate BETWEEN C.valid_start_date AND C.valid_end_date;
+
+    P02: Find a procedure from a keyword::
+
+        SELECT C.concept_id         Entity_Concept_Id,
+               C.concept_name       Entity_Name,
+               C.concept_code       Entity_Code,
+               'Concept'            Entity_Type,
+               C.concept_class_id      Entity_concept_class_id,
+               C.vocabulary_id      Entity_vocabulary_id,
+               V.vocabulary_name    Entity_vocabulary_name
+        FROM
+            concept   C
+        INNER JOIN
+            vocabulary V ON C.vocabulary_id = V.vocabulary_id
+        LEFT OUTER JOIN
+            concept_synonym S ON C.concept_id = S.concept_id
+        WHERE
+            (C.vocabulary_id IN ('ICD9Proc', 'CPT4', 'HCPCS') OR LOWER(C.concept_class_id) = 'procedure') AND
+            C.concept_class_id IS NOT NULL AND
+            C.standard_concept = 'S' AND
+            (REGEXP_INSTR(LOWER(C.concept_name), LOWER('artery bypass')) > 0 OR
+            REGEXP_INSTR(LOWER(S.concept_synonym_name), LOWER('artery bypass')) > 0) AND
+            sysdate BETWEEN C.valid_start_date AND C.valid_end_date;
     """
     c = _alias(inspector.tables['concept'], 'c')
     v = _alias(inspector.tables['vocabulary'], 'v')
@@ -69,7 +70,7 @@ def procedure_concepts_for_keyword(keyword, inspector,return_columns=None):
             c.c.concept_class_id != None,\
             c.c.domain_id == concept_domain,\
             c.c.standard_concept == standard_concept,\
-            c.c.vocabulary_id == v.c.vocabulary_id))
+        - seec.c.vocabulary_id == v.c.vocabulary_id))
 
     columns = [s1.c.concept_id,s1.c.concept_name,s1.c.concept_code, s1.c.concept_class_id, s1.c.vocabulary_id,s1.c.vocabulary_name]
 
