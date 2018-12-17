@@ -1,0 +1,184 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id &#8212; InspectOMOP 0.1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="inspectomop.queries.condition.disease_causing_agents_for_keyword" href="inspectomop.queries.condition.disease_causing_agents_for_keyword.html" />
+    <link rel="prev" title="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id" href="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="inspectomop.queries.condition.disease_causing_agents_for_keyword.html" title="inspectomop.queries.condition.disease_causing_agents_for_keyword"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id.html" title="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="inspectomop-queries-condition-conditions-caused-by-pathogen-or-causative-agent-concept-id">
+<h1>inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id<a class="headerlink" href="#inspectomop-queries-condition-conditions-caused-by-pathogen-or-causative-agent-concept-id" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id">
+<code class="descclassname">inspectomop.queries.condition.</code><code class="descname">conditions_caused_by_pathogen_or_causative_agent_concept_id</code><span class="sig-paren">(</span><em>concept_id</em>, <em>inspector</em>, <em>return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retreives all conditions caused by a pathogen or other causative agent concept_id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>concept_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – </li>
+<li><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </li>
+<li><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
+<li>optional subset of columns to return from the query</li>
+<li>columns : [‘condition_concept_id’, ‘condition_name’,                    ‘condition_concept_code’, ‘condition_concept_class_id’,                    ‘condition_vocab_id’, ‘condition_vocab_name’,                    ‘causative_agent_concept_id’, ‘causative_agent_concept_name’,                    ‘causative_agent_concept_code’, ‘causative_agent_concept_class_id’,                    ‘causative_agent_vocab_id’, ‘causative_agent_vocab_name’]</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> – a cursor-like object with methods such as fetchone(), fetchmany() etc.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results">inspectomop.results.Results</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="inspectomop.queries.condition.disease_causing_agents_for_keyword.html#inspectomop.queries.condition.disease_causing_agents_for_keyword" title="inspectomop.queries.condition.disease_causing_agents_for_keyword"><code class="xref py py-func docutils literal notranslate"><span class="pre">disease_causing_agents_for_keyword()</span></code></a>, <a class="reference internal" href="inspectomop.queries.condition.pathogen_concept_for_keyword.html#inspectomop.queries.condition.pathogen_concept_for_keyword" title="inspectomop.queries.condition.pathogen_concept_for_keyword"><code class="xref py py-func docutils literal notranslate"><span class="pre">pathogen_concept_for_keyword()</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Original SQL</p>
+<p>C09: Find all SNOMED-CT condition concepts that can be caused by a given pathogen or causative agent:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">concept_Id</span> <span class="n">Condition_ID</span><span class="p">,</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">concept_Name</span> <span class="n">Condition_name</span><span class="p">,</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">concept_Code</span> <span class="n">Condition_code</span><span class="p">,</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">concept_Class_id</span> <span class="n">Condition_class</span><span class="p">,</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="n">Condition_vocab_ID</span><span class="p">,</span>
+    <span class="n">VA</span><span class="o">.</span><span class="n">vocabulary_name</span> <span class="n">Condition_vocab_name</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">concept_Id</span> <span class="n">Causative_agent_ID</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">concept_Name</span> <span class="n">Causative_agent_Name</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">concept_Code</span> <span class="n">Causative_agent_Code</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">concept_Class_id</span> <span class="n">Causative_agent_Class</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="n">Causative_agent_vocab_ID</span><span class="p">,</span>
+    <span class="n">VS</span><span class="o">.</span><span class="n">vocabulary_name</span> <span class="n">Causative_agent_vocab_name</span>
+<span class="n">FROM</span>
+    <span class="n">concept_relationship</span> <span class="n">CR</span><span class="p">,</span>
+    <span class="n">concept</span> <span class="n">A</span><span class="p">,</span>
+    <span class="n">concept</span> <span class="n">D</span><span class="p">,</span>
+    <span class="n">vocabulary</span> <span class="n">VA</span><span class="p">,</span>
+    <span class="n">vocabulary</span> <span class="n">VS</span>
+<span class="n">WHERE</span>
+    <span class="n">CR</span><span class="o">.</span><span class="n">relationship_ID</span> <span class="o">=</span> <span class="s1">&#39;Has causative agent&#39;</span> <span class="n">AND</span>
+    <span class="n">CR</span><span class="o">.</span><span class="n">concept_id_1</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">concept_id</span> <span class="n">AND</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="o">=</span> <span class="n">VA</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="n">AND</span>
+    <span class="n">CR</span><span class="o">.</span><span class="n">concept_id_2</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">concept_id</span> <span class="n">AND</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">concept_id</span> <span class="o">=</span> <span class="mi">4248851</span> <span class="n">AND</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="o">=</span> <span class="n">VS</span><span class="o">.</span><span class="n">vocabulary_id</span> <span class="n">AND</span>
+    <span class="n">sysdate</span> <span class="n">BETWEEN</span> <span class="n">CR</span><span class="o">.</span><span class="n">valid_start_date</span> <span class="n">AND</span> <span class="n">CR</span><span class="o">.</span><span class="n">valid_end_date</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#inspector">Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#results">Results</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#queries">Queries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../api.html#care-site">Care Site</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#condition">Condition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#drug">Drug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#general">General</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#observation">Observation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#payer-plan">Payer Plan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#person">Person</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="inspectomop.queries.condition.disease_causing_agents_for_keyword.html" title="inspectomop.queries.condition.disease_causing_agents_for_keyword"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id.html" title="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Jonathan Badger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

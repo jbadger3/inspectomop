@@ -1,0 +1,231 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>inspectomop.results.Results &#8212; InspectOMOP 0.1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="inspectomop.results.Results.as_pandas" href="inspectomop.results.Results.as_pandas.html" />
+    <link rel="prev" title="inspectomop.inspector.Inspector.table_info" href="inspectomop.inspector.Inspector.table_info.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="inspectomop.results.Results.as_pandas.html" title="inspectomop.results.Results.as_pandas"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inspectomop.inspector.Inspector.table_info.html" title="inspectomop.inspector.Inspector.table_info"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="inspectomop-results-results">
+<h1>inspectomop.results.Results<a class="headerlink" href="#inspectomop-results-results" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="inspectomop.results.Results">
+<em class="property">class </em><code class="descclassname">inspectomop.results.</code><code class="descname">Results</code><span class="sig-paren">(</span><em>results_proxy</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results" title="Permalink to this definition">¶</a></dt>
+<dd><p>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc. that can be used to retrieve rows of results from query execution.</p>
+<p>A subclass of sqlalchemy.engine.result.ResultProxy
+that adds additional methods for retreving query results as Pandas DataFrames.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>, <a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a></p>
+</div>
+<dl class="method">
+<dt id="inspectomop.results.Results.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>results_proxy</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#inspectomop.results.Results.__init__" title="inspectomop.results.Results.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(results_proxy)</td>
+<td>Initialize self.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas</span></code></a>()</td>
+<td>Return all rows from a <cite>results</cite> object as a pandas DataFrame</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas_chunks</span></code></a>(chunksize)</td>
+<td>Yields a pandas DataFrame with n_rows = chunksize</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</td>
+<td>Close this ResultProxy.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="inspectomop.results.Results.fetchall.html#inspectomop.results.Results.fetchall" title="inspectomop.results.Results.fetchall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchall</span></code></a>()</td>
+<td>Fetch all rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchall()</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="inspectomop.results.Results.fetchmany.html#inspectomop.results.Results.fetchmany" title="inspectomop.results.Results.fetchmany"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchmany</span></code></a>([size])</td>
+<td>Fetch many rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchmany(size=cursor.arraysize)</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="inspectomop.results.Results.fetchone.html#inspectomop.results.Results.fetchone" title="inspectomop.results.Results.fetchone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchone</span></code></a>()</td>
+<td>Fetch one row, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchone()</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">first</span></code>()</td>
+<td>Fetch the first row and then close the result set unconditionally.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</td>
+<td>Return the current set of string keys for rows.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_inserted_params</span></code>()</td>
+<td>Return the collection of inserted parameters from this execution.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_updated_params</span></code>()</td>
+<td>Return the collection of updated parameters from this execution.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">lastrow_has_defaults</span></code>()</td>
+<td>Return <code class="docutils literal notranslate"><span class="pre">lastrow_has_defaults()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">next</span></code>()</td>
+<td>Implement the next() protocol.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">postfetch_cols</span></code>()</td>
+<td>Return <code class="docutils literal notranslate"><span class="pre">postfetch_cols()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefetch_cols</span></code>()</td>
+<td>Return <code class="docutils literal notranslate"><span class="pre">prefetch_cols()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_rows</span></code>(rows)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalar</span></code>()</td>
+<td>Fetch the first column of the first row, and close the result set.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_multi_rowcount</span></code>()</td>
+<td>Return <code class="docutils literal notranslate"><span class="pre">supports_sane_multi_rowcount</span></code> from the dialect.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_rowcount</span></code>()</td>
+<td>Return <code class="docutils literal notranslate"><span class="pre">supports_sane_rowcount</span></code> from the dialect.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">closed</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">inserted_primary_key</span></code></td>
+<td>Return the primary key for the row just inserted.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_insert</span></code></td>
+<td>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">ResultProxy</span></code> is the result of a executing an expression language compiled <code class="xref py py-func docutils literal notranslate"><span class="pre">expression.insert()</span></code> construct.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">lastrowid</span></code></td>
+<td>return the ‘lastrowid’ accessor on the DBAPI cursor.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_parameters</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">returned_defaults</span></code></td>
+<td>Return the values of default columns that were fetched using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">ValuesBase.return_defaults()</span></code> feature.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">returns_rows</span></code></td>
+<td>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">ResultProxy</span></code> returns rows.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">rowcount</span></code></td>
+<td>Return the ‘rowcount’ for this result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#inspector">Inspector</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#results">Results</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#id3">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#id4">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#queries">Queries</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/inspectomop.results.Results.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="inspectomop.results.Results.as_pandas.html" title="inspectomop.results.Results.as_pandas"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inspectomop.inspector.Inspector.table_info.html" title="inspectomop.inspector.Inspector.table_info"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Jonathan Badger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

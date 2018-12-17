@@ -16,7 +16,9 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import os, sys
-sys.path.append(os.path.abspath('../'))
+import inspectomop
+sys.path.append(os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../sphinxext'))
 
 # -- Project information -----------------------------------------------------
 
@@ -25,9 +27,9 @@ copyright = '2018, Jonathan Badger'
 author = 'Jonathan Badger'
 
 # The short X.Y version
-version = ''
+version = str(inspectomop.__version__)
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -41,14 +43,17 @@ release = '0.1.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
+    'IPython.sphinxext.ipython_directive',
+    'IPython.sphinxext.ipython_console_highlighting',
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
     'sphinx.ext.napoleon'
 ]
 napoleon_numpy_docstring = True
-
+autosummary_generate = True
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -83,7 +88,7 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'nature'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -103,7 +108,10 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = {
+   '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html'],
+   'using/windows': ['windowssidebar.html', 'searchbox.html'],
+}
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
