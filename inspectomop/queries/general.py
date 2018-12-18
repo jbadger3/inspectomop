@@ -289,7 +289,7 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
     inspector : inspectomop.inspector.Inspector
     return_columns : list of str, optional
         - optional subset of columns to return from the query
-        - columns : ['ancestor_concept_id', 'ancestor_concept_name', 'ancestor_concept_code', 'ancestor_concept_class_id', 'vocabulary_id', 'min_levels_of_separation', 'max_levels_of_separation', 'relationship_id']
+        - columns : ['ancestor_concept_id', 'ancestor_concept_name', 'ancestor_concept_code', 'ancestor_concept_class_id', 'vocabulary_id', 'min_levels_of_separation', 'max_levels_of_separation']
 
     Returns
     -------
@@ -323,10 +323,9 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
     a = _alias(inspector.tables['concept_ancestor'],'a')
     c = _alias(inspector.tables['concept'],'c')
     va = _alias(inspector.tables['vocabulary'], 'va')
-    cr = _alias(inspector.tables['concept_relationship'])
     columns = [c.c.concept_id.label('ancestor_concept_id'), c.c.concept_name.label('ancestor_concept_name'), c.c.concept_code.label('ancestor_concept_code'), c.c.concept_class_id.label('ancestor_concept_class_id'),\
                c.c.vocabulary_id, va.c.vocabulary_name, a.c.min_levels_of_separation, \
-               a.c.max_levels_of_separation, cr.c.relationship_id]
+               a.c.max_levels_of_separation]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).\
@@ -334,9 +333,7 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
                     a.c.ancestor_concept_id == c.c.concept_id,\
                     c.c.vocabulary_id == va.c.vocabulary_id, \
                     a.c.ancestor_concept_id != a.c.descendant_concept_id, \
-                    a.c.descendant_concept_id == concept_id,\
-                    cr.c.concept_id_2 == a.c.ancestor_concept_id,\
-                    cr.c.concept_id_1 == a.c.descendant_concept_id)).\
+                    a.c.descendant_concept_id == concept_id)).\
                     order_by(c.c.vocabulary_id, a.c.min_levels_of_separation)
 
     return inspector.execute(statement)
