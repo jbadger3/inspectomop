@@ -289,7 +289,7 @@ def ancestors_for_concept_id(concept_id, inspector,return_columns=None):
     inspector : inspectomop.inspector.Inspector
     return_columns : list of str, optional
         - optional subset of columns to return from the query
-        - columns : ['ancestor_concept_id', 'ancestor_concept_name', 'ancestor_concept_code', 'ancestor_concept_class_id', 'vocabulary_id', 'min_levels_of_separation', 'max_levels_of_separation', relationship_id]
+        - columns : ['ancestor_concept_id', 'ancestor_concept_name', 'ancestor_concept_code', 'ancestor_concept_class_id', 'vocabulary_id', 'min_levels_of_separation', 'max_levels_of_separation', 'relationship_id']
 
     Returns
     -------
