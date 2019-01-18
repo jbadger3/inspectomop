@@ -24,6 +24,13 @@
     </a>
 </td>
 </tr>
+<tr>
+  <td>Usage Stats</td>
+  <td>
+    <img src="https://img.shields.io/pypi/dm/InspectOMOP.svg" alt="usage" />
+    </a>
+</td>
+</tr>
 </table>
 
 ## What is it?
