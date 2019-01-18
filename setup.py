@@ -20,6 +20,8 @@ setuptools.setup(
         classifiers=[
             'Programming Language :: Python :: 3',
             'Operating System :: OS Independent',
+            'License :: OSI Approved :: GNU Affero General Public License v3',
+            'Development Status :: 4 - Beta'
             ],
 
 	#extra_inclustions
