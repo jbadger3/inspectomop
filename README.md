@@ -4,8 +4,8 @@
 <tr>
   <td>Latest Release</td>
   <td>
-    <a href="https://pypi.org/project/InspectOMOP/">
-    <img src="https://img.shields.io/pypi/v/InspectOMOP.svg" alt="latest release" />
+    <a href="https://pypi.org/project/inspectomop/">
+    <img src="https://img.shields.io/pypi/v/inspectomop.svg" alt="latest release" />
     </a>
   </td>
 </tr>
@@ -19,8 +19,8 @@
 <tr>
   <td>License</td>
   <td>
-    <a href="https://github.com/pandas-dev/pandas/blob/master/LICENSE">
-    <img src="https://img.shields.io/pypi/l/InspectOMOP.svg" alt="license" />
+    <a href="https://github.com/jbadger3/inspectomop/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/jbadger3/inspectomop.svg" alt="license" />
     </a>
 </td>
 </tr>
