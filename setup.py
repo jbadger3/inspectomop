@@ -11,7 +11,7 @@ setuptools.setup(
         #descriptors
         name='inspectomop',
         version=version,
-        description='Database query tool for the OMOP Common Data Model', 
+        description='Database query tool for the OMOP Common Data Model',
         long_description=long_description,
         long_description_content_type="text/markdown",
         author='Jonathan Badger',
@@ -20,8 +20,10 @@ setuptools.setup(
         classifiers=[
             'Programming Language :: Python :: 3',
             'Operating System :: OS Independent',
+            'License :: OSI Approved :: GNU Affero General Public License v3',
+            'Development Status :: 4 - Beta'
             ],
-	
+
 	#extra_inclustions
     	package_data={'': ['VERSION.txt','*.sqlite3']},
     	include_package_data=True,
@@ -30,4 +32,3 @@ setuptools.setup(
         install_requires=['sqlalchemy>=1.2','pandas'],
         packages=setuptools.find_packages(),
         )
-

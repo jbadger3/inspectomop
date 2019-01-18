@@ -1,5 +1,31 @@
 # InspectOMOP
 
+<table>
+<tr>
+  <td>Latest Release</td>
+  <td>
+    <a href="https://pypi.org/project/InspectOMOP/">
+    <img src="https://img.shields.io/pypi/v/InspectOMOP.svg" alt="latest release" />
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>Package Status</td>
+  <td>
+		<a href="https://pypi.org/project/inspectomop/">
+		<img src="https://img.shields.io/pypi/status/inspectomop.svg" alt="status" /></td>
+		</a>
+</tr>
+<tr>
+  <td>License</td>
+  <td>
+    <a href="https://github.com/pandas-dev/pandas/blob/master/LICENSE">
+    <img src="https://img.shields.io/pypi/l/InspectOMOP.svg" alt="license" />
+    </a>
+</td>
+</tr>
+</table>
+
 ## What is it?
 
 **inspectomop** is a lightweight python 3 package that assists in the extraction of electronic health record(EHR) data from relational databases following the OHDSI OMOP Common Data Model(CDM) standard v>=5.  
@@ -16,7 +42,7 @@ One of the main benefits of adopting a CDM such as OMOP is that it promotes the 
 def my_query(inputs, inspector):
 
     # create SQL agnostic query usually of the form
-    
+
     statement = select([columns]).where(inputs == criteria)
 
     return inspector.execute(statement)
@@ -26,7 +52,7 @@ def my_query(inputs, inspector):
 
 **inspectomop** is for any python 3 programmer with an interest in interfacing with an EHR relational database formatted to follow the OMOP CDM standard.
 
-The OHDSI group has developed and excellent library of tools written in R, but there are few, if any tools, for the python community.
+The OHDSI group has developed an excellent library of tools and methods written in R, but there are few, if any tools, for the python community.
 
 
 ## Features
@@ -63,12 +89,14 @@ Note: compatibility is based solely on the availability of dialects written for 
 ```sh
 pip install inspectomop
 ```
-
 # Dependencies
 - [SQLAlchemy v>=1.2](https://www.sqlalchemy.org)
 - [Pandas](https://pandas.pydata.org)
 
 \* Developed using SQLAlchemy 1.2.1 and Pandas 0.22.0
+
+# Documentation
+Read the official [documentation](https://inpsectomop.readthedocs.io/en/master/) hosted on readthedocs for more information on usage and examples.
 
 # License
 Feel free to fork, copy, share and contribute.  This software released under [GNU Affero GPL v3.0](https://github.com/jbadger3/inspectomop/tree/maste/LICENSE.md)  
