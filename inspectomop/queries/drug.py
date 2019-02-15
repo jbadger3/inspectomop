@@ -8,7 +8,7 @@ Adapted from: https://github.com/OHDSI/OMOP-Queries
 from sqlalchemy import select as _select, join as _join,\
     union as _union, union_all as _union_all, \
     distinct as _distinct, between as  _between, alias as _alias, \
-    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
+    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func, subquery as _subquery
 
 
 def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None):
@@ -234,7 +234,9 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
 
 def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
     """
-    Find all indications for a drug given a concept_id.
+    Find all indications for a drug given a concept_id.  Returns matches from NDFRT, FDB, and corresponding SNOMED conditions.
+
+    *Note: The results set should be filtered by 'c_domain_id' == 'Condition'
 
     Parameters
     ----------
@@ -250,7 +252,7 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
 
     Notes
     -----
-    SQL
+    SQL (see 2nd example for actual implimentation)
 
     D13: Find indications as condition concepts for a drug::
 
@@ -276,25 +278,65 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
             an.concept_class_id in ('Ind / CI', 'Indication') -- One is for NDFRT, the other for FDB Indications
             and de.vocabulary_id in ('RxNorm', 'RxNorm Extension') -- You don't need that if you join directly with DRUG_EXPOSURE
             and lower(an.concept_name) like '%diabetes%'
+
+    To tie directly to SNOMED concepts, this query is used
+        select
+            c.concept_id as c_id,
+            c.concept_name as c_name,
+            c.vocabulary_id as c_vocab,
+            c.domain_id as c_domain,
+            c.concept_class_id as c_class, -- Condition
+            de.concept_id as de_id,
+            de.concept_name as de_name,
+            de.vocabulary_id as de_vocab,
+            de.domain_id as de_domain,
+            de.concept_class_id as de_class -- Drug
+        from
+            concept an -- Indications
+        join
+            concept_ancestor a on a.ancestor_concept_id=an.concept_id -- connect to
+        join
+            concept de on de.concept_id=a.descendant_concept_id -- ...drug
+        join
+            concept_relationship r on r.concept_id_1=an.concept_id -- connect to
+        join
+            concept c on c.concept_id=r.concept_id_2 and c.domain_id='Condition' -- Snomed Conditions
+        where
+            an.concept_class_id in ('Ind / CI', 'Indication')
+            and de.vocabulary_id in ('RxNorm', 'RxNorm Extension')
+            and lower(c.concept_name) like '%diabet%'
 """
+
+
+
     c = _alias(inspector.tables['concept'],'c')
     de  = _alias(inspector.tables['concept'],'de')
     an = _alias(inspector.tables['concept'],'an')
     a = _alias(inspector.tables['concept_ancestor'],'a')
     r = _alias(inspector.tables['concept_relationship'],'r')
+
+
     j1 = _join(a, an, a.c.ancestor_concept_id == an.c.concept_id)
     j2 = _join(de, j1, de.c.concept_id == a.c.descendant_concept_id)
     j3 = _join(j2, r, r.c.concept_id_1 == an.c.concept_id)
     domain_id = 'Condition'
-    j4 = _join(j3, c, _and_(c.c.concept_id == r.c.concept_id_2, c.c.domain_id==domain_id))
+    j4 = _join(j3, c, c.c.concept_id == r.c.concept_id_2)
 
     concept_class_ids = ['Ind / CI', 'Indication']
     vocab_ids= ['RxNorm', 'RxNorm Extension']
 
-    columns = [c.c.concept_id.label('c_concept_id'),c.c.concept_name.label('c_concept_name'),a.c.min_levels_of_separation, an.c.concept_id.label('an_concept_id'), an.c.concept_name.label('an_concept_name'), an.c.vocabulary_id.label('an_vocab'), de.c.concept_id.label('de_concept_id'), de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
+    columns = [c.c.concept_id.label('c_concept_id'), c.c.concept_name.label('c_concept_name'),\
+                c.c.domain_id.label('c_domain_id'),a.c.min_levels_of_separation,\
+                an.c.concept_id.label('an_concept_id'), an.c.concept_name.label('an_concept_name'),\
+                an.c.vocabulary_id.label('an_vocab'), de.c.concept_id.label('de_concept_id'),\
+                de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).\
-                select_from(j4).where(_and_(an.c.concept_class_id.in_(concept_class_ids), de.c.vocabulary_id.in_(vocab_ids), de.c.concept_id == concept_id))
+                select_from(j4).where(_and_(\
+                de.c.concept_id == concept_id,\
+                an.c.concept_class_id.in_(concept_class_ids),\
+                de.c.vocabulary_id.in_(vocab_ids)
+                ))
 
     return inspector.execute(statement)
