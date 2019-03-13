@@ -24,11 +24,12 @@ setuptools.setup(
             'Development Status :: 4 - Beta'
             ],
 
-	#extra_inclustions
-    	package_data={'': ['VERSION.txt','*.sqlite3']},
-    	include_package_data=True,
+        #extra_inclustions
+        packages=setuptools.find_packages(),
+        package_data={'inspectomop': ['VERSION.txt','test/*.sqlite3']},
+
         #requirements/dependencies
         python_requires='>=3.0',
         install_requires=['sqlalchemy>=1.2','pandas'],
-        packages=setuptools.find_packages(),
+
         )
