@@ -244,7 +244,11 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
     inspector : inspectomop.inspector.Inspector
     return_columns : list of str, optional
         - optional subset of columns to return from the query
-        - columns : ['relationship_name','concept_id','concept_name', 'vocabulary_id', 'vocabulary_name']
+        - columns : ['c_concept_id', 'c_concept_name',\
+                    'c_domain_id', 'min_levels_of_separation',\
+                    'an_concept_id', 'an_concept_name',\
+                    'an_vocab', 'de_concept_id',\
+                    de_concept_name', 'de_vocab']
 
     Returns
     -------
