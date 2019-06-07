@@ -15,7 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import os, sys
+import os, sys, datetime
 import inspectomop
 sys.path.append(os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../sphinxext'))
@@ -23,7 +23,8 @@ sys.path.insert(0, os.path.abspath('../sphinxext'))
 # -- Project information -----------------------------------------------------
 
 project = 'InspectOMOP'
-copyright = '2018, Jonathan Badger'
+year = datetime.date.today().year
+copyright = '{}, Jonathan Badger'.format(year)
 author = 'Jonathan Badger'
 
 # The short X.Y version
