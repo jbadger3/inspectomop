@@ -107,7 +107,7 @@ def synonyms_for_concept_ids(concept_ids, inspector,return_columns=None):
     if return_columns:
         col_names = ['concept_id', 'concept_synonym_name']
         filtered_col_names = list(filter(lambda x: x in col_names, return_columns))
-columns = [col for col in columns if col.key in filtered_col_names]
+        columns = [col for col in columns if col.key in filtered_col_names]
 
     statement = _select(columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.concept_id == concept_synonym.concept_id).where(concept.vocabulary_id==vocabulary.vocabulary_id)
     return inspector.execute(statement)
