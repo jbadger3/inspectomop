@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>inspectomop.queries.drug.indications_for_drug_concept_id &#8212; InspectOMOP 0.1.1 documentation</title>
+    <title>inspectomop.queries.drug.indications_for_drug_concept_id &#8212; InspectOMOP 0.1.5 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
       </ul>
     </div>  
@@ -46,7 +46,8 @@
 <dl class="function">
 <dt id="inspectomop.queries.drug.indications_for_drug_concept_id">
 <code class="descclassname">inspectomop.queries.drug.</code><code class="descname">indications_for_drug_concept_id</code><span class="sig-paren">(</span><em>concept_id</em>, <em>inspector</em>, <em>return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.drug.indications_for_drug_concept_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find all indications for a drug given a concept_id.</p>
+<dd><p>Find all indications for a drug given a concept_id.  Returns matches from NDFRT, FDB, and corresponding SNOMED conditions.</p>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>Note: The results set should be filtered by ‘c_domain_id’ == ‘Condition’</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -56,7 +57,7 @@
 <li><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </li>
 <li><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
 <li>optional subset of columns to return from the query</li>
-<li>columns : [‘relationship_name’,’concept_id’,’concept_name’, ‘vocabulary_id’, ‘vocabulary_name’]</li>
+<li>columns : [‘c_concept_id’, ‘c_concept_name’,                    ‘c_domain_id’, ‘min_levels_of_separation’,                    ‘an_concept_id’, ‘an_concept_name’,                    ‘an_vocab’, ‘de_concept_id’,                    de_concept_name’, ‘de_vocab’]</li>
 </ul>
 </li>
 </ul>
@@ -71,7 +72,7 @@
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>SQL</p>
+<p>SQL (see 2nd example for actual implimentation)</p>
 <p>D13: Find indications as condition concepts for a drug:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">select</span>
     <span class="n">a</span><span class="o">.</span><span class="n">min_levels_of_separation</span> <span class="k">as</span> <span class="n">a_min</span><span class="p">,</span>
@@ -97,6 +98,37 @@
     <span class="ow">and</span> <span class="n">lower</span><span class="p">(</span><span class="n">an</span><span class="o">.</span><span class="n">concept_name</span><span class="p">)</span> <span class="n">like</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">iabetes%&#39;</span>
 </pre></div>
 </div>
+<dl class="docutils">
+<dt>To tie directly to SNOMED concepts, this query is used</dt>
+<dd><dl class="first last docutils">
+<dt>select</dt>
+<dd>c.concept_id as c_id,
+c.concept_name as c_name,
+c.vocabulary_id as c_vocab,
+c.domain_id as c_domain,
+c.concept_class_id as c_class, – Condition
+de.concept_id as de_id,
+de.concept_name as de_name,
+de.vocabulary_id as de_vocab,
+de.domain_id as de_domain,
+de.concept_class_id as de_class – Drug</dd>
+<dt>from</dt>
+<dd>concept an – Indications</dd>
+<dt>join</dt>
+<dd>concept_ancestor a on a.ancestor_concept_id=an.concept_id – connect to</dd>
+<dt>join</dt>
+<dd>concept de on de.concept_id=a.descendant_concept_id – …drug</dd>
+<dt>join</dt>
+<dd>concept_relationship r on r.concept_id_1=an.concept_id – connect to</dd>
+<dt>join</dt>
+<dd>concept c on c.concept_id=r.concept_id_2 and c.domain_id=’Condition’ – Snomed Conditions</dd>
+<dt>where</dt>
+<dd>an.concept_class_id in (‘Ind / CI’, ‘Indication’)
+and de.vocabulary_id in (‘RxNorm’, ‘RxNorm Extension’)
+and lower(c.concept_name) like ‘%diabet%’</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -163,12 +195,12 @@
         <li class="right" >
           <a href="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Jonathan Badger.
+        &#169; Copyright 2019, Jonathan Badger.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Usage &#8212; InspectOMOP 0.1.1 documentation</title>
+    <title>Usage &#8212; InspectOMOP 0.1.5 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -145,14 +145,14 @@
 
 <span class="gp">In [16]: </span><span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="n">return_columns</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 <span class="gh">Out[16]: </span><span class="go"></span>
-<span class="go">[(&#39;Gender&#39;, 2),</span>
-<span class="go"> (&#39;Race&#39;, 3),</span>
-<span class="go"> (&#39;Ethnicity&#39;, 4),</span>
-<span class="go"> (&#39;Metadata&#39;, 7),</span>
-<span class="go"> (&#39;Visit&#39;, 8),</span>
-<span class="go"> (&#39;Procedure&#39;, 10),</span>
-<span class="go"> (&#39;Chronic kidney disease&#39;, 46271022),</span>
-<span class="go"> (&#39;2 ML Verapamil hydrochloride 2.5 MG/ML Injection&#39;, 46287342)]</span>
+<span class="go">[(2, &#39;Gender&#39;),</span>
+<span class="go"> (3, &#39;Race&#39;),</span>
+<span class="go"> (4, &#39;Ethnicity&#39;),</span>
+<span class="go"> (7, &#39;Metadata&#39;),</span>
+<span class="go"> (8, &#39;Visit&#39;),</span>
+<span class="go"> (10, &#39;Procedure&#39;),</span>
+<span class="go"> (46271022, &#39;Chronic kidney disease&#39;),</span>
+<span class="go"> (46287342, &#39;2 ML Verapamil hydrochloride 2.5 MG/ML Injection&#39;)]</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -271,12 +271,12 @@
 <span class="gh">Out[31]: </span><span class="go">sqlalchemy.ext.automap.person</span>
 
 <span class="gp">In [32]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x11c286db0&gt;</span>
+<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x11cf92830&gt;</span>
 
 <span class="go"># p_alias is an Alias object.</span>
 <span class="go"># Columns must be accessed using .c.column</span>
 <span class="gp">In [33]: </span><span class="n">p_alias</span>
-<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x11c3c5d68; p_alias&gt;</span>
+<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x11d15b128; p_alias&gt;</span>
 
 <span class="gp">In [34]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
 <span class="go">                                                                                                                                                                                    Out[34]: Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
@@ -315,23 +315,25 @@
 
 <span class="gp">In [42]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                      Out[42]: </span>
-<span class="go">   condition_start_date  condition_concept_id                                       concept_name</span>
-<span class="go">0            2010-03-12                 80502                                       Osteoporosis</span>
-<span class="go">1            2009-07-25                134736                                           Backache</span>
-<span class="go">2            2009-07-25                194133                                      Low back pain</span>
-<span class="go">3            2010-08-17                 30234                                        Neck sprain</span>
-<span class="go">4            2010-11-05                433990                 Subchronic catatonic schizophrenia</span>
-<span class="go">5            2009-10-14                435510                                       Hypocalcemia</span>
-<span class="go">6            2010-03-12                319835                           Congestive heart failure</span>
-<span class="go">7            2010-11-05                435783                                      Schizophrenia</span>
-<span class="go">8            2010-03-12                437469               Antiallergenic drug adverse reaction</span>
-<span class="go">9            2010-04-01                436665                                   Bipolar disorder</span>
-<span class="go">10           2010-03-12                437827                          Pure hypercholesterolemia</span>
-<span class="go">11           2009-10-14                439502                                 Postoperative pain</span>
-<span class="go">12           2010-04-01               4148842  Bipolar I disorder, single manic episode, in f...</span>
-<span class="go">13           2009-07-25                439082                                Menopausal syndrome</span>
-<span class="go">14           2009-07-25                444382                               Thoracic radiculitis</span>
-<span class="go">15           2010-03-12                192450                                 Retention of urine</span>
+<span class="go">   condition_start_date                        ...                                                               concept_name</span>
+<span class="go">0            2010-03-12                        ...                                                               Osteoporosis</span>
+<span class="go">1            2009-07-25                        ...                                                                   Backache</span>
+<span class="go">2            2009-07-25                        ...                                                              Low back pain</span>
+<span class="go">3            2010-08-17                        ...                                                                Neck sprain</span>
+<span class="go">4            2010-11-05                        ...                                         Subchronic catatonic schizophrenia</span>
+<span class="go">5            2009-10-14                        ...                                                               Hypocalcemia</span>
+<span class="go">6            2010-03-12                        ...                                                   Congestive heart failure</span>
+<span class="go">7            2010-11-05                        ...                                                              Schizophrenia</span>
+<span class="go">8            2010-03-12                        ...                                       Antiallergenic drug adverse reaction</span>
+<span class="go">9            2010-04-01                        ...                                                           Bipolar disorder</span>
+<span class="go">10           2010-03-12                        ...                                                  Pure hypercholesterolemia</span>
+<span class="go">11           2009-10-14                        ...                                                         Postoperative pain</span>
+<span class="go">12           2010-04-01                        ...                          Bipolar I disorder, single manic episode, in f...</span>
+<span class="go">13           2009-07-25                        ...                                                        Menopausal syndrome</span>
+<span class="go">14           2009-07-25                        ...                                                       Thoracic radiculitis</span>
+<span class="go">15           2010-03-12                        ...                                                         Retention of urine</span>
+
+<span class="go">[16 rows x 3 columns]</span>
 </pre></div>
 </div>
 <p>Count the number of inpatient and outpatient visits for each person broken down by visit type and sorted by person_id:</p>
@@ -512,11 +514,11 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Jonathan Badger.
+        &#169; Copyright 2019, Jonathan Badger.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
