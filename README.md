@@ -84,7 +84,7 @@ Below is a table comparing SQL dialect support for **inspectomop** versus the R 
 | SQL Server | Yes | Yes |
 | SQLite | Yes | Unknown |
 
-Note: compatibility is based solely on the availability of dialects written for SQLAlchemy and has not been explicitly tested by the author.  However, success stories and troubleshooting questions are welcome!
+Note: Compatibility is primarily based on the availability of dialects written for SQLAlchemy.  Most have not bee explicitly tested by the author with the exception of SQLite v2.6.0 and SQL Server 2016 Service Pack 1 (13.0.4001.0).  However, success stories and troubleshooting questions are welcome!
 
 #### \* BigQuery : python DB-API, but no sqlalchemy dialect as of 8/17/2018 (https://github.com/GoogleCloudPlatform/google-cloud-python/issues/3603)
 #### \* Impala : external dialect available via [impyla](https://pypi.org/project/impyla/) package
