@@ -365,10 +365,10 @@ def descendants_for_concept_id(concept_id, inspector,return_columns=None):
     G09: Find descendants for a given concept::
 
         SELECT
-            C.concept_id as ancestor_concept_id,
-            C.concept_name as ancestor_concept_name,
-            C.concept_code as ancestor_concept_code,
-            C.concept_class_id as ancestor_concept_class_id,
+            C.concept_id as descendant_concept_id,
+            C.concept_name as descendant_concept_name,
+            C.concept_code as descendant_concept_code,
+            C.concept_class_id as descendant_concept_class_id,
             C.vocabulary_id,
             VA.vocabulary_name,
             A.min_levels_of_separation,
@@ -403,7 +403,7 @@ def descendants_for_concept_id(concept_id, inspector,return_columns=None):
 
 def parents_for_concept_id(concept_id, inspector,return_columns=None):
     """
-    Find all descendant concepts for a concept_id.
+    Find all parent concepts for a concept_id.  (Ancestors whose level of separation is 1)
 
     Parameters
     ----------
