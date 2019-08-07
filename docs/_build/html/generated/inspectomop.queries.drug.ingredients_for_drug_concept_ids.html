@@ -1,19 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>inspectomop.queries.drug.ingredients_for_drug_concept_ids &#8212; InspectOMOP 0.1.5 documentation</title>
+    <meta charset="utf-8" />
+    <title>inspectomop.queries.drug.ingredients_for_drug_concept_ids &#8212; InspectOMOP 0.1.6 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names" href="inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names.html" />
@@ -31,7 +29,7 @@
         <li class="right" >
           <a href="inspectomop.queries.drug.indications_for_drug_concept_id.html" title="inspectomop.queries.drug.indications_for_drug_concept_id"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
       </ul>
     </div>  
@@ -45,56 +43,51 @@
 <h1>inspectomop.queries.drug.ingredients_for_drug_concept_ids<a class="headerlink" href="#inspectomop-queries-drug-ingredients-for-drug-concept-ids" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="inspectomop.queries.drug.ingredients_for_drug_concept_ids">
-<code class="descclassname">inspectomop.queries.drug.</code><code class="descname">ingredients_for_drug_concept_ids</code><span class="sig-paren">(</span><em>concept_ids</em>, <em>inspector</em>, <em>return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.drug.ingredients_for_drug_concept_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">inspectomop.queries.drug.</code><code class="sig-name descname">ingredients_for_drug_concept_ids</code><span class="sig-paren">(</span><em class="sig-param">concept_ids</em>, <em class="sig-param">inspector</em>, <em class="sig-param">return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.drug.ingredients_for_drug_concept_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get ingredients for brand or generic drug concept_ids.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>concept_id</strong> (<em>list of int</em>) – concept_ids corresponding to brand or generic drug concept_ids</li>
-<li><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </li>
-<li><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
-<li>optional subset of columns to return from the query</li>
-<li>columns : [‘drug_concept_id’, ‘drug_name’, ‘drug_concept_code’, ‘drug_concept_class’, ‘ingredient_concept_id’, ‘ingredient_name’, ‘ingredient_concept_code’, ‘ingredient_concept_class’]</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>concept_id</strong> (<em>list of int</em>) – concept_ids corresponding to brand or generic drug concept_ids</p></li>
+<li><p><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </p></li>
+<li><p><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
+<li><p>optional subset of columns to return from the query</p></li>
+<li><p>columns : [‘drug_concept_id’, ‘drug_name’, ‘drug_concept_code’, ‘drug_concept_class’, ‘ingredient_concept_id’, ‘ingredient_name’, ‘ingredient_concept_code’, ‘ingredient_concept_class’]</p></li>
 </ul>
-</li>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results">inspectomop.results.Results</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>results</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results">inspectomop.results.Results</a></p>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>Original SQL</p>
-<dl class="docutils">
-<dt>D03: Find ingredients of a drug::</dt>
-<dd><dl class="first last docutils">
-<dt>SELECT</dt>
-<dd>D.Concept_Id         drug_concept_id,
+<dl class="simple">
+<dt>D03: Find ingredients of a drug::</dt><dd><dl class="simple">
+<dt>SELECT</dt><dd><p>D.Concept_Id         drug_concept_id,
 D.Concept_Name       drug_name,
 D.Concept_Code       drug_concept_code,
 D.Concept_Class_id   drug_concept_class,
 A.Concept_Id         ingredient_concept_id,
 A.Concept_Name       ingredient_name,
 A.Concept_Code       ingredient_concept_code,
-A.Concept_Class_id   ingredient_concept_class</dd>
-<dt>FROM</dt>
-<dd>full_201706_omop_v5.concept_ancestor CA,
+A.Concept_Class_id   ingredient_concept_class</p>
+</dd>
+<dt>FROM</dt><dd><p>full_201706_omop_v5.concept_ancestor CA,
 full_201706_omop_v5.concept A,
-full_201706_omop_v5.concept D</dd>
-<dt>WHERE</dt>
-<dd>CA.descendant_concept_id = D.concept_id
+full_201706_omop_v5.concept D</p>
+</dd>
+<dt>WHERE</dt><dd><p>CA.descendant_concept_id = D.concept_id
 AND CA.ancestor_concept_id = A.concept_id
 AND LOWER(A.concept_class_id) = ‘ingredient’
 AND sysdate BETWEEN A.VALID_START_DATE AND A.VALID_END_DATE
 AND sysdate BETWEEN D.VALID_START_DATE AND D.VALID_END_DATE
-AND CA.descendant_concept_id IN (939355, 19102189, 19033566)</dd>
+AND CA.descendant_concept_id IN (939355, 19102189, 19033566)</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -108,7 +101,7 @@ AND CA.descendant_concept_id IN (939355, 19102189, 19033566)</dd>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="../index.html">Table Of Contents</a></h3>
+<h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
@@ -137,13 +130,11 @@ AND CA.descendant_concept_id IN (939355, 19102189, 19033566)</dd>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -164,13 +155,13 @@ AND CA.descendant_concept_id IN (939355, 19102189, 19033566)</dd>
         <li class="right" >
           <a href="inspectomop.queries.drug.indications_for_drug_concept_id.html" title="inspectomop.queries.drug.indications_for_drug_concept_id"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
     </div>
   </body>
 </html>

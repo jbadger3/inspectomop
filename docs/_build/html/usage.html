@@ -1,19 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Usage &#8212; InspectOMOP 0.1.5 documentation</title>
+    <meta charset="utf-8" />
+    <title>Usage &#8212; InspectOMOP 0.1.6 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api.html" />
@@ -31,7 +29,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -44,8 +42,8 @@
 <span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <p>There is a tiny SQLite database (1.4 MB) included with <strong>inspectomop</strong> to give first-time users a limited experimental playground and the ability to run code from the examples below.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Inspectomop does <strong>NOT</strong> contain EHR data from real patients.  The data are entirely synthetic and come from the <a class="reference external" href="https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html">SynPUF</a> dataset released by Centers for Medicaid and Medicare Services (CMS).</p>
+<p class="admonition-title">Note</p>
+<p>Inspectomop does <strong>NOT</strong> contain EHR data from real patients.  The data are entirely synthetic and come from the <a class="reference external" href="https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html">SynPUF</a> dataset released by Centers for Medicaid and Medicare Services (CMS).</p>
 </div>
 <div class="section" id="connecting-to-a-database">
 <h2>Connecting to a database<a class="headerlink" href="#connecting-to-a-database" title="Permalink to this headline">¶</a></h2>
@@ -63,8 +61,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">See the SQLAlchemy docs on <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html">engine configuration</a> for more details.</p>
+<p class="admonition-title">Note</p>
+<p>See the SQLAlchemy docs on <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html">engine configuration</a> for more details.</p>
 </div>
 <p>Here is an example URL for MySQL:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">mysql_url</span> <span class="o">=</span> <span class="s1">&#39;mysql://johnny:appleseed@localhost/omop&#39;</span>
@@ -156,8 +154,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You can get a list of columns a query returns by looking at the <cite>return_columns</cite> parameter in the docstring for each query.</p>
+<p class="admonition-title">Note</p>
+<p>You can get a list of columns a query returns by looking at the <cite>return_columns</cite> parameter in the docstring for each query.</p>
 </div>
 </div>
 </div>
@@ -165,8 +163,8 @@
 <h2>Specifying how results are returned<a class="headerlink" href="#specifying-how-results-are-returned" title="Permalink to this headline">¶</a></h2>
 <p>By default all queries return a <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> object.  Results objects behave like database cursors and have the expected methods such as .fetchone() and .fetchall() for fetching rows.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Results objects ultimately point back to the underlying DBAPI used for interacting with the DB (pymssql for SQL Server, sqlite3 for SQLite, etc).  More or less these should follow the <a class="reference external" href="https://www.python.org/dev/peps/pep-0249/">pythong DB API spec</a> for cursor objects.  Most of this is handled by SQLAlchemy.  <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> is a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.engine.ResultProxy</span></code> with additional methods for working with pandas.</p>
+<p class="admonition-title">Note</p>
+<p>Results objects ultimately point back to the underlying DBAPI used for interacting with the DB (pymssql for SQL Server, sqlite3 for SQLite, etc).  More or less these should follow the <a class="reference external" href="https://www.python.org/dev/peps/pep-0249/">pythong DB API spec</a> for cursor objects.  Most of this is handled by SQLAlchemy.  <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> is a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.engine.ResultProxy</span></code> with additional methods for working with pandas.</p>
 </div>
 <div class="section" id="fetching-examples">
 <h3>Fetching examples<a class="headerlink" href="#fetching-examples" title="Permalink to this headline">¶</a></h3>
@@ -258,7 +256,7 @@
 <p>SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the <a class="reference external" href="https://docs.sqlalchemy.org/en/rel_1_2/core/tutorial.html">SQL Expression Language Tutorial</a> and note the warning below.</p>
 <p>Below are a few simple examples of using SQLAlchemy expression language constructs for running queries on the OMOP CDM.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>Tables from Inspector.tables are actually mapped to ORM objects.  These are <em>NOT</em> the same as <cite>Table</cite> objects from the SQLAlchemy Core API, although they can be used in nearly identical fashion in SQL Expressions with the following caveat about accessing table columns:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">alias</span>
 
@@ -271,12 +269,12 @@
 <span class="gh">Out[31]: </span><span class="go">sqlalchemy.ext.automap.person</span>
 
 <span class="gp">In [32]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x11cf92830&gt;</span>
+<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x119ca7518&gt;</span>
 
 <span class="go"># p_alias is an Alias object.</span>
 <span class="go"># Columns must be accessed using .c.column</span>
 <span class="gp">In [33]: </span><span class="n">p_alias</span>
-<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x11d15b128; p_alias&gt;</span>
+<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x119d59b38; p_alias&gt;</span>
 
 <span class="gp">In [34]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
 <span class="go">                                                                                                                                                                                    Out[34]: Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
@@ -285,13 +283,13 @@
 <span class="gp">In [35]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">person_id</span>
 <span class="go">                                                                                                                                                                                                                                                                               ---------------------------------------------------------------------------</span>
 <span class="go">AttributeError                            Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-35-a8a43d4647a5&gt; in &lt;module&gt;()</span>
+<span class="go">&lt;ipython-input-35-a8a43d4647a5&gt; in &lt;module&gt;</span>
 <span class="go">----&gt; 1 p_alias.person_id</span>
 
 <span class="go">AttributeError: &#39;Alias&#39; object has no attribute &#39;person_id&#39;</span>
 </pre></div>
 </div>
-<p class="last"><em>Explanation:</em> Using a portion of the SQLAlchemy ORM to infer table structure was a conscious design decision.  Although it makes for a bit of confusion when constructing queries with SQL expressions users that work in an interactive development environment (iPython, Jupyter Notebooks, etc.) get the benefit of dot accessible column properties.  In addition, automapping alleviates compatibility issues that would inevitably arise with hard-coded table structures on future versions of the OMOP CDM.</p>
+<p><em>Explanation:</em> Using a portion of the SQLAlchemy ORM to infer table structure was a conscious design decision.  Although it makes for a bit of confusion when constructing queries with SQL expressions users that work in an interactive development environment (iPython, Jupyter Notebooks, etc.) get the benefit of dot accessible column properties.  In addition, automapping alleviates compatibility issues that would inevitably arise with hard-coded table structures on future versions of the OMOP CDM.</p>
 </div>
 <p>Select all of the conditions for person 1:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">and_</span>
@@ -315,23 +313,23 @@
 
 <span class="gp">In [42]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                      Out[42]: </span>
-<span class="go">   condition_start_date                        ...                                                               concept_name</span>
-<span class="go">0            2010-03-12                        ...                                                               Osteoporosis</span>
-<span class="go">1            2009-07-25                        ...                                                                   Backache</span>
-<span class="go">2            2009-07-25                        ...                                                              Low back pain</span>
-<span class="go">3            2010-08-17                        ...                                                                Neck sprain</span>
-<span class="go">4            2010-11-05                        ...                                         Subchronic catatonic schizophrenia</span>
-<span class="go">5            2009-10-14                        ...                                                               Hypocalcemia</span>
-<span class="go">6            2010-03-12                        ...                                                   Congestive heart failure</span>
-<span class="go">7            2010-11-05                        ...                                                              Schizophrenia</span>
-<span class="go">8            2010-03-12                        ...                                       Antiallergenic drug adverse reaction</span>
-<span class="go">9            2010-04-01                        ...                                                           Bipolar disorder</span>
-<span class="go">10           2010-03-12                        ...                                                  Pure hypercholesterolemia</span>
-<span class="go">11           2009-10-14                        ...                                                         Postoperative pain</span>
-<span class="go">12           2010-04-01                        ...                          Bipolar I disorder, single manic episode, in f...</span>
-<span class="go">13           2009-07-25                        ...                                                        Menopausal syndrome</span>
-<span class="go">14           2009-07-25                        ...                                                       Thoracic radiculitis</span>
-<span class="go">15           2010-03-12                        ...                                                         Retention of urine</span>
+<span class="go">   condition_start_date  ...                                       concept_name</span>
+<span class="go">0            2010-03-12  ...                                       Osteoporosis</span>
+<span class="go">1            2009-07-25  ...                                           Backache</span>
+<span class="go">2            2009-07-25  ...                                      Low back pain</span>
+<span class="go">3            2010-08-17  ...                                        Neck sprain</span>
+<span class="go">4            2010-11-05  ...                 Subchronic catatonic schizophrenia</span>
+<span class="go">5            2009-10-14  ...                                       Hypocalcemia</span>
+<span class="go">6            2010-03-12  ...                           Congestive heart failure</span>
+<span class="go">7            2010-11-05  ...                                      Schizophrenia</span>
+<span class="go">8            2010-03-12  ...               Antiallergenic drug adverse reaction</span>
+<span class="go">9            2010-04-01  ...                                   Bipolar disorder</span>
+<span class="go">10           2010-03-12  ...                          Pure hypercholesterolemia</span>
+<span class="go">11           2009-10-14  ...                                 Postoperative pain</span>
+<span class="go">12           2010-04-01  ...  Bipolar I disorder, single manic episode, in f...</span>
+<span class="go">13           2009-07-25  ...                                Menopausal syndrome</span>
+<span class="go">14           2009-07-25  ...                               Thoracic radiculitis</span>
+<span class="go">15           2010-03-12  ...                                 Retention of urine</span>
 
 <span class="go">[16 rows x 3 columns]</span>
 </pre></div>
@@ -373,8 +371,8 @@
 <h3>From Strings<a class="headerlink" href="#from-strings" title="Permalink to this headline">¶</a></h3>
 <p>You <cite>can</cite> execute unaltered SQL strings directly, but remember to always used parametrized code for shared/production projects.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Only use strings for rapid prototyping and in-house projects! Executing strings directly breaks backend compatibility and can potentially lead to SQL injection attacks!</p>
+<p class="admonition-title">Warning</p>
+<p>Only use strings for rapid prototyping and in-house projects! Executing strings directly breaks backend compatibility and can potentially lead to SQL injection attacks!</p>
 </div>
 <p>Example:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [50]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select person_id from person&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
@@ -398,9 +396,9 @@
 <p>Custom queries that may prove useful to the OMOP CDM community can easily be shared by wrapping them in a function and following a standard recipe.  <a class="reference external" href="https://github.com/jbadger3/inspectomop">View the source code</a> on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).</p>
 <p>In general, consider the following:</p>
 <ul class="simple">
-<li>appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. <cite>concepts_for_concept_ids</cite></li>
-<li>the return value for a query should <cite>always</cite> be a <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> object.  This provides consistency and gives the end-user control over how to process the results.</li>
-<li>write a docstring following the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc docstring guide</a> to accompany your code.</li>
+<li><p>appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. <cite>concepts_for_concept_ids</cite></p></li>
+<li><p>the return value for a query should <cite>always</cite> be a <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> object.  This provides consistency and gives the end-user control over how to process the results.</p></li>
+<li><p>write a docstring following the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc docstring guide</a> to accompany your code.</p></li>
 </ul>
 <p>Prototype:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">output_for_input</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -448,7 +446,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
@@ -487,13 +485,11 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -514,12 +510,12 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
     </div>
   </body>
 </html>

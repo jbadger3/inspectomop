@@ -1,19 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API Reference &#8212; InspectOMOP 0.1.5 documentation</title>
+    <meta charset="utf-8" />
+    <title>API Reference &#8212; InspectOMOP 0.1.6 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="inspectomop.inspector.Inspector" href="generated/inspectomop.inspector.Inspector.html" />
@@ -31,7 +29,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,72 +45,72 @@
 <p><cite>inspectomop.Inspector</cite></p>
 <div class="section" id="constructor">
 <h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector</span></code></a>(connection_url)</td>
-<td>Creates an Inspector object which can be used to run OMOP data queries</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector</span></code></a>(connection_url)</p></td>
+<td><p>Creates an Inspector object which can be used to run OMOP data queries</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="attributes">
 <h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.connection_url.html#inspectomop.inspector.Inspector.connection_url" title="inspectomop.inspector.Inspector.connection_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.connection_url</span></code></a></td>
-<td><a href="#id1"><span class="problematic" id="id2">**</span></a>A URL of the form ‘dialect+driver* – //username* – <a class="reference external" href="mailto:password&#37;&#52;&#48;host">password<span>&#64;</span>host</a>:port/database’ used to specify the dialect, location, etc.of the database..</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.connection_url.html#inspectomop.inspector.Inspector.connection_url" title="inspectomop.inspector.Inspector.connection_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.connection_url</span></code></a></p></td>
+<td><p><a class="reference external" href="mailto:password&#37;&#52;&#48;host">password<span>&#64;</span>host</a>:port/database’ used to specify the dialect, location, etc.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.engine.html#inspectomop.inspector.Inspector.engine" title="inspectomop.inspector.Inspector.engine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.engine</span></code></a></td>
-<td>A convenience hook to the underlying sqlalchemy engine.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.engine.html#inspectomop.inspector.Inspector.engine" title="inspectomop.inspector.Inspector.engine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.engine</span></code></a></p></td>
+<td><p>A convenience hook to the underlying sqlalchemy engine.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.tables.html#inspectomop.inspector.Inspector.tables" title="inspectomop.inspector.Inspector.tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.tables</span></code></a></td>
-<td>A dictionary containing all OMOP CDM tables in the connected database.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.tables.html#inspectomop.inspector.Inspector.tables" title="inspectomop.inspector.Inspector.tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.tables</span></code></a></p></td>
+<td><p>A dictionary containing all OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.vocabularies_tables.html#inspectomop.inspector.Inspector.vocabularies_tables" title="inspectomop.inspector.Inspector.vocabularies_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.vocabularies_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Vocabularies</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.vocabularies_tables.html#inspectomop.inspector.Inspector.vocabularies_tables" title="inspectomop.inspector.Inspector.vocabularies_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.vocabularies_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Vocabularies</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.metadata_tables.html#inspectomop.inspector.Inspector.metadata_tables" title="inspectomop.inspector.Inspector.metadata_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.metadata_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.metadata_tables.html#inspectomop.inspector.Inspector.metadata_tables" title="inspectomop.inspector.Inspector.metadata_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.metadata_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.clinical_tables.html#inspectomop.inspector.Inspector.clinical_tables" title="inspectomop.inspector.Inspector.clinical_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.clinical_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Clinical</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.clinical_tables.html#inspectomop.inspector.Inspector.clinical_tables" title="inspectomop.inspector.Inspector.clinical_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.clinical_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Clinical</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.health_system_tables.html#inspectomop.inspector.Inspector.health_system_tables" title="inspectomop.inspector.Inspector.health_system_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.health_system_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Health</span> <span class="pre">System</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.health_system_tables.html#inspectomop.inspector.Inspector.health_system_tables" title="inspectomop.inspector.Inspector.health_system_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.health_system_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Health</span> <span class="pre">System</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.health_economics_tables.html#inspectomop.inspector.Inspector.health_economics_tables" title="inspectomop.inspector.Inspector.health_economics_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.health_economics_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Health</span> <span class="pre">Economics</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.health_economics_tables.html#inspectomop.inspector.Inspector.health_economics_tables" title="inspectomop.inspector.Inspector.health_economics_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.health_economics_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Health</span> <span class="pre">Economics</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.derived_elements_tables.html#inspectomop.inspector.Inspector.derived_elements_tables" title="inspectomop.inspector.Inspector.derived_elements_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.derived_elements_tables</span></code></a></td>
-<td>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Derived</span> <span class="pre">Elements</span></code> OMOP CDM tables in the connected database.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.derived_elements_tables.html#inspectomop.inspector.Inspector.derived_elements_tables" title="inspectomop.inspector.Inspector.derived_elements_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.derived_elements_tables</span></code></a></p></td>
+<td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Derived</span> <span class="pre">Elements</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="methods">
 <h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.attach_sqlite_db.html#inspectomop.inspector.Inspector.attach_sqlite_db" title="inspectomop.inspector.Inspector.attach_sqlite_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.attach_sqlite_db</span></code></a>(db_file,&nbsp;schema_name)</td>
-<td>For SQLite backends, attaches an additional sqlite database file.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.attach_sqlite_db.html#inspectomop.inspector.Inspector.attach_sqlite_db" title="inspectomop.inspector.Inspector.attach_sqlite_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.attach_sqlite_db</span></code></a>(db_file, schema_name)</p></td>
+<td><p>For SQLite backends, attaches an additional sqlite database file.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.execute.html#inspectomop.inspector.Inspector.execute" title="inspectomop.inspector.Inspector.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.execute</span></code></a>(statement)</td>
-<td>Executes an SQL query on the OMOP CDM.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.execute.html#inspectomop.inspector.Inspector.execute" title="inspectomop.inspector.Inspector.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.execute</span></code></a>(statement)</p></td>
+<td><p>Executes an SQL query on the OMOP CDM.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.inspector.Inspector.table_info.html#inspectomop.inspector.Inspector.table_info" title="inspectomop.inspector.Inspector.table_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.table_info</span></code></a>(table_name)</td>
-<td>Return a Pandas DataFrame describing the fields and properties of a table.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.table_info.html#inspectomop.inspector.Inspector.table_info" title="inspectomop.inspector.Inspector.table_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.table_info</span></code></a>(table_name)</p></td>
+<td><p>Return a Pandas DataFrame describing the fields and properties of a table.</p></td>
 </tr>
 </tbody>
 </table>
@@ -121,68 +119,68 @@
 <div class="section" id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
 <p><cite>inspectomop.Results</cite></p>
-<div class="section" id="id3">
-<h3>Constructor<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="longtable docutils">
+<div class="section" id="id1">
+<h3>Constructor<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results</span></code></a>(results_proxy)</td>
-<td>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results</span></code></a>(results_proxy)</p></td>
+<td><p>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Although a public constructor exists, <cite>Results</cite> objects are meant to be instantiated indirectly from calls to <cite>inspector.execute()</cite></p>
+<p class="admonition-title">Warning</p>
+<p>Although a public constructor exists, <cite>Results</cite> objects are meant to be instantiated indirectly from calls to <cite>inspector.execute()</cite></p>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>Methods<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="longtable docutils">
+<div class="section" id="id2">
+<h3>Methods<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>()</td>
-<td>Return all rows from a <cite>results</cite> object as a pandas DataFrame</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>()</p></td>
+<td><p>Return all rows from a <cite>results</cite> object as a pandas DataFrame</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a>(chunksize)</td>
-<td>Yields a pandas DataFrame with n_rows = chunksize</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a>(chunksize)</p></td>
+<td><p>Yields a pandas DataFrame with n_rows = chunksize</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.results.Results.fetchone.html#inspectomop.results.Results.fetchone" title="inspectomop.results.Results.fetchone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchone</span></code></a>()</td>
-<td>Fetch one row, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchone()</span></code>.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.fetchone.html#inspectomop.results.Results.fetchone" title="inspectomop.results.Results.fetchone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchone</span></code></a>()</p></td>
+<td><p>Fetch one row, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchone()</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.results.Results.fetchmany.html#inspectomop.results.Results.fetchmany" title="inspectomop.results.Results.fetchmany"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchmany</span></code></a>([size])</td>
-<td>Fetch many rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchmany(size=cursor.arraysize)</span></code>.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.fetchmany.html#inspectomop.results.Results.fetchmany" title="inspectomop.results.Results.fetchmany"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchmany</span></code></a>([size])</p></td>
+<td><p>Fetch many rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchmany(size=cursor.arraysize)</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.results.Results.fetchall.html#inspectomop.results.Results.fetchall" title="inspectomop.results.Results.fetchall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchall</span></code></a>()</td>
-<td>Fetch all rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchall()</span></code>.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.fetchall.html#inspectomop.results.Results.fetchall" title="inspectomop.results.Results.fetchall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.fetchall</span></code></a>()</p></td>
+<td><p>Fetch all rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchall()</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="section" id="queries">
-<span id="id5"></span><h2>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h2>
 <p><cite>inspectomop.queries</cite></p>
 <div class="section" id="care-site">
 <h3>Care Site<a class="headerlink" href="#care-site" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.care_site</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.care_site.facility_counts_by_type.html#inspectomop.queries.care_site.facility_counts_by_type" title="inspectomop.queries.care_site.facility_counts_by_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">facility_counts_by_type</span></code></a>(inspector[,&nbsp;…])</td>
-<td>Returns facility counts by type in the OMOP CDM i.e.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.care_site.facility_counts_by_type.html#inspectomop.queries.care_site.facility_counts_by_type" title="inspectomop.queries.care_site.facility_counts_by_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">facility_counts_by_type</span></code></a>(inspector[, …])</p></td>
+<td><p>Returns facility counts by type in the OMOP CDM i.e.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.care_site.patient_counts_by_care_site_type.html#inspectomop.queries.care_site.patient_counts_by_care_site_type" title="inspectomop.queries.care_site.patient_counts_by_care_site_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_care_site_type</span></code></a>(inspector)</td>
-<td>Returns pateints counts by facility type.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.care_site.patient_counts_by_care_site_type.html#inspectomop.queries.care_site.patient_counts_by_care_site_type" title="inspectomop.queries.care_site.patient_counts_by_care_site_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_care_site_type</span></code></a>(inspector)</p></td>
+<td><p>Returns pateints counts by facility type.</p></td>
 </tr>
 </tbody>
 </table>
@@ -190,41 +188,41 @@
 <div class="section" id="condition">
 <h3>Condition<a class="headerlink" href="#condition" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.condition</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.condition.anatomical_site_by_keyword.html#inspectomop.queries.condition.anatomical_site_by_keyword" title="inspectomop.queries.condition.anatomical_site_by_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anatomical_site_by_keyword</span></code></a>(keyword,&nbsp;inspector)</td>
-<td>Retrieves anitomical site concepts given a keyword.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.anatomical_site_by_keyword.html#inspectomop.queries.condition.anatomical_site_by_keyword" title="inspectomop.queries.condition.anatomical_site_by_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anatomical_site_by_keyword</span></code></a>(keyword, inspector)</p></td>
+<td><p>Retrieves anitomical site concepts given a keyword.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concept_for_concept_id.html#inspectomop.queries.condition.condition_concept_for_concept_id" title="inspectomop.queries.condition.condition_concept_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concept_for_concept_id</span></code></a>(concept_id,&nbsp;…)</td>
-<td>Retrieves the condition concept for a condition_concept_id.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concept_for_concept_id.html#inspectomop.queries.condition.condition_concept_for_concept_id" title="inspectomop.queries.condition.condition_concept_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concept_for_concept_id</span></code></a>(concept_id, …)</p></td>
+<td><p>Retrieves the condition concept for a condition_concept_id.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_for_keyword.html#inspectomop.queries.condition.condition_concepts_for_keyword" title="inspectomop.queries.condition.condition_concepts_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_for_keyword</span></code></a>(keyword,&nbsp;…)</td>
-<td>Retrieves standard concepts for a condition/keyword.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_for_keyword.html#inspectomop.queries.condition.condition_concepts_for_keyword" title="inspectomop.queries.condition.condition_concepts_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_for_keyword</span></code></a>(keyword, …)</p></td>
+<td><p>Retrieves standard concepts for a condition/keyword.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_for_source_codes.html#inspectomop.queries.condition.condition_concepts_for_source_codes" title="inspectomop.queries.condition.condition_concepts_for_source_codes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_for_source_codes</span></code></a>(…[,&nbsp;…])</td>
-<td>Retrieves standard condition concepts for source codes.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_for_source_codes.html#inspectomop.queries.condition.condition_concepts_for_source_codes" title="inspectomop.queries.condition.condition_concepts_for_source_codes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_for_source_codes</span></code></a>(…[, …])</p></td>
+<td><p>Retrieves standard condition concepts for source codes.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id.html#inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id" title="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_occurring_at_anatomical_site_concept_id</span></code></a>(…)</td>
-<td>Retrieves condition concepts that occur at a given anatomical site.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id.html#inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id" title="inspectomop.queries.condition.condition_concepts_occurring_at_anatomical_site_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concepts_occurring_at_anatomical_site_concept_id</span></code></a>(…)</p></td>
+<td><p>Retrieves condition concepts that occur at a given anatomical site.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id.html#inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id" title="inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditions_caused_by_pathogen_or_causative_agent_concept_id</span></code></a>(…)</td>
-<td>Retreives all conditions caused by a pathogen or other causative agent concept_id.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id.html#inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id" title="inspectomop.queries.condition.conditions_caused_by_pathogen_or_causative_agent_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditions_caused_by_pathogen_or_causative_agent_concept_id</span></code></a>(…)</p></td>
+<td><p>Retreives all conditions caused by a pathogen or other causative agent concept_id.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.condition.disease_causing_agents_for_keyword.html#inspectomop.queries.condition.disease_causing_agents_for_keyword" title="inspectomop.queries.condition.disease_causing_agents_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disease_causing_agents_for_keyword</span></code></a>(keyword,&nbsp;…)</td>
-<td>Retrieves disease causing agents by keyword.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.disease_causing_agents_for_keyword.html#inspectomop.queries.condition.disease_causing_agents_for_keyword" title="inspectomop.queries.condition.disease_causing_agents_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disease_causing_agents_for_keyword</span></code></a>(keyword, …)</p></td>
+<td><p>Retrieves disease causing agents by keyword.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.condition.source_codes_for_concept_ids.html#inspectomop.queries.condition.source_codes_for_concept_ids" title="inspectomop.queries.condition.source_codes_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source_codes_for_concept_ids</span></code></a>(concept_ids,&nbsp;…)</td>
-<td>Retreives source condition concepts for OMOP concept_ids.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.source_codes_for_concept_ids.html#inspectomop.queries.condition.source_codes_for_concept_ids" title="inspectomop.queries.condition.source_codes_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source_codes_for_concept_ids</span></code></a>(concept_ids, …)</p></td>
+<td><p>Retreives source condition concepts for OMOP concept_ids.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.condition.pathogen_concept_for_keyword.html#inspectomop.queries.condition.pathogen_concept_for_keyword" title="inspectomop.queries.condition.pathogen_concept_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathogen_concept_for_keyword</span></code></a>(keyword,&nbsp;inspector)</td>
-<td>Retrieves pathogen concepts based on a keyword with ‘Organsim’ as the concept_class_id.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.pathogen_concept_for_keyword.html#inspectomop.queries.condition.pathogen_concept_for_keyword" title="inspectomop.queries.condition.pathogen_concept_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathogen_concept_for_keyword</span></code></a>(keyword, inspector)</p></td>
+<td><p>Retrieves pathogen concepts based on a keyword with ‘Organsim’ as the concept_class_id.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id.html#inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id" title="inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_of_service_counts_for_condition_concept_id</span></code></a>(…)</td>
-<td>Provides counts of conditions stratified by place_of_service (Office, Inpatient Hospital, etc.)</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id.html#inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id" title="inspectomop.queries.condition.place_of_service_counts_for_condition_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_of_service_counts_for_condition_concept_id</span></code></a>(…)</p></td>
+<td><p>Provides counts of conditions stratified by place_of_service (Office, Inpatient Hospital, etc.)</p></td>
 </tr>
 </tbody>
 </table>
@@ -232,26 +230,26 @@
 <div class="section" id="drug">
 <h3>Drug<a class="headerlink" href="#drug" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.drug</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.drug.drug_classes_for_drug_concept_id.html#inspectomop.queries.drug.drug_classes_for_drug_concept_id" title="inspectomop.queries.drug.drug_classes_for_drug_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drug_classes_for_drug_concept_id</span></code></a>(concept_id,&nbsp;…)</td>
-<td>Returns drug classes for drug or ingredient concept_ids.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.drug.drug_classes_for_drug_concept_id.html#inspectomop.queries.drug.drug_classes_for_drug_concept_id" title="inspectomop.queries.drug.drug_classes_for_drug_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drug_classes_for_drug_concept_id</span></code></a>(concept_id, …)</p></td>
+<td><p>Returns drug classes for drug or ingredient concept_ids.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html#inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drug_concepts_for_ingredient_concept_id</span></code></a>(…)</td>
-<td>Get all drugs that contain a given ingredient.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html#inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drug_concepts_for_ingredient_concept_id</span></code></a>(…)</p></td>
+<td><p>Get all drugs that contain a given ingredient.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.drug.indications_for_drug_concept_id.html#inspectomop.queries.drug.indications_for_drug_concept_id" title="inspectomop.queries.drug.indications_for_drug_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">indications_for_drug_concept_id</span></code></a>(concept_id,&nbsp;…)</td>
-<td>Find all indications for a drug given a concept_id.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.drug.indications_for_drug_concept_id.html#inspectomop.queries.drug.indications_for_drug_concept_id" title="inspectomop.queries.drug.indications_for_drug_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">indications_for_drug_concept_id</span></code></a>(concept_id, …)</p></td>
+<td><p>Find all indications for a drug given a concept_id.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.drug.ingredients_for_drug_concept_ids.html#inspectomop.queries.drug.ingredients_for_drug_concept_ids" title="inspectomop.queries.drug.ingredients_for_drug_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ingredients_for_drug_concept_ids</span></code></a>(…[,&nbsp;…])</td>
-<td>Get ingredients for brand or generic drug concept_ids.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.drug.ingredients_for_drug_concept_ids.html#inspectomop.queries.drug.ingredients_for_drug_concept_ids" title="inspectomop.queries.drug.ingredients_for_drug_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ingredients_for_drug_concept_ids</span></code></a>(…[, …])</p></td>
+<td><p>Get ingredients for brand or generic drug concept_ids.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names.html#inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names" title="inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ingredient_concept_ids_for_ingredient_names</span></code></a>(…)</td>
-<td>Get concept_ids for a list of ingredients.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names.html#inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names" title="inspectomop.queries.drug.ingredient_concept_ids_for_ingredient_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ingredient_concept_ids_for_ingredient_names</span></code></a>(…)</p></td>
+<td><p>Get concept_ids for a list of ingredients.</p></td>
 </tr>
 </tbody>
 </table>
@@ -259,38 +257,38 @@
 <div class="section" id="general">
 <h3>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.general</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.general.ancestors_for_concept_id.html#inspectomop.queries.general.ancestors_for_concept_id" title="inspectomop.queries.general.ancestors_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ancestors_for_concept_id</span></code></a>(concept_id,&nbsp;inspector)</td>
-<td>Find all ancestor concepts for a concept_id.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.ancestors_for_concept_id.html#inspectomop.queries.general.ancestors_for_concept_id" title="inspectomop.queries.general.ancestors_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ancestors_for_concept_id</span></code></a>(concept_id, inspector)</p></td>
+<td><p>Find all ancestor concepts for a concept_id.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.general.children_for_concept_id.html#inspectomop.queries.general.children_for_concept_id" title="inspectomop.queries.general.children_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children_for_concept_id</span></code></a>(concept_id,&nbsp;inspector)</td>
-<td>Find all child concepts for a concept_id.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.children_for_concept_id.html#inspectomop.queries.general.children_for_concept_id" title="inspectomop.queries.general.children_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children_for_concept_id</span></code></a>(concept_id, inspector)</p></td>
+<td><p>Find all child concepts for a concept_id.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.general.concepts_for_concept_ids.html#inspectomop.queries.general.concepts_for_concept_ids" title="inspectomop.queries.general.concepts_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concepts_for_concept_ids</span></code></a>(concept_ids,&nbsp;inspector)</td>
-<td>Returns concept information for a list of concept_ids</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.concepts_for_concept_ids.html#inspectomop.queries.general.concepts_for_concept_ids" title="inspectomop.queries.general.concepts_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concepts_for_concept_ids</span></code></a>(concept_ids, inspector)</p></td>
+<td><p>Returns concept information for a list of concept_ids</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.general.descendants_for_concept_id.html#inspectomop.queries.general.descendants_for_concept_id" title="inspectomop.queries.general.descendants_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants_for_concept_id</span></code></a>(concept_id,&nbsp;inspector)</td>
-<td>Find all descendant concepts for a concept_id.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.descendants_for_concept_id.html#inspectomop.queries.general.descendants_for_concept_id" title="inspectomop.queries.general.descendants_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants_for_concept_id</span></code></a>(concept_id, inspector)</p></td>
+<td><p>Find all descendant concepts for a concept_id.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.general.parents_for_concept_id.html#inspectomop.queries.general.parents_for_concept_id" title="inspectomop.queries.general.parents_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parents_for_concept_id</span></code></a>(concept_id,&nbsp;inspector)</td>
-<td>Find all descendant concepts for a concept_id.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.parents_for_concept_id.html#inspectomop.queries.general.parents_for_concept_id" title="inspectomop.queries.general.parents_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parents_for_concept_id</span></code></a>(concept_id, inspector)</p></td>
+<td><p>Find all parent concepts for a concept_id.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.general.related_concepts_for_concept_id.html#inspectomop.queries.general.related_concepts_for_concept_id" title="inspectomop.queries.general.related_concepts_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">related_concepts_for_concept_id</span></code></a>(concept_id,&nbsp;…)</td>
-<td>Find all concepts related to a concept_id.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.related_concepts_for_concept_id.html#inspectomop.queries.general.related_concepts_for_concept_id" title="inspectomop.queries.general.related_concepts_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">related_concepts_for_concept_id</span></code></a>(concept_id, …)</p></td>
+<td><p>Find all concepts related to a concept_id.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.general.siblings_for_concept_id.html#inspectomop.queries.general.siblings_for_concept_id" title="inspectomop.queries.general.siblings_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">siblings_for_concept_id</span></code></a>(concept_id,&nbsp;inspector)</td>
-<td>Find all sibling concepts for a concept_id i.e.(concepts that share common parents).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.siblings_for_concept_id.html#inspectomop.queries.general.siblings_for_concept_id" title="inspectomop.queries.general.siblings_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">siblings_for_concept_id</span></code></a>(concept_id, inspector)</p></td>
+<td><p>Find all sibling concepts for a concept_id i.e.(concepts that share common parents).</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.general.synonyms_for_concept_ids.html#inspectomop.queries.general.synonyms_for_concept_ids" title="inspectomop.queries.general.synonyms_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synonyms_for_concept_ids</span></code></a>(concept_ids,&nbsp;inspector)</td>
-<td>Returns concept information for a list of concept_ids</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.synonyms_for_concept_ids.html#inspectomop.queries.general.synonyms_for_concept_ids" title="inspectomop.queries.general.synonyms_for_concept_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synonyms_for_concept_ids</span></code></a>(concept_ids, inspector)</p></td>
+<td><p>Returns concept information for a list of concept_ids</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.general.standard_vocab_for_source_code.html#inspectomop.queries.general.standard_vocab_for_source_code" title="inspectomop.queries.general.standard_vocab_for_source_code"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_vocab_for_source_code</span></code></a>(source_code,&nbsp;…)</td>
-<td>Convert source code to all mapped standard vocabulary concepts.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.general.standard_vocab_for_source_code.html#inspectomop.queries.general.standard_vocab_for_source_code" title="inspectomop.queries.general.standard_vocab_for_source_code"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_vocab_for_source_code</span></code></a>(source_code, …)</p></td>
+<td><p>Convert source code to all mapped standard vocabulary concepts.</p></td>
 </tr>
 </tbody>
 </table>
@@ -298,14 +296,14 @@
 <div class="section" id="observation">
 <h3>Observation<a class="headerlink" href="#observation" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.observation</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.observation.observation_concepts_for_keyword.html#inspectomop.queries.observation.observation_concepts_for_keyword" title="inspectomop.queries.observation.observation_concepts_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observation_concepts_for_keyword</span></code></a>(keyword,&nbsp;…)</td>
-<td>Search for LOINC and UCUM concepts by keyword.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.observation.observation_concepts_for_keyword.html#inspectomop.queries.observation.observation_concepts_for_keyword" title="inspectomop.queries.observation.observation_concepts_for_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observation_concepts_for_keyword</span></code></a>(keyword, …)</p></td>
+<td><p>Search for LOINC and UCUM concepts by keyword.</p></td>
 </tr>
 </tbody>
 </table>
@@ -313,17 +311,17 @@
 <div class="section" id="payer-plan">
 <h3>Payer Plan<a class="headerlink" href="#payer-plan" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.payer_plan</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.payer_plan.counts_by_years_of_coverage.html#inspectomop.queries.payer_plan.counts_by_years_of_coverage" title="inspectomop.queries.payer_plan.counts_by_years_of_coverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts_by_years_of_coverage</span></code></a>(inspector)</td>
-<td>Returns counts of payer coverage based on continuous coverage (payer_plan_period_start_date - payer_plan_period_end_date)365.25.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.payer_plan.counts_by_years_of_coverage.html#inspectomop.queries.payer_plan.counts_by_years_of_coverage" title="inspectomop.queries.payer_plan.counts_by_years_of_coverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts_by_years_of_coverage</span></code></a>(inspector)</p></td>
+<td><p>Returns counts of payer coverage based on continuous coverage (payer_plan_period_start_date - payer_plan_period_end_date)365.25.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.payer_plan.patient_distribution_by_plan_type.html#inspectomop.queries.payer_plan.patient_distribution_by_plan_type" title="inspectomop.queries.payer_plan.patient_distribution_by_plan_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_distribution_by_plan_type</span></code></a>(inspector)</td>
-<td>Returns counts of payer coverage by plan type.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.payer_plan.patient_distribution_by_plan_type.html#inspectomop.queries.payer_plan.patient_distribution_by_plan_type" title="inspectomop.queries.payer_plan.patient_distribution_by_plan_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_distribution_by_plan_type</span></code></a>(inspector)</p></td>
+<td><p>Returns counts of payer coverage by plan type.</p></td>
 </tr>
 </tbody>
 </table>
@@ -331,26 +329,26 @@
 <div class="section" id="person">
 <h3>Person<a class="headerlink" href="#person" title="Permalink to this headline">¶</a></h3>
 <p><cite>inspectomop.queries.person</cite></p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_gender.html#inspectomop.queries.person.patient_counts_by_gender" title="inspectomop.queries.person.patient_counts_by_gender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_gender</span></code></a>(inspector[,&nbsp;…])</td>
-<td>Returns patient counts grouped by gender for the database or alternativily, for a supplied list of person_ids.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_gender.html#inspectomop.queries.person.patient_counts_by_gender" title="inspectomop.queries.person.patient_counts_by_gender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_gender</span></code></a>(inspector[, …])</p></td>
+<td><p>Returns patient counts grouped by gender for the database or alternativily, for a supplied list of person_ids.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_year_of_birth.html#inspectomop.queries.person.patient_counts_by_year_of_birth" title="inspectomop.queries.person.patient_counts_by_year_of_birth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_year_of_birth</span></code></a>(inspector[,&nbsp;…])</td>
-<td>Returns patient counts grouped by year of birth for the database or alternativily, for a supplied list of person_ids.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_year_of_birth.html#inspectomop.queries.person.patient_counts_by_year_of_birth" title="inspectomop.queries.person.patient_counts_by_year_of_birth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_year_of_birth</span></code></a>(inspector[, …])</p></td>
+<td><p>Returns patient counts grouped by year of birth for the database or alternativily, for a supplied list of person_ids.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_residence_state.html#inspectomop.queries.person.patient_counts_by_residence_state" title="inspectomop.queries.person.patient_counts_by_residence_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_residence_state</span></code></a>(inspector)</td>
-<td>Returns patient counts grouped by state for the database or alternativily, for a supplied list of person_ids.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_residence_state.html#inspectomop.queries.person.patient_counts_by_residence_state" title="inspectomop.queries.person.patient_counts_by_residence_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_residence_state</span></code></a>(inspector)</p></td>
+<td><p>Returns patient counts grouped by state for the database or alternativily, for a supplied list of person_ids.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_zip_code.html#inspectomop.queries.person.patient_counts_by_zip_code" title="inspectomop.queries.person.patient_counts_by_zip_code"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_zip_code</span></code></a>(inspector[,&nbsp;…])</td>
-<td>Returns patient counts grouped by zip code for the database or alternativily, for a supplied list of person_ids.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_zip_code.html#inspectomop.queries.person.patient_counts_by_zip_code" title="inspectomop.queries.person.patient_counts_by_zip_code"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_zip_code</span></code></a>(inspector[, …])</p></td>
+<td><p>Returns patient counts grouped by zip code for the database or alternativily, for a supplied list of person_ids.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender.html#inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender" title="inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_year_of_birth_and_gender</span></code></a>(…)</td>
-<td>Returns patient counts stratified by year of birth and gender for the database or alternativily, for a supplied list of person_ids.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender.html#inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender" title="inspectomop.queries.person.patient_counts_by_year_of_birth_and_gender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_year_of_birth_and_gender</span></code></a>(…)</p></td>
+<td><p>Returns patient counts stratified by year of birth and gender for the database or alternativily, for a supplied list of person_ids.</p></td>
 </tr>
 </tbody>
 </table>
@@ -364,7 +362,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
@@ -376,8 +374,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#results">Results</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Constructor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#queries">Queries</a><ul>
@@ -402,13 +400,11 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -429,12 +425,12 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
     </div>
   </body>
 </html>
