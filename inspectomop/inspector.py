@@ -36,8 +36,10 @@ class Inspector():
 
     def __init__(self,connection_url):
         self.__connection_url = connection_url
-        if connection_url.startswith('sqlite') or connection_url.startswith('duckdb'):
-            self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
+        if connection_url.startswith("sqlite"):
+            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
+        elif connection_url.startswith("duckdb"):
+            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
         else:
             self.__engine = create_engine(self.connection_url)
 
@@ -93,8 +95,8 @@ class Inspector():
 
     def _extract_table_classes(self):
         def add_tables(metadata):
-            #sqlalchemy requires a primary key in each table for automatic mapping to work.
-            #If no primary key is found, set the default primary key to be the first column in each table.
+            # sqlalchemy requires a primary key in each table for automatic mapping to work.
+            # If no primary key is found, set the default primary key to be the first column in each table.
             for table_name,table in metadata.tables.items():
                 for col_name, col in table.c.items():
                     if col_name.endswith('date'):
@@ -106,13 +108,11 @@ class Inspector():
                 if len(table.primary_key) == 0:
                     table.primary_key._reload([table.c[table.c.keys()[0]]])
 
-
             Base = automap_base(metadata=metadata)
             Base.prepare(engine=self.engine,reflect=True)
             for table_name, table in Base.classes.items():
                 assert table_name not in tables.keys(), 'A table named {} was found more than once!'.format(table_name)
                 tables[table_name] = table
-
 
         inspector = reflection.Inspector.from_engine(self.engine)
         tables = {}
@@ -187,8 +187,6 @@ class Inspector():
         table_names = ['cohort','cohort_attribute','drug_era','dose_era','condition_era']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
-
-
     def attach_sqlite_db(self,db_file, schema_name):
         """
         For SQLite backends, attaches an additional sqlite database file. Uses 'ATTACH DATABSE db_file AS schema_name'
@@ -217,8 +215,6 @@ class Inspector():
             self._sqlite_attach_list.append((db_file, schema_name))
         self.__tables = None #attaching a new database should force the tables to reload
         self.__engine = create_engine(self.connection_url, creator=connect)
-
-
 
     def table_info(self,table_name):
         """
