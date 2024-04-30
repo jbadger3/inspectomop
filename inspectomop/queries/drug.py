@@ -62,7 +62,7 @@ def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None
     columns = [d.c.concept_id.label('drug_concept_id'), d.c.concept_id.label('drug_name'), d.c.concept_code.label('drug_concept_code'), d.c.concept_class_id.label('drug_concept_class'), a.c.concept_id.label('ingredient_concept_id'), a.c.concept_name.label('ingredient_name'), a.c.concept_code.label('ingredient_concept_code'), a.c.concept_class_id.label('ingredient_concept_class')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(_and_(\
                     ca.c.descendant_concept_id == d.c.concept_id,\
                     ca.c.ancestor_concept_id == a.c.concept_id,\
@@ -128,7 +128,7 @@ def drug_concepts_for_ingredient_concept_id(concept_id, inspector, return_column
         d.c.concept_code.label('drug_concept_code'), d.c.concept_class_id.label('drug_concept_class_id')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).where(_and_(ca.c.ancestor_concept_id==a.c.concept_id,\
+    statement = _select(*columns).where(_and_(ca.c.ancestor_concept_id==a.c.concept_id,\
         ca.c.descendant_concept_id == d.c.concept_id, ca.c.ancestor_concept_id == concept_id))
     return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
@@ -169,7 +169,7 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector, ret
     columns = [concept.concept_name.label('ingredient_name'),concept.concept_id]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(_and_(\
                     concept.vocabulary_id == vocab_id,\
                     concept.concept_class_id == concept_class_id,\
@@ -225,7 +225,7 @@ def drug_classes_for_drug_concept_id(concept_id, inspector, return_columns=None,
     columns = [c.c.concept_id, c.c.concept_name, c.c.concept_code, c.c.concept_class_id, v.c.vocabulary_name, ca.c.min_levels_of_separation]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(_and_(\
                     ca.c.ancestor_concept_id == c.c.concept_id,\
                     c.c.vocabulary_id.in_(['ATC','VA Class','Mechanism of Action','Chemical Structure','ETC','Physiologic Effect']),\
@@ -337,7 +337,7 @@ def indications_for_drug_concept_id(concept_id, inspector, return_columns=None, 
                 de.c.concept_name.label('de_concept_name'),de.c.vocabulary_id.label('de_vocab')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 select_from(j4).where(_and_(\
                 de.c.concept_id == concept_id,\
                 an.c.concept_class_id.in_(concept_class_ids),\

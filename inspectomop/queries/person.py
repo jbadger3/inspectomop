@@ -47,15 +47,15 @@ def patient_counts_by_gender(inspector, person_ids=None, return_columns=None, as
     """
     c = _alias(inspector.tables['concept'], 'c')
     p = _alias(inspector.tables['person'], 'p')
-    columns = [p.c.gender_concept_id,c.c.concept_name.label('gender'),_func.count(p.c.gender_concept_id).label('count')]
+    columns = [p.c.gender_concept_id,_func.any_value(c.c.concept_name).label('gender'),_func.count(p.c.gender_concept_id).label('count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     if not person_ids:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     where(p.c.gender_concept_id == c.c.concept_id).\
                     group_by(p.c.gender_concept_id)
     else:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     where(_and_(\
                         p.c.gender_concept_id == c.c.concept_id,\
                         p.c.person_id.in_(person_ids))).\
@@ -102,11 +102,11 @@ def patient_counts_by_year_of_birth(inspector, person_ids=None, return_columns=N
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     if not person_ids:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     group_by(p.c.year_of_birth).\
                     order_by(p.c.year_of_birth)
     else:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     where(\
                         p.c.person_id.in_(person_ids)).\
                     group_by(p.c.year_of_birth).\
@@ -154,12 +154,12 @@ def patient_counts_by_residence_state(inspector, person_ids=None, return_columns
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     if not person_ids:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     select_from(j).\
                     group_by(j.c.l_state).\
                     order_by(j.c.l_state)
     else:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     select_from(j).\
                     where(\
                         j.c.p_person_id.in_(person_ids)).\
@@ -211,12 +211,12 @@ def patient_counts_by_zip_code(inspector, person_ids=None, return_columns=None, 
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     if not person_ids:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     select_from(j).\
                     group_by(j.c.l_state,j.c.l_zip).\
                     order_by(j.c.l_state, j.c.l_zip)
     else:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     select_from(j).\
                     where(\
                         j.c.p_person_id.in_(person_ids)).\
@@ -267,16 +267,16 @@ def patient_counts_by_year_of_birth_and_gender(inspector, person_ids=None, retur
     """
     p = _alias(inspector.tables['person'], 'p')
     c = _alias(inspector.tables['concept'], 'c')
-    columns = [c.c.concept_id, c.c.concept_name.label('gender'),p.c.year_of_birth,_func.count(p.c.year_of_birth).label('count')]
+    columns = [_func.any_value(c.c.concept_id), c.c.concept_name.label('gender'),p.c.year_of_birth,_func.count(p.c.year_of_birth).label('count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
     if not person_ids:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     where(c.c.concept_id == p.c.gender_concept_id).\
                     group_by(p.c.year_of_birth, c.c.concept_name).\
                     order_by(p.c.year_of_birth, c.c.concept_name)
     else:
-        statement = _select(columns).\
+        statement = _select(*columns).\
                     where(_and_(\
                         p.c.person_id.in_(person_ids),\
                         c.c.concept_id == p.c.gender_concept_id)).\

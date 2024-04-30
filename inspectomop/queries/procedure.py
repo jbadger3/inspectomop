@@ -8,7 +8,7 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
-import pandas as pd
+import pandas as _pd
 
 def procedure_concepts_for_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
     """
@@ -63,21 +63,21 @@ def procedure_concepts_for_keyword(keyword, inspector, return_columns=None, as_p
     standard_concept = 'S'
     concept_domain = 'Procedure'
     j = _join(c, s, c.c.concept_id == s.c.concept_id)
-    s1 = _select([c.c.concept_id,c.c.concept_name,c.c.concept_code,\
-        c.c.concept_class_id, c.c.vocabulary_id, v.c.vocabulary_name]).\
+    s1 = _select(c.c.concept_id,c.c.concept_name,c.c.concept_code,\
+        c.c.concept_class_id, c.c.vocabulary_id, v.c.vocabulary_name).\
         select_from(j).\
         where(_and_(\
             c.c.vocabulary_id.in_(vocab_ids),\
             c.c.concept_class_id != None,\
             c.c.domain_id == concept_domain,\
             c.c.standard_concept == standard_concept,\
-        - seec.c.vocabulary_id == v.c.vocabulary_id))
+            c.c.vocabulary_id == v.c.vocabulary_id))
 
     columns = [s1.c.concept_id,s1.c.concept_name,s1.c.concept_code, s1.c.concept_class_id, s1.c.vocabulary_id,s1.c.vocabulary_name]
 
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).select_from(s1).\
+    statement = _select(*columns).distinct().select_from(s1).\
         where(\
             _func.lower(s1.c.concept_name).ilike('%{}%'.format(keyword.lower())))
 

@@ -44,17 +44,17 @@ def facility_counts_by_type(inspector, return_columns=None, as_pandas_df=False):
 
     c = _alias(inspector.tables['concept'],'c')
     cs = _alias(inspector.tables['care_site'], 'cs')
-    columns = [c.c.concept_name.label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('facility_count')]
+    columns = [_func.any_value(c.c.concept_name).label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('facility_count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(c.c.concept_id == cs.c.place_of_service_concept_id).\
                 group_by(cs.c.place_of_service_concept_id)
     return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
 def patient_counts_by_care_site_type(inspector, return_columns=None, as_pandas_df=False):
     """
-    Returns pateints counts by facility type.
+    Returns patients counts by facility type.
 
     Parameters
     ----------
@@ -89,11 +89,12 @@ def patient_counts_by_care_site_type(inspector, return_columns=None, as_pandas_d
     c = _alias(inspector.tables['concept'],'c')
     cs = _alias(inspector.tables['care_site'], 'cs')
     p = _alias(inspector.tables['person'], 'p')
-    columns = [c.c.concept_name.label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('patient_count')]
+    columns = [_func.any_value(c.c.concept_name).label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('patient_count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(_and_(\
+                    c.c.concept_id == cs.c.place_of_service_concept_id,\
                     p.c.care_site_id == cs.c.care_site_id)).\
                 group_by(cs.c.place_of_service_concept_id)
     return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
