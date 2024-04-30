@@ -1,6 +1,0 @@
-inspectomop.results.Results.fetchmany
-=====================================
-
-.. currentmodule:: inspectomop.results
-
-.. automethod:: Results.fetchmany

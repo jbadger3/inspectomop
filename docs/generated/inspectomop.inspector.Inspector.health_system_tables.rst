@@ -1,6 +1,6 @@
-inspectomop.inspector.Inspector.health\_system\_tables
+﻿inspectomop.inspector.Inspector.health\_system\_tables
 ======================================================
 
 .. currentmodule:: inspectomop.inspector
 
-.. autoattribute:: Inspector.health_system_tables
+.. autoproperty:: Inspector.health_system_tables

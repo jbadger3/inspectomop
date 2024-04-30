@@ -1,4 +1,4 @@
-inspectomop.queries.general.standard\_vocab\_for\_source\_code
+﻿inspectomop.queries.general.standard\_vocab\_for\_source\_code
 ==============================================================
 
 .. currentmodule:: inspectomop.queries.general

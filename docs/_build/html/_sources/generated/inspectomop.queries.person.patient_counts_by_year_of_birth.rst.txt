@@ -1,4 +1,4 @@
-inspectomop.queries.person.patient\_counts\_by\_year\_of\_birth
+﻿inspectomop.queries.person.patient\_counts\_by\_year\_of\_birth
 ===============================================================
 
 .. currentmodule:: inspectomop.queries.person

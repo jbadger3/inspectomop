@@ -1,4 +1,4 @@
-inspectomop.inspector.Inspector.attach\_sqlite\_db
+﻿inspectomop.inspector.Inspector.attach\_sqlite\_db
 ==================================================
 
 .. currentmodule:: inspectomop.inspector

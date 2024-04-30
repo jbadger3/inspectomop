@@ -1,4 +1,4 @@
-inspectomop.queries.condition.pathogen\_concept\_for\_keyword
+﻿inspectomop.queries.condition.pathogen\_concept\_for\_keyword
 =============================================================
 
 .. currentmodule:: inspectomop.queries.condition

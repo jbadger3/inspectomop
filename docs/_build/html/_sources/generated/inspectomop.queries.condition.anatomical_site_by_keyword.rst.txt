@@ -1,4 +1,4 @@
-inspectomop.queries.condition.anatomical\_site\_by\_keyword
+﻿inspectomop.queries.condition.anatomical\_site\_by\_keyword
 ===========================================================
 
 .. currentmodule:: inspectomop.queries.condition

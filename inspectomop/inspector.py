@@ -88,8 +88,6 @@ class Inspector():
     def engine(self):
         """
         A convenience hook to the underlying sqlalchemy engine.
-
-        Use Inspector.execute for submitting queries.
         """
         return self.__engine
 

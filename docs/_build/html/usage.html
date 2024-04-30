@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Usage &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=6e0256f3"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api.html" />
@@ -29,7 +28,8 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li> 
       </ul>
     </div>  
 
@@ -38,18 +38,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="usage">
-<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+  <section id="usage">
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
 <p>There is a tiny SQLite database (1.4 MB) included with <strong>inspectomop</strong> to give first-time users a limited experimental playground and the ability to run code from the examples below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Inspectomop does <strong>NOT</strong> contain EHR data from real patients.  The data are entirely synthetic and come from the <a class="reference external" href="https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html">SynPUF</a> dataset released by Centers for Medicaid and Medicare Services (CMS).</p>
 </div>
-<div class="section" id="connecting-to-a-database">
-<h2>Connecting to a database<a class="headerlink" href="#connecting-to-a-database" title="Permalink to this headline">¶</a></h2>
+<section id="connecting-to-a-database">
+<h2>Connecting to a database<a class="headerlink" href="#connecting-to-a-database" title="Link to this heading">¶</a></h2>
 <p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inspector</span></code></a> objects are in charge of interfacing with the backend database, extracting the available OMOP CDM tables, and performing queries.</p>
 <p>Inspectors require a single parameter, <cite>connection_url</cite>, for instantiation:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">inspectomop</span> <span class="kn">as</span> <span class="nn">iomop</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">inspectomop</span> <span class="k">as</span> <span class="nn">iomop</span>
 
 <span class="gp">In [2]: </span><span class="n">connection_url</span> <span class="o">=</span> <span class="n">iomop</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">test_connection_url</span><span class="p">()</span>
 
@@ -73,39 +73,39 @@
 </pre></div>
 </div>
 <p>As you can see SQLite URLs are slightly different.  They include an extra ‘/’ and thus will have ‘///’ for relative paths and ‘////’ for absolute paths.</p>
-</div>
-<div class="section" id="inspecting-a-database">
-<h2>Inspecting a database<a class="headerlink" href="#inspecting-a-database" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="accessing-tables">
-<h3>Accessing tables<a class="headerlink" href="#accessing-tables" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="inspecting-a-database">
+<h2>Inspecting a database<a class="headerlink" href="#inspecting-a-database" title="Link to this heading">¶</a></h2>
+<section id="accessing-tables">
+<h3>Accessing tables<a class="headerlink" href="#accessing-tables" title="Link to this heading">¶</a></h3>
 <p>The tables property of an <a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inspector</span></code></a> contains a dictionary of associated OMOP tables that are accessible by table name.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="gh">Out[6]: </span><span class="go">dict_keys([&#39;attribute_definition&#39;, &#39;care_site&#39;, &#39;cdm_source&#39;, &#39;cohort&#39;, &#39;cohort_attribute&#39;, &#39;cohort_definition&#39;, &#39;concept&#39;, &#39;concept_ancestor&#39;, &#39;concept_class&#39;, &#39;concept_relationship&#39;, &#39;concept_synonym&#39;, &#39;condition_era&#39;, &#39;condition_occurrence&#39;, &#39;cost&#39;, &#39;death&#39;, &#39;device_exposure&#39;, &#39;domain&#39;, &#39;dose_era&#39;, &#39;drug_era&#39;, &#39;drug_exposure&#39;, &#39;drug_strength&#39;, &#39;fact_relationship&#39;, &#39;location&#39;, &#39;measurement&#39;, &#39;note&#39;, &#39;note_nlp&#39;, &#39;observation&#39;, &#39;observation_period&#39;, &#39;payer_plan_period&#39;, &#39;person&#39;, &#39;procedure_occurrence&#39;, &#39;provider&#39;, &#39;relationship&#39;, &#39;source_to_concept_map&#39;, &#39;specimen&#39;, &#39;visit_occurrence&#39;, &#39;vocabulary&#39;])</span>
+<span class="gh">Out[6]: </span><span class="go">dict_keys([&#39;attribute_definition&#39;, &#39;fact_relationship&#39;, &#39;note&#39;, &#39;person&#39;, &#39;location&#39;, &#39;payer_plan_period&#39;, &#39;care_site&#39;, &#39;cost&#39;, &#39;concept_class&#39;, &#39;drug_strength&#39;, &#39;concept_ancestor&#39;, &#39;provider&#39;, &#39;cdm_source&#39;, &#39;measurement&#39;, &#39;procedure_occurrence&#39;, &#39;concept_synonym&#39;, &#39;specimen&#39;, &#39;cohort_attribute&#39;, &#39;concept&#39;, &#39;cohort_definition&#39;, &#39;condition_occurrence&#39;, &#39;death&#39;, &#39;drug_exposure&#39;, &#39;observation&#39;, &#39;domain&#39;, &#39;relationship&#39;, &#39;observation_period&#39;, &#39;visit_occurrence&#39;, &#39;note_nlp&#39;, &#39;cohort&#39;, &#39;dose_era&#39;, &#39;device_exposure&#39;, &#39;vocabulary&#39;, &#39;source_to_concept_map&#39;, &#39;drug_era&#39;, &#39;concept_relationship&#39;, &#39;condition_era&#39;])</span>
 
 <span class="gp">In [7]: </span><span class="n">person</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="accessing-table-columns">
-<h3>Accessing table columns<a class="headerlink" href="#accessing-table-columns" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="accessing-table-columns">
+<h3>Accessing table columns<a class="headerlink" href="#accessing-table-columns" title="Link to this heading">¶</a></h3>
 <p>The columns in each table object are dot accessible and can be assigned to variables to construct query statements.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">select</span>
 
 <span class="gp">In [9]: </span><span class="n">person_id</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">person_id</span>
 
-<span class="gp">In [10]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">person_id</span><span class="p">])</span>
+<span class="gp">In [10]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">person_id</span><span class="p">)</span>
 
-<span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="nb">print</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
 <span class="go">SELECT main.person.person_id </span>
 <span class="go">FROM main.person</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="complete-table-descriptions">
-<h3>Complete table descriptions<a class="headerlink" href="#complete-table-descriptions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="complete-table-descriptions">
+<h3>Complete table descriptions<a class="headerlink" href="#complete-table-descriptions" title="Link to this heading">¶</a></h3>
 <p>You can also get a description of all columns within a table, the data types, etc.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">table_info</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
-<span class="gh">Out[12]: </span><span class="go"></span>
+<span class="gh">Out[12]: </span>
 <span class="go">                         column      type  nullable  primary_key</span>
 <span class="go">0                     person_id   INTEGER     False         True</span>
 <span class="go">1             gender_concept_id   INTEGER     False        False</span>
@@ -127,13 +127,13 @@
 <span class="go">17  ethnicity_source_concept_id   INTEGER      True        False</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="running-built-in-queries">
-<h2>Running built-in queries<a class="headerlink" href="#running-built-in-queries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a-basic-example">
-<h3>A basic example<a class="headerlink" href="#a-basic-example" title="Permalink to this headline">¶</a></h3>
-<p>There are a variety of built in queries available in the <a class="reference internal" href="api.html#queries"><span class="std std-ref">Queries</span></a> submodule.  A typical query takes arguments for inputs (concept_ids, keywords, etc.), an <a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inspector</span></code></a> to run the query against, and optionally a list of columns to subset from the default columns returned by the query.</p>
+</section>
+</section>
+<section id="running-built-in-queries">
+<h2>Running built-in queries<a class="headerlink" href="#running-built-in-queries" title="Link to this heading">¶</a></h2>
+<section id="a-basic-example">
+<h3>A basic example<a class="headerlink" href="#a-basic-example" title="Link to this heading">¶</a></h3>
+<p>There are a variety of built in queries available in the <span class="xref std std-ref">queries</span> submodule.  A typical query takes arguments for inputs (concept_ids, keywords, etc.), an <a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inspector</span></code></a> to run the query against, and optionally a list of columns to subset from the default columns returned by the query.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># retrieve concepts for a list of concept_ids</span>
 <span class="gp">In [13]: </span><span class="kn">from</span> <span class="nn">inspectomop.queries.general</span> <span class="kn">import</span> <span class="n">concepts_for_concept_ids</span>
 
@@ -141,76 +141,71 @@
 
 <span class="gp">In [15]: </span><span class="n">return_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;concept_name&#39;</span><span class="p">,</span> <span class="s1">&#39;concept_id&#39;</span><span class="p">]</span>
 
-<span class="gp">In [16]: </span><span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="n">return_columns</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-<span class="gh">Out[16]: </span><span class="go"></span>
-<span class="go">[(2, &#39;Gender&#39;),</span>
-<span class="go"> (3, &#39;Race&#39;),</span>
-<span class="go"> (4, &#39;Ethnicity&#39;),</span>
-<span class="go"> (7, &#39;Metadata&#39;),</span>
-<span class="go"> (8, &#39;Visit&#39;),</span>
-<span class="go"> (10, &#39;Procedure&#39;),</span>
-<span class="go"> (46271022, &#39;Chronic kidney disease&#39;),</span>
-<span class="go"> (46287342, &#39;2 ML Verapamil hydrochloride 2.5 MG/ML Injection&#39;)]</span>
+<span class="gp">In [16]: </span><span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="n">return_columns</span><span class="p">,</span> <span class="n">as_pandas_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gh">Out[16]: </span>
+<span class="go">   concept_id                                      concept_name</span>
+<span class="go">0           2                                            Gender</span>
+<span class="go">1           3                                              Race</span>
+<span class="go">2           4                                         Ethnicity</span>
+<span class="go">3           7                                          Metadata</span>
+<span class="go">4           8                                             Visit</span>
+<span class="go">5          10                                         Procedure</span>
+<span class="go">6    46271022                            Chronic kidney disease</span>
+<span class="go">7    46287342  2 ML Verapamil hydrochloride 2.5 MG/ML Injection</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can get a list of columns a query returns by looking at the <cite>return_columns</cite> parameter in the docstring for each query.</p>
 </div>
-</div>
-</div>
-<div class="section" id="specifying-how-results-are-returned">
-<h2>Specifying how results are returned<a class="headerlink" href="#specifying-how-results-are-returned" title="Permalink to this headline">¶</a></h2>
-<p>By default all queries return a <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> object.  Results objects behave like database cursors and have the expected methods such as .fetchone() and .fetchall() for fetching rows.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Results objects ultimately point back to the underlying DBAPI used for interacting with the DB (pymssql for SQL Server, sqlite3 for SQLite, etc).  More or less these should follow the <a class="reference external" href="https://www.python.org/dev/peps/pep-0249/">pythong DB API spec</a> for cursor objects.  Most of this is handled by SQLAlchemy.  <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> is a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.engine.ResultProxy</span></code> with additional methods for working with pandas.</p>
-</div>
-<div class="section" id="fetching-examples">
-<h3>Fetching examples<a class="headerlink" href="#fetching-examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">results</span> <span class="o">=</span> <span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">)</span>
+</section>
+</section>
+<section id="specifying-how-results-are-returned">
+<h2>Specifying how results are returned<a class="headerlink" href="#specifying-how-results-are-returned" title="Link to this heading">¶</a></h2>
+<p>By default all queries return a <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.sql.expression.Executable</span></code> statement.
+This statement may be evaluated in a connection context returned from <a class="reference internal" href="generated/inspectomop.inspector.Inspector.connect.html#inspectomop.inspector.Inspector.connect" title="inspectomop.inspector.Inspector.connect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Inspector.connect()</span></code></a>.</p>
+<section id="working-directly-with-statements">
+<h3>Working directly with statements<a class="headerlink" href="#working-directly-with-statements" title="Link to this heading">¶</a></h3>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">)</span>
 
-<span class="go">#get the return column names</span>
-<span class="gp">In [18]: </span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="gh">Out[18]: </span><span class="go"></span>
-<span class="go">[&#39;concept_id&#39;,</span>
-<span class="go"> &#39;concept_name&#39;,</span>
-<span class="go"> &#39;concept_code&#39;,</span>
-<span class="go"> &#39;concept_class_id&#39;,</span>
-<span class="go"> &#39;standard_concept&#39;,</span>
-<span class="go"> &#39;vocabulary_id&#39;,</span>
-<span class="go"> &#39;vocabulary_name&#39;]</span>
-
-<span class="go">#get one row</span>
-<span class="gp">In [19]: </span><span class="n">results</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-<span class="go">                                                                                                                                           Out[19]: (2, &#39;Gender&#39;, &#39;OMOP generated&#39;, &#39;Domain&#39;, &#39;&#39;, &#39;Domain&#39;, &#39;OMOP Domain&#39;)</span>
-
-<span class="go">#get many rows</span>
-<span class="gp">In [20]: </span><span class="n">two_results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">fetchmany</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="gp">In [21]: </span><span class="nb">len</span><span class="p">(</span><span class="n">two_results</span><span class="p">)</span>
-<span class="gh">Out[21]: </span><span class="go">2</span>
-
-<span class="go">#iterating over rows</span>
-<span class="gp">In [22]: </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">In [18]: </span><span class="k">with</span> <span class="n">inspector</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+<span class="gp">   ....: </span>   <span class="n">results</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
 <span class="gp">   ....: </span>
-<span class="go">           (7, &#39;Metadata&#39;)</span>
+
+<span class="go">   #get the return column names</span>
+<span class="gp">In [19]: </span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[19]: </span><span class="go">RMKeyView([&#39;concept_id&#39;, &#39;concept_name&#39;, &#39;concept_code&#39;, &#39;concept_class_id&#39;, &#39;standard_concept&#39;, &#39;vocabulary_id&#39;, &#39;vocabulary_name&#39;])</span>
+
+<span class="go">   #get one row</span>
+<span class="gp">In [20]: </span><span class="n">results</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="gh">Out[20]: </span><span class="go">(2, &#39;Gender&#39;, &#39;OMOP generated&#39;, &#39;Domain&#39;, &#39;&#39;, &#39;Domain&#39;, &#39;OMOP Domain&#39;)</span>
+
+<span class="go">   #get many rows</span>
+<span class="gp">In [21]: </span><span class="n">two_results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">fetchmany</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="gp">In [22]: </span><span class="nb">len</span><span class="p">(</span><span class="n">two_results</span><span class="p">)</span>
+<span class="gh">Out[22]: </span><span class="go">2</span>
+
+<span class="go">   #iterating over rows</span>
+<span class="gp">In [23]: </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+<span class="gp">   ....: </span>      <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">   ....: </span>
+<span class="go">(7, &#39;Metadata&#39;)</span>
 <span class="go">(8, &#39;Visit&#39;)</span>
 <span class="go">(10, &#39;Procedure&#39;)</span>
 <span class="go">(46271022, &#39;Chronic kidney disease&#39;)</span>
 <span class="go">(46287342, &#39;2 ML Verapamil hydrochloride 2.5 MG/ML Injection&#39;)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="results-as-pandas-dataframes">
-<h3>Results as pandas DataFrames<a class="headerlink" href="#results-as-pandas-dataframes" title="Permalink to this headline">¶</a></h3>
-<p>Results objects also have two handy methods, .as_pandas() and .as_pandas_chunks(), for returning results as pandas DataFrames.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go">#return the results as as a dataframe</span>
-<span class="gp">In [23]: </span><span class="n">results</span> <span class="o">=</span> <span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
+</section>
+<section id="returning-results-as-pandas-dataframes">
+<h3>Returning results as pandas DataFrames<a class="headerlink" href="#returning-results-as-pandas-dataframes" title="Link to this heading">¶</a></h3>
+<p>Query methods also provide an option <cite>as_pandas_df</cite>, for returning results as pandas DataFrames
+(evaluated by creating a one-off connection).</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">results</span> <span class="o">=</span> <span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">as_pandas_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="gp">In [24]: </span><span class="n">results</span><span class="p">[[</span><span class="s1">&#39;concept_name&#39;</span><span class="p">,</span><span class="s1">&#39;vocabulary_id&#39;</span><span class="p">]]</span>
-<span class="gh">Out[24]: </span><span class="go"></span>
+<span class="gp">In [25]: </span><span class="n">results</span><span class="p">[[</span><span class="s1">&#39;concept_name&#39;</span><span class="p">,</span><span class="s1">&#39;vocabulary_id&#39;</span><span class="p">]]</span>
+<span class="gh">Out[25]: </span>
 <span class="go">                                       concept_name vocabulary_id</span>
 <span class="go">0                                            Gender        Domain</span>
 <span class="go">1                                              Race        Domain</span>
@@ -220,122 +215,100 @@
 <span class="go">5                                         Procedure        Domain</span>
 <span class="go">6                            Chronic kidney disease        SNOMED</span>
 <span class="go">7  2 ML Verapamil hydrochloride 2.5 MG/ML Injection        RxNorm</span>
-
-<span class="go"># return the results in chunks</span>
-<span class="gp">In [25]: </span><span class="n">chunksize</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="gp">In [26]: </span><span class="n">results</span> <span class="o">=</span> <span class="n">concepts_for_concept_ids</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">,</span> <span class="n">inspector</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas_chunks</span><span class="p">(</span><span class="n">chunksize</span><span class="p">)</span>
-
-<span class="gp">In [27]: </span><span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;chunk {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;concept_name&#39;</span><span class="p">])</span>
-<span class="gp">   ....: </span>
-<span class="go">chunk 1</span>
-<span class="go">0       Gender</span>
-<span class="go">1         Race</span>
-<span class="go">2    Ethnicity</span>
-<span class="go">Name: concept_name, dtype: object</span>
-<span class="go">chunk 2</span>
-<span class="go">0     Metadata</span>
-<span class="go">1        Visit</span>
-<span class="go">2    Procedure</span>
-<span class="go">Name: concept_name, dtype: object</span>
-<span class="go">chunk 3</span>
-<span class="go">0                              Chronic kidney disease</span>
-<span class="go">1    2 ML Verapamil hydrochloride 2.5 MG/ML Injection</span>
-<span class="go">Name: concept_name, dtype: object</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="creating-custom-queries">
-<h2>Creating custom queries<a class="headerlink" href="#creating-custom-queries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="from-sqlalchemy-sql-expressions">
-<h3>From SQLAlchemy SQL Expressions<a class="headerlink" href="#from-sqlalchemy-sql-expressions" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="creating-custom-queries">
+<h2>Creating custom queries<a class="headerlink" href="#creating-custom-queries" title="Link to this heading">¶</a></h2>
+<section id="from-sqlalchemy-sql-expressions">
+<h3>From SQLAlchemy SQL Expressions<a class="headerlink" href="#from-sqlalchemy-sql-expressions" title="Link to this heading">¶</a></h3>
 <p>Statements built out of constructs from SQLAlchemy’s <em>SQL Expression API</em> make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion.  While there is no guarantee that <cite>every</cite> query will work with <cite>every</cite> backend, most of the basic selects, joins, etc should run without issue.</p>
 <p>SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the <a class="reference external" href="https://docs.sqlalchemy.org/en/rel_1_2/core/tutorial.html">SQL Expression Language Tutorial</a> and note the warning below.</p>
 <p>Below are a few simple examples of using SQLAlchemy expression language constructs for running queries on the OMOP CDM.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Tables from Inspector.tables are actually mapped to ORM objects.  These are <em>NOT</em> the same as <cite>Table</cite> objects from the SQLAlchemy Core API, although they can be used in nearly identical fashion in SQL Expressions with the following caveat about accessing table columns:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">alias</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">alias</span>
 
-<span class="gp">In [29]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">]</span>
+<span class="gp">In [27]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">]</span>
 
-<span class="gp">In [30]: </span><span class="n">p_alias</span> <span class="o">=</span> <span class="n">alias</span><span class="p">(</span><span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">],</span> <span class="s1">&#39;p_alias&#39;</span><span class="p">)</span>
+<span class="gp">In [28]: </span><span class="n">p_alias</span> <span class="o">=</span> <span class="n">alias</span><span class="p">(</span><span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">],</span> <span class="s1">&#39;p_alias&#39;</span><span class="p">)</span>
 
 <span class="go"># p is an automapped ORM object with dot accessible columns</span>
-<span class="gp">In [31]: </span><span class="n">p</span>
-<span class="gh">Out[31]: </span><span class="go">sqlalchemy.ext.automap.person</span>
+<span class="gp">In [29]: </span><span class="n">p</span>
+<span class="gh">Out[29]: </span><span class="go">sqlalchemy.ext.automap.person</span>
 
-<span class="gp">In [32]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                       Out[32]: &lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x119ca7518&gt;</span>
+<span class="gp">In [30]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
+<span class="gh">Out[30]: </span><span class="go">&lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x7fe6c4ab0f40&gt;</span>
 
 <span class="go"># p_alias is an Alias object.</span>
 <span class="go"># Columns must be accessed using .c.column</span>
-<span class="gp">In [33]: </span><span class="n">p_alias</span>
-<span class="go">                                                                                                                 Out[33]: &lt;sqlalchemy.sql.selectable.Alias at 0x119d59b38; p_alias&gt;</span>
+<span class="gp">In [31]: </span><span class="n">p_alias</span>
+<span class="gh">Out[31]: </span><span class="go">&lt;sqlalchemy.sql.selectable.Alias at 0x7fe6c4826cd0; p_alias&gt;</span>
 
-<span class="gp">In [34]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                                                                                                                                                                    Out[34]: Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
+<span class="gp">In [32]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
+<span class="gh">Out[32]: </span><span class="go">Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
 
 <span class="go"># and so this fails</span>
-<span class="gp">In [35]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">person_id</span>
-<span class="go">                                                                                                                                                                                                                                                                               ---------------------------------------------------------------------------</span>
-<span class="go">AttributeError                            Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-35-a8a43d4647a5&gt; in &lt;module&gt;</span>
-<span class="go">----&gt; 1 p_alias.person_id</span>
+<span class="gp">In [33]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">person_id</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">33</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">p_alias</span><span class="o">.</span><span class="n">person_id</span>
 
-<span class="go">AttributeError: &#39;Alias&#39; object has no attribute &#39;person_id&#39;</span>
+<span class="ne">AttributeError</span>: &#39;Alias&#39; object has no attribute &#39;person_id&#39;
 </pre></div>
 </div>
 <p><em>Explanation:</em> Using a portion of the SQLAlchemy ORM to infer table structure was a conscious design decision.  Although it makes for a bit of confusion when constructing queries with SQL expressions users that work in an interactive development environment (iPython, Jupyter Notebooks, etc.) get the benefit of dot accessible column properties.  In addition, automapping alleviates compatibility issues that would inevitably arise with hard-coded table structures on future versions of the OMOP CDM.</p>
 </div>
 <p>Select all of the conditions for person 1:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">and_</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [34]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">and_</span>
 
-<span class="gp">In [37]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;concept&#39;</span><span class="p">]</span>
+<span class="gp">In [35]: </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="gp">In [38]: </span><span class="n">co</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;condition_occurrence&#39;</span><span class="p">]</span>
+<span class="gp">In [36]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;concept&#39;</span><span class="p">]</span>
 
-<span class="gp">In [39]: </span><span class="n">person_id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">In [37]: </span><span class="n">co</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;condition_occurrence&#39;</span><span class="p">]</span>
 
-<span class="gp">In [40]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">co</span><span class="o">.</span><span class="n">condition_start_date</span><span class="p">,</span> <span class="n">co</span><span class="o">.</span><span class="n">condition_concept_id</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="p">])</span><span class="o">.</span>\
+<span class="gp">In [38]: </span><span class="n">person_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="gp">In [39]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">co</span><span class="o">.</span><span class="n">condition_start_date</span><span class="p">,</span> <span class="n">co</span><span class="o">.</span><span class="n">condition_concept_id</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="p">)</span><span class="o">.</span>\
 <span class="gp">   ....: </span>            <span class="n">where</span><span class="p">(</span><span class="n">and_</span><span class="p">(</span>\
 <span class="gp">   ....: </span>                <span class="n">co</span><span class="o">.</span><span class="n">person_id</span> <span class="o">==</span> <span class="n">person_id</span><span class="p">,</span>\
 <span class="gp">   ....: </span>                <span class="n">co</span><span class="o">.</span><span class="n">condition_concept_id</span> <span class="o">==</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_id</span><span class="p">))</span>
 <span class="gp">   ....: </span>
 
-<span class="gp">In [41]: </span><span class="k">print</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+<span class="gp">In [40]: </span><span class="nb">print</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
 <span class="go">SELECT main.condition_occurrence.condition_start_date, main.condition_occurrence.condition_concept_id, main.concept.concept_name </span>
 <span class="go">FROM main.condition_occurrence, main.concept </span>
 <span class="go">WHERE main.condition_occurrence.person_id = :person_id_1 AND main.condition_occurrence.condition_concept_id = main.concept.concept_id</span>
 
-<span class="gp">In [42]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                      Out[42]: </span>
-<span class="go">   condition_start_date  ...                                       concept_name</span>
-<span class="go">0            2010-03-12  ...                                       Osteoporosis</span>
-<span class="go">1            2009-07-25  ...                                           Backache</span>
-<span class="go">2            2009-07-25  ...                                      Low back pain</span>
-<span class="go">3            2010-08-17  ...                                        Neck sprain</span>
-<span class="go">4            2010-11-05  ...                 Subchronic catatonic schizophrenia</span>
-<span class="go">5            2009-10-14  ...                                       Hypocalcemia</span>
-<span class="go">6            2010-03-12  ...                           Congestive heart failure</span>
-<span class="go">7            2010-11-05  ...                                      Schizophrenia</span>
-<span class="go">8            2010-03-12  ...               Antiallergenic drug adverse reaction</span>
-<span class="go">9            2010-04-01  ...                                   Bipolar disorder</span>
-<span class="go">10           2010-03-12  ...                          Pure hypercholesterolemia</span>
-<span class="go">11           2009-10-14  ...                                 Postoperative pain</span>
-<span class="go">12           2010-04-01  ...  Bipolar I disorder, single manic episode, in f...</span>
-<span class="go">13           2009-07-25  ...                                Menopausal syndrome</span>
-<span class="go">14           2009-07-25  ...                               Thoracic radiculitis</span>
-<span class="go">15           2010-03-12  ...                                 Retention of urine</span>
-
-<span class="go">[16 rows x 3 columns]</span>
+<span class="gp">In [41]: </span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="n">inspector</span><span class="o">.</span><span class="n">connect</span><span class="p">())</span>
+<span class="gh">Out[41]: </span>
+<span class="go">   condition_start_date  condition_concept_id                                       concept_name</span>
+<span class="go">0            2010-03-12                 80502                                       Osteoporosis</span>
+<span class="go">1            2009-07-25                134736                                           Backache</span>
+<span class="go">2            2009-07-25                194133                                      Low back pain</span>
+<span class="go">3            2010-08-17                 30234                                        Neck sprain</span>
+<span class="go">4            2010-11-05                433990                 Subchronic catatonic schizophrenia</span>
+<span class="go">5            2009-10-14                435510                                       Hypocalcemia</span>
+<span class="go">6            2010-03-12                319835                           Congestive heart failure</span>
+<span class="go">7            2010-11-05                435783                                      Schizophrenia</span>
+<span class="go">8            2010-03-12                437469               Antiallergenic drug adverse reaction</span>
+<span class="go">9            2010-04-01                436665                                   Bipolar disorder</span>
+<span class="go">10           2010-03-12                437827                          Pure hypercholesterolemia</span>
+<span class="go">11           2009-10-14                439502                                 Postoperative pain</span>
+<span class="go">12           2010-04-01               4148842  Bipolar I disorder, single manic episode, in f...</span>
+<span class="go">13           2009-07-25                439082                                Menopausal syndrome</span>
+<span class="go">14           2009-07-25                444382                               Thoracic radiculitis</span>
+<span class="go">15           2010-03-12                192450                                 Retention of urine</span>
 </pre></div>
 </div>
 <p>Count the number of inpatient and outpatient visits for each person broken down by visit type and sorted by person_id:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [43]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">func</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [42]: </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">func</span>
+
+<span class="gp">In [43]: </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="gp">In [44]: </span><span class="n">vo</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;visit_occurrence&#39;</span><span class="p">]</span>
 
@@ -345,15 +318,15 @@
 
 <span class="gp">In [47]: </span><span class="n">visit_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Inpatient Visit&#39;</span><span class="p">,</span><span class="s1">&#39;Outpatient Visit&#39;</span><span class="p">]</span>
 
-<span class="gp">In [48]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">vo</span><span class="o">.</span><span class="n">visit_occurrence_id</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;num_visits&#39;</span><span class="p">),</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;visit_type&#39;</span><span class="p">)])</span><span class="o">.</span>\
+<span class="gp">In [48]: </span><span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">vo</span><span class="o">.</span><span class="n">visit_occurrence_id</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;num_visits&#39;</span><span class="p">),</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;visit_type&#39;</span><span class="p">))</span><span class="o">.</span>\
 <span class="gp">   ....: </span>            <span class="n">select_from</span><span class="p">(</span><span class="n">j2</span><span class="p">)</span><span class="o">.</span>\
 <span class="gp">   ....: </span>            <span class="n">where</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">visit_types</span><span class="p">))</span><span class="o">.</span>\
 <span class="gp">   ....: </span>            <span class="n">group_by</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">concept_name</span><span class="p">)</span><span class="o">.</span>\
 <span class="gp">   ....: </span>            <span class="n">order_by</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span><span class="p">)</span>
 <span class="gp">   ....: </span>
 
-<span class="gp">In [49]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
-<span class="gh">Out[49]: </span><span class="go"></span>
+<span class="gp">In [49]: </span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="n">inspector</span><span class="o">.</span><span class="n">connect</span><span class="p">())</span>
+<span class="gh">Out[49]: </span>
 <span class="go">   person_id  num_visits        visit_type</span>
 <span class="go">0          1           1   Inpatient Visit</span>
 <span class="go">1          1           1  Outpatient Visit</span>
@@ -366,17 +339,19 @@
 <span class="go">8          9           2  Outpatient Visit</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="from-strings">
-<h3>From Strings<a class="headerlink" href="#from-strings" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="from-strings">
+<h3>From Strings<a class="headerlink" href="#from-strings" title="Link to this heading">¶</a></h3>
 <p>You <cite>can</cite> execute unaltered SQL strings directly, but remember to always used parametrized code for shared/production projects.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Only use strings for rapid prototyping and in-house projects! Executing strings directly breaks backend compatibility and can potentially lead to SQL injection attacks!</p>
 </div>
 <p>Example:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [50]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select person_id from person&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">as_pandas</span><span class="p">()</span>
-<span class="gh">Out[50]: </span><span class="go"></span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [50]: </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="gp">In [51]: </span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select person_id from person&#39;</span><span class="p">,</span><span class="n">inspector</span><span class="o">.</span><span class="n">connect</span><span class="p">())</span>
+<span class="gh">Out[51]: </span>
 <span class="go">   person_id</span>
 <span class="go">0          1</span>
 <span class="go">1          2</span>
@@ -390,19 +365,23 @@
 <span class="go">9         16</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sharing-custom-queries-as-functions">
-<h3>Sharing custom queries as functions<a class="headerlink" href="#sharing-custom-queries-as-functions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="sharing-custom-queries-as-functions">
+<h3>Sharing custom queries as functions<a class="headerlink" href="#sharing-custom-queries-as-functions" title="Link to this heading">¶</a></h3>
 <p>Custom queries that may prove useful to the OMOP CDM community can easily be shared by wrapping them in a function and following a standard recipe.  <a class="reference external" href="https://github.com/jbadger3/inspectomop">View the source code</a> on GitHub to get a better feel of how to construct queries and contribute (via pull request or posting your function in issues).</p>
 <p>In general, consider the following:</p>
 <ul class="simple">
 <li><p>appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. <cite>concepts_for_concept_ids</cite></p></li>
-<li><p>the return value for a query should <cite>always</cite> be a <a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> object.  This provides consistency and gives the end-user control over how to process the results.</p></li>
-<li><p>write a docstring following the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc docstring guide</a> to accompany your code.</p></li>
+<li><p>the return value for a query should <cite>always</cite> be a <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.sql.expression.Executable</span></code> object <cite>or</cite> a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p></li>
 </ul>
+<p>object depending on the value of a boolean argument <cite>as_pandas_df</cite> (defaulting to <cite>False</cite>).
+This provides consistency and gives the end-user control over how to process the results.
+* write a docstring following the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc docstring guide</a> to accompany your code.</p>
 <p>Prototype:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">output_for_input</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">output_for_input</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inspector</span><span class="p">,</span> <span class="n">return_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_pandas_df</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Short description.</span>
 
 <span class="sd">    Longer explanation.</span>
@@ -418,8 +397,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    results : inspectomop.results.Results</span>
-<span class="sd">        a cursor-like object with methods such as fetchone(), fetchmany() etc.</span>
+<span class="sd">    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -431,16 +409,17 @@
     <span class="k">if</span> <span class="n">return_columns</span><span class="p">:</span> <span class="c1"># filter based on end-user selection</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">return_columns</span><span class="p">]</span>
 
-    <span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">columns</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">inputs</span> <span class="o">==</span> <span class="n">criteria</span><span class="p">)</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">inputs</span> <span class="o">==</span> <span class="n">criteria</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">inspector</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span><span class="n">con</span><span class="o">=</span><span class="n">inspector</span><span class="o">.</span><span class="n">connect</span><span class="p">())</span> <span class="k">if</span> <span class="n">as_pandas_df</span> <span class="k">else</span> <span class="n">statement</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -462,8 +441,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#specifying-how-results-are-returned">Specifying how results are returned</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#fetching-examples">Fetching examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#results-as-pandas-dataframes">Results as pandas DataFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-directly-with-statements">Working directly with statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#returning-results-as-pandas-dataframes">Returning results as pandas DataFrames</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-custom-queries">Creating custom queries</a><ul>
@@ -484,16 +463,16 @@
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -510,12 +489,13 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

@@ -71,7 +71,7 @@ The columns in each table object are dot accessible and can be assigned to varia
    from sqlalchemy import select
 
    person_id = person.person_id
-   statement = select([person_id])
+   statement = select(person_id)
    print(statement)
 
 Complete table descriptions
@@ -99,7 +99,7 @@ There are a variety of built in queries available in the :ref:`queries` submodul
 
    concept_ids = [2, 3, 4, 7, 8, 10, 46287342, 46271022]
    return_columns = ['concept_name', 'concept_id']
-   concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns).fetchall()
+   concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns, as_pandas_df=True)
 
 .. note::
 
@@ -137,15 +137,8 @@ Query methods also provide an option `as_pandas_df`, for returning results as pa
 
 .. ipython:: python
 
-   #return the results as as a dataframe
    results = concepts_for_concept_ids(concept_ids, inspector, as_pandas_df=True)
    results[['concept_name','vocabulary_id']]
-   # return the results in chunks
-   chunksize = 3
-   results = concepts_for_concept_ids(concept_ids, inspector).as_pandas_chunks(chunksize)
-   for num, chunk in enumerate(results):
-       print('chunk {}'.format(num + 1))
-       print(chunk['concept_name'])
 
 Creating custom queries
 =======================
@@ -191,7 +184,7 @@ Select all of the conditions for person 1:
    c = inspector.tables['concept']
    co = inspector.tables['condition_occurrence']
    person_id = 1
-   statement = select([co.condition_start_date, co.condition_concept_id, c.concept_name]).\
+   statement = select(co.condition_start_date, co.condition_concept_id, c.concept_name).\
                where(and_(\
                    co.person_id == person_id,\
                    co.condition_concept_id == c.concept_id))
@@ -210,7 +203,7 @@ Count the number of inpatient and outpatient visits for each person broken down 
    j2 = join(j, p, vo.person_id == p.person_id)
    visit_types = ['Inpatient Visit','Outpatient Visit']
 
-   statement = select([p.person_id, func.count(vo.visit_occurrence_id).label('num_visits'), c.concept_name.label('visit_type')]).\
+   statement = select(p.person_id, func.count(vo.visit_occurrence_id).label('num_visits'), c.concept_name.label('visit_type')).\
                select_from(j2).\
                where(c.concept_name.in_(visit_types)).\
                group_by(p.person_id, c.concept_name).\
@@ -279,6 +272,6 @@ Prototype:
       if return_columns: # filter based on end-user selection
           columns = [col for col in columns if col.name in return_columns]
 
-      statement = select([columns]).where(inputs == criteria)
+      statement = select(*columns).where(inputs == criteria)
 
       return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement

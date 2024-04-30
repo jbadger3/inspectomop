@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <title>inspectomop.inspector.Inspector.execute &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>inspectomop.inspector.Inspector.connect &#8212; InspectOMOP 0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=0f882399" />
+    <script src="../_static/documentation_options.js?v=6e0256f3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.inspector.Inspector.table_info" href="inspectomop.inspector.Inspector.table_info.html" />
@@ -30,7 +29,8 @@
           <a href="inspectomop.inspector.Inspector.attach_sqlite_db.html" title="inspectomop.inspector.Inspector.attach_sqlite_db"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.inspector.Inspector.connect</a></li> 
       </ul>
     </div>  
 
@@ -39,42 +39,26 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="inspectomop-inspector-inspector-execute">
-<h1>inspectomop.inspector.Inspector.execute<a class="headerlink" href="#inspectomop-inspector-inspector-execute" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
-<dt id="inspectomop.inspector.Inspector.execute">
-<code class="sig-prename descclassname">Inspector.</code><code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param">statement</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.execute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes an SQL query on the OMOP CDM.</p>
+  <section id="inspectomop-inspector-inspector-connect">
+<h1>inspectomop.inspector.Inspector.connect<a class="headerlink" href="#inspectomop-inspector-inspector-connect" title="Link to this heading">¶</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="inspectomop.inspector.Inspector.connect">
+<span class="sig-prename descclassname"><span class="pre">Inspector.</span></span><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a connection from the underlying SQLAlchemy engine</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>statement</strong> (<em>sqlalchemy object</em><em> or </em><em>string</em>) – <dl class="simple">
-<dt>sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables</dt><dd><p>e.g. select([concept]).where(concept.concept_id==0)</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong></p>
 </dd>
-<dt>strings - can be a string containing an SQL statemment such as</dt><dd><p>e.g. ‘SELECT concept_name from concept where concept_id = 0’</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>results</strong> – The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as
-pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>inspectomop.Results</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sqlalchemy.engine.base.Connection</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p><strong>* Use of raw SQL strings is not recommended as they bypass the dialect translation and security
-provided by using SQLAlchemy *</strong></p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">inpsectomop.Results()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">inspectomop.queries()</span></code></p>
-</div>
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -91,7 +75,6 @@ provided by using SQLAlchemy *</strong></p>
 <li class="toctree-l3 current"><a class="reference internal" href="../api.html#methods">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#results">Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#queries">Queries</a></li>
 </ul>
 </li>
@@ -100,20 +83,20 @@ provided by using SQLAlchemy *</strong></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/inspectomop.inspector.Inspector.execute.rst.txt"
+      <li><a href="../_sources/generated/inspectomop.inspector.Inspector.connect.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -131,12 +114,13 @@ provided by using SQLAlchemy *</strong></p>
           <a href="inspectomop.inspector.Inspector.attach_sqlite_db.html" title="inspectomop.inspector.Inspector.attach_sqlite_db"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.inspector.Inspector.connect</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

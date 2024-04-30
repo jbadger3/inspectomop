@@ -1,4 +1,4 @@
-inspectomop.queries.person.patient\_counts\_by\_residence\_state
+﻿inspectomop.queries.person.patient\_counts\_by\_residence\_state
 ================================================================
 
 .. currentmodule:: inspectomop.queries.person

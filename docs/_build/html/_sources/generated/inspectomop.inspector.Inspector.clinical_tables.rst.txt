@@ -1,6 +1,6 @@
-inspectomop.inspector.Inspector.clinical\_tables
+﻿inspectomop.inspector.Inspector.clinical\_tables
 ================================================
 
 .. currentmodule:: inspectomop.inspector
 
-.. autoattribute:: Inspector.clinical_tables
+.. autoproperty:: Inspector.clinical_tables
