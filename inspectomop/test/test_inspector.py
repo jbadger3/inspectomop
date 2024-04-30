@@ -24,6 +24,6 @@ def test_vocabulary_tables():
     """TODO"""
 def test_table_info():
     """TODO"""
-def test_execute():
+def test_connect():
     """TODO"""
 

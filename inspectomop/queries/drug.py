@@ -8,10 +8,11 @@ Adapted from: https://github.com/OHDSI/OMOP-Queries
 from sqlalchemy import select as _select, join as _join,\
     union as _union, union_all as _union_all, \
     distinct as _distinct, between as  _between, alias as _alias, \
-    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func, subquery as _subquery
+    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
+import pandas as pd
 
-def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None):
+def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None, as_pandas_df=False):
     """
     Get ingredients for brand or generic drug concept_ids.
 
@@ -26,7 +27,7 @@ def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -67,11 +68,11 @@ def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None
                     ca.c.ancestor_concept_id == a.c.concept_id,\
                     a.c.concept_class_id == 'Ingredient',\
                     ca.c.descendant_concept_id.in_(concept_ids)))
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
 
 
-def drug_concepts_for_ingredient_concept_id(concept_id, inspector,return_columns=None):
+def drug_concepts_for_ingredient_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
     """
     Get all drugs that contain a given ingredient.
 
@@ -89,7 +90,7 @@ def drug_concepts_for_ingredient_concept_id(concept_id, inspector,return_columns
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -129,10 +130,10 @@ def drug_concepts_for_ingredient_concept_id(concept_id, inspector,return_columns
         columns = [col for col in columns if col.name in return_columns]
     statement = _select(columns).where(_and_(ca.c.ancestor_concept_id==a.c.concept_id,\
         ca.c.descendant_concept_id == d.c.concept_id, ca.c.ancestor_concept_id == concept_id))
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
 
-def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,return_columns=None):
+def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector, return_columns=None, as_pandas_df=False):
     """
     Get concept_ids for a list of ingredients.
 
@@ -146,7 +147,7 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,retu
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -173,9 +174,9 @@ def ingredient_concept_ids_for_ingredient_names(ingredient_names, inspector,retu
                     concept.vocabulary_id == vocab_id,\
                     concept.concept_class_id == concept_class_id,\
                     _func.lower(concept.concept_name).in_(map(str.lower,ingredient_names))))
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
+def drug_classes_for_drug_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
     """
     Returns drug classes for drug or ingredient concept_ids.
 
@@ -189,7 +190,7 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -230,9 +231,9 @@ def drug_classes_for_drug_concept_id(concept_id, inspector,return_columns=None):
                     c.c.vocabulary_id.in_(['ATC','VA Class','Mechanism of Action','Chemical Structure','ETC','Physiologic Effect']),\
                     c.c.vocabulary_id == v.c.vocabulary_id,\
                     ca.c.descendant_concept_id == concept_id))
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
+def indications_for_drug_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
     """
     Find all indications for a drug given a concept_id.  Returns matches from NDFRT, FDB, and corresponding SNOMED conditions.
 
@@ -252,7 +253,7 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -343,4 +344,4 @@ def indications_for_drug_concept_id(concept_id, inspector,return_columns=None):
                 de.c.vocabulary_id.in_(vocab_ids)
                 ))
 
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement

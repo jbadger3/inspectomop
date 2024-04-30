@@ -9,7 +9,9 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
-def patient_counts_by_gender(inspector, person_ids=None, return_columns=None):
+import pandas as _pd
+
+def patient_counts_by_gender(inspector, person_ids=None, return_columns=None, as_pandas_df=False):
     """
     Returns patient counts grouped by gender for the database or alternativily, for a supplied list of person_ids.
 
@@ -24,7 +26,7 @@ def patient_counts_by_gender(inspector, person_ids=None, return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -59,9 +61,9 @@ def patient_counts_by_gender(inspector, person_ids=None, return_columns=None):
                         p.c.person_id.in_(person_ids))).\
                     group_by(p.c.gender_concept_id)
 
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def patient_counts_by_year_of_birth(inspector, person_ids=None, return_columns=None):
+def patient_counts_by_year_of_birth(inspector, person_ids=None, return_columns=None, as_pandas_df=False):
     """
     Returns patient counts grouped by year of birth for the database or alternativily, for a supplied list of person_ids.
 
@@ -76,7 +78,7 @@ def patient_counts_by_year_of_birth(inspector, person_ids=None, return_columns=N
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
 
     Notes
@@ -109,9 +111,9 @@ def patient_counts_by_year_of_birth(inspector, person_ids=None, return_columns=N
                         p.c.person_id.in_(person_ids)).\
                     group_by(p.c.year_of_birth).\
                     order_by(p.c.year_of_birth)
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def patient_counts_by_residence_state(inspector, person_ids=None, return_columns=None):
+def patient_counts_by_residence_state(inspector, person_ids=None, return_columns=None, as_pandas_df=False):
     """
     Returns patient counts grouped by state for the database or alternativily, for a supplied list of person_ids.
 
@@ -126,7 +128,7 @@ def patient_counts_by_residence_state(inspector, person_ids=None, return_columns
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -163,9 +165,9 @@ def patient_counts_by_residence_state(inspector, person_ids=None, return_columns
                         j.c.p_person_id.in_(person_ids)).\
                     group_by(j.c.l_state).\
                     order_by(j.c.l_state)
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def patient_counts_by_zip_code(inspector, person_ids=None, return_columns=None):
+def patient_counts_by_zip_code(inspector, person_ids=None, return_columns=None, as_pandas_df=False):
     """
     Returns patient counts grouped by zip code for the database or alternativily, for a supplied list of person_ids.
 
@@ -180,7 +182,7 @@ def patient_counts_by_zip_code(inspector, person_ids=None, return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -220,9 +222,9 @@ def patient_counts_by_zip_code(inspector, person_ids=None, return_columns=None):
                         j.c.p_person_id.in_(person_ids)).\
                     group_by(j.c.l_state, j.c.l_zip).\
                     order_by(j.c.l_state, j.c.l_zip)
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
 
-def patient_counts_by_year_of_birth_and_gender(inspector, person_ids=None, return_columns=None):
+def patient_counts_by_year_of_birth_and_gender(inspector, person_ids=None, return_columns=None, as_pandas_df=False):
     """
     Returns patient counts stratified by year of birth and gender for the database or alternativily, for a supplied list of person_ids.
 
@@ -237,7 +239,7 @@ def patient_counts_by_year_of_birth_and_gender(inspector, person_ids=None, retur
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
 
     Notes
@@ -280,4 +282,4 @@ def patient_counts_by_year_of_birth_and_gender(inspector, person_ids=None, retur
                         c.c.concept_id == p.c.gender_concept_id)).\
                     group_by(p.c.year_of_birth, c.c.concept_name).\
                     order_by(p.c.year_of_birth, c.c.concept_name)
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement

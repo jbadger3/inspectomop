@@ -8,7 +8,7 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
-def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
+def observation_concepts_for_keyword(keyword, inspector,return_columns=None, as_pandas_df=False):
     """
     Search for LOINC and UCUM concepts by keyword.
 
@@ -24,7 +24,7 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -85,4 +85,4 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
     statement = _select(columns).select_from(s1).\
         where(_func.lower(s1.c.concept_name).ilike('%{}%'.format(keyword.lower())))
 
-    return inspector.execute(statement)
+    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement

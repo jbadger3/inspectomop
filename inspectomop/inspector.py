@@ -7,10 +7,6 @@ from sqlalchemy.sql import sqltypes
 
 import pandas as _pd
 
-from .results import Results
-
-
-
 class Inspector():
     """
     Creates an Inspector object which can be used to run OMOP data queries
@@ -40,7 +36,7 @@ class Inspector():
 
     def __init__(self,connection_url):
         self.__connection_url = connection_url
-        if connection_url.startswith('sqlite'):
+        if connection_url.startswith('sqlite') or connection_url.startswith('duckdb'):
             self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
         else:
             self.__engine = create_engine(self.connection_url)
@@ -245,34 +241,12 @@ class Inspector():
         data = [[col.name, col.type, col.nullable, col.primary_key] for col in table.__table__.columns.values()]
         return _pd.DataFrame(data, columns=['column','type','nullable','primary_key'])
 
-
-
-    def execute(self, statement):
+    def connect(self):
         """
-        Executes an SQL query on the OMOP CDM.
-
-        Parameters
-        ----------
-        statement : sqlalchemy object or string
-            sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables
-                e.g. select([concept]).where(concept.concept_id==0)
-            strings - can be a string containing an SQL statemment such as
-                e.g. 'SELECT concept_name from concept where concept_id = 0'
+        Returns a connection from the underlying SQLAlchemy engine
 
         Returns
         -------
-        results : inspectomop.Results
-            The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as
-            pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall
-
-        Notes
-        -----
-            *** Use of raw SQL strings is not recommended as they bypass the dialect translation and security
-            provided by using SQLAlchemy ***
-
-        See Also
-        --------
-        inpsectomop.Results, inspectomop.queries
+        conn : sqlalchemy.engine.base.Connection
         """
-        results_proxy = self.engine.execute(statement)
-        return Results(results_proxy)
+        return self.engine.connect()

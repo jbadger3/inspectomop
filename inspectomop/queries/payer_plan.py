@@ -42,9 +42,7 @@ def counts_by_years_of_coverage(inspector):
 
     columns = [p.c.payer_plan_period_end_date,p.c.payer_plan_period_start_date]
     statement = _select(columns)
-    results = inspector.execute(statement).as_pandas()
-    results['payer_plan_period_end_date'] = _pd.to_datetime(results['payer_plan_period_end_date'])
-    results['payer_plan_period_start_date'] = _pd.to_datetime(results['payer_plan_period_start_date'])
+    results = _pd.read_sql(statement,con=inspector.connect())
     results['coverage_years'] = results['payer_plan_period_end_date'] - results['payer_plan_period_start_date']
     results['coverage_years'] = [_np.floor(cov.days/365.25) for cov in  results['coverage_years']]
     results = results[['coverage_years','payer_plan_period_start_date']].groupby('coverage_years', as_index=False).count()
@@ -63,7 +61,7 @@ def patient_distribution_by_plan_type(inspector):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -90,4 +88,4 @@ def patient_distribution_by_plan_type(inspector):
     p = _alias(inspector.tables['payer_plan_period'], 'p')
     columns = [p.c.plan_source_value, _func.count(p.c.plan_source_value).label('count')]
     statement = _select(columns).group_by(p.c.plan_source_value)
-    return inspector.execute(statement)
+    return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
