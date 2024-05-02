@@ -38,8 +38,6 @@ class Inspector():
         self.__connection_url = connection_url
         if connection_url.startswith("sqlite"):
             self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
-        elif connection_url.startswith("duckdb"):
-            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
         else:
             self.__engine = create_engine(self.connection_url)
 
