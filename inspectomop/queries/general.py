@@ -10,7 +10,7 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column
 
-def concepts_for_concept_ids(concept_ids, inspector,return_columns=None):
+def concepts_for_concept_ids(concept_ids, inspector, return_columns=None):
     """
     Returns concept information for a list of concept_ids
 
@@ -58,9 +58,9 @@ def concepts_for_concept_ids(concept_ids, inspector,return_columns=None):
         columns = [col for col in columns if col.key in filtered_col_names]
 
 
-    statement = _select(columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.vocabulary_id == vocabulary.vocabulary_id)
+    statement = _select(*columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.vocabulary_id == vocabulary.vocabulary_id)
 
-    return inspector.execute(statement)
+    return statement
 
 
 def synonyms_for_concept_ids(concept_ids, inspector,return_columns=None):
@@ -109,7 +109,7 @@ def synonyms_for_concept_ids(concept_ids, inspector,return_columns=None):
         filtered_col_names = list(filter(lambda x: x in col_names, return_columns))
         columns = [col for col in columns if col.key in filtered_col_names]
 
-    statement = _select(columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.concept_id == concept_synonym.concept_id).where(concept.vocabulary_id==vocabulary.vocabulary_id)
+    statement = _select(*columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.concept_id == concept_synonym.concept_id).where(concept.vocabulary_id==vocabulary.vocabulary_id)
     return inspector.execute(statement)
 
 def standard_vocab_for_source_code(source_code, source_vocab_id, inspector,return_columns=None):
