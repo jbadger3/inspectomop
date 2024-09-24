@@ -71,7 +71,7 @@ The columns in each table object are dot accessible and can be assigned to varia
    from sqlalchemy import select
 
    person_id = person.person_id
-   statement = select([person_id])
+   statement = select(person_id)
    print(statement)
 
 Complete table descriptions
@@ -99,7 +99,7 @@ There are a variety of built in queries available in the :ref:`queries` submodul
 
    concept_ids = [2, 3, 4, 7, 8, 10, 46287342, 46271022]
    return_columns = ['concept_name', 'concept_id']
-   concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns).fetchall()
+   concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns, as_pandas_df=True)
 
 .. note::
 
@@ -108,44 +108,37 @@ There are a variety of built in queries available in the :ref:`queries` submodul
 Specifying how results are returned
 ===================================
 
-By default all queries return a :py:class:`.Results` object.  Results objects behave like database cursors and have the expected methods such as .fetchone() and .fetchall() for fetching rows.
+By default all queries return a :py:class:`sqlalchemy.sql.expression.Executable` statement.
+This statement may be evaluated in a connection context returned from :py:meth:`.Inspector.connect`.
 
-.. note::
-
-  Results objects ultimately point back to the underlying DBAPI used for interacting with the DB (pymssql for SQL Server, sqlite3 for SQLite, etc).  More or less these should follow the `pythong DB API spec <https://www.python.org/dev/peps/pep-0249/>`__ for cursor objects.  Most of this is handled by SQLAlchemy.  :py:class:`.Results` is a subclass of :py:class:`sqlalchemy.engine.ResultProxy` with additional methods for working with pandas.
-
-Fetching examples
+Working directly with statements
 ~~~~~~~~~~~~~~~~~
 .. ipython:: python
 
-   results = concepts_for_concept_ids(concept_ids, inspector)
-   #get the return column names
-   results.keys()
-   #get one row
-   results.fetchone()
-   #get many rows
-   two_results = results.fetchmany(2)
-   len(two_results)
+   statement = concepts_for_concept_ids(concept_ids, inspector)
+   with inspector.connect() as con:
+      results = con.execute(statement)
+      #get the return column names
+      results.keys()
+      #get one row
+      results.fetchone()
+      #get many rows
+      two_results = results.fetchmany(2)
+      len(two_results)
 
-   #iterating over rows
-   for row in results:
-       print(row[:2])
+      #iterating over rows
+      for row in results:
+         print(row[:2])
 
-Results as pandas DataFrames
+Returning results as pandas DataFrames
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Results objects also have two handy methods, .as_pandas() and .as_pandas_chunks(), for returning results as pandas DataFrames.
+Query methods also provide an option `as_pandas_df`, for returning results as pandas DataFrames
+(evaluated by creating a one-off connection).
 
 .. ipython:: python
 
-   #return the results as as a dataframe
-   results = concepts_for_concept_ids(concept_ids, inspector).as_pandas()
+   results = concepts_for_concept_ids(concept_ids, inspector, as_pandas_df=True)
    results[['concept_name','vocabulary_id']]
-   # return the results in chunks
-   chunksize = 3
-   results = concepts_for_concept_ids(concept_ids, inspector).as_pandas_chunks(chunksize)
-   for num, chunk in enumerate(results):
-       print('chunk {}'.format(num + 1))
-       print(chunk['concept_name'])
 
 Creating custom queries
 =======================
@@ -187,33 +180,35 @@ Select all of the conditions for person 1:
 .. ipython:: python
 
    from sqlalchemy import select, and_
+   import pandas as pd
    c = inspector.tables['concept']
    co = inspector.tables['condition_occurrence']
    person_id = 1
-   statement = select([co.condition_start_date, co.condition_concept_id, c.concept_name]).\
+   statement = select(co.condition_start_date, co.condition_concept_id, c.concept_name).\
                where(and_(\
                    co.person_id == person_id,\
                    co.condition_concept_id == c.concept_id))
    print(statement)
-   inspector.execute(statement).as_pandas()
+   pd.read_sql(statement, con=inspector.connect()) 
 
 Count the number of inpatient and outpatient visits for each person broken down by visit type and sorted by person_id:
 
 .. ipython:: python
 
    from sqlalchemy import join, func
+   import pandas as pd
 
    vo = inspector.tables['visit_occurrence']
    j = join(vo, c, vo.visit_concept_id == c.concept_id)
    j2 = join(j, p, vo.person_id == p.person_id)
    visit_types = ['Inpatient Visit','Outpatient Visit']
 
-   statement = select([p.person_id, func.count(vo.visit_occurrence_id).label('num_visits'), c.concept_name.label('visit_type')]).\
+   statement = select(p.person_id, func.count(vo.visit_occurrence_id).label('num_visits'), c.concept_name.label('visit_type')).\
                select_from(j2).\
                where(c.concept_name.in_(visit_types)).\
                group_by(p.person_id, c.concept_name).\
                order_by(p.person_id)
-   inspector.execute(statement).as_pandas()
+   pd.read_sql(statement, con=inspector.connect()) 
 
 From Strings
 ~~~~~~~~~~~~
@@ -227,7 +222,8 @@ Example:
 
 .. ipython:: python
 
-   inspector.execute('select person_id from person').as_pandas()
+   import pandas as pd
+   pd.read_sql('select person_id from person',inspector.connect())
 
 Sharing custom queries as functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,14 +232,18 @@ Custom queries that may prove useful to the OMOP CDM community can easily be sha
 In general, consider the following:
 
 * appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. `concepts_for_concept_ids`
-* the return value for a query should `always` be a :py:class:`.Results` object.  This provides consistency and gives the end-user control over how to process the results.
+* the return value for a query should `always` be a :py:class:`sqlalchemy.sql.expression.Executable` object `or` a :py:class:`pandas.DataFrame`
+object depending on the value of a boolean argument `as_pandas_df` (defaulting to `False`).
+This provides consistency and gives the end-user control over how to process the results.
 * write a docstring following the `numpydoc docstring guide <https://numpydoc.readthedocs.io/en/latest/format.html>`__ to accompany your code.
 
 Prototype:
 
 .. code-block:: python
 
-  def output_for_input(inputs, inspector, return_columns=None):
+  import pandas as pd
+  
+  def output_for_input(inputs, inspector, return_columns=None, as_pandas_df=False):
       """
       Short description.
 
@@ -260,8 +260,7 @@ Prototype:
 
       Returns
       -------
-      results : inspectomop.results.Results
-          a cursor-like object with methods such as fetchone(), fetchmany() etc.
+      results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
 
       Notes
       -----
@@ -273,6 +272,6 @@ Prototype:
       if return_columns: # filter based on end-user selection
           columns = [col for col in columns if col.name in return_columns]
 
-      statement = select([columns]).where(inputs == criteria)
+      statement = select(*columns).where(inputs == criteria)
 
-      return inspector.execute(statement)
+      return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement

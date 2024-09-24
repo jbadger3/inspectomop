@@ -1,4 +1,4 @@
-inspectomop.queries.care\_site.facility\_counts\_by\_type
+﻿inspectomop.queries.care\_site.facility\_counts\_by\_type
 =========================================================
 
 .. currentmodule:: inspectomop.queries.care_site

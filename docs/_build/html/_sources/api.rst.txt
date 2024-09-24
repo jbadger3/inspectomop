@@ -39,41 +39,9 @@ Methods
    :toctree: generated/
 
    Inspector.attach_sqlite_db
-   Inspector.execute
+   Inspector.connect
    Inspector.table_info
 
-
-Results
--------
-`inspectomop.Results`
-
-Constructor
-~~~~~~~~~~~
-
-.. currentmodule:: inspectomop.results
-
-.. autosummary::
-   :toctree: generated/
-
-   Results
-
-.. warning::
-
-  Although a public constructor exists, `Results` objects are meant to be instantiated indirectly from calls to `inspector.execute()`
-
-Methods
-~~~~~~~
-.. currentmodule:: inspectomop.results
-.. autosummary::
-   :toctree: generated/
-
-   Results.as_pandas
-   Results.as_pandas_chunks
-   Results.fetchone
-   Results.fetchmany
-   Results.fetchall
-
-.. _queries:
 
 Queries
 -------

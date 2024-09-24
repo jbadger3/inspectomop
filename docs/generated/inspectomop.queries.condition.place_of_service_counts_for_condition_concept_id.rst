@@ -1,4 +1,4 @@
-inspectomop.queries.condition.place\_of\_service\_counts\_for\_condition\_concept\_id
+﻿inspectomop.queries.condition.place\_of\_service\_counts\_for\_condition\_concept\_id
 =====================================================================================
 
 .. currentmodule:: inspectomop.queries.condition

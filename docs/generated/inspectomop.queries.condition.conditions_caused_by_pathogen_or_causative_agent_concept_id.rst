@@ -1,4 +1,4 @@
-inspectomop.queries.condition.conditions\_caused\_by\_pathogen\_or\_causative\_agent\_concept\_id
+﻿inspectomop.queries.condition.conditions\_caused\_by\_pathogen\_or\_causative\_agent\_concept\_id
 =================================================================================================
 
 .. currentmodule:: inspectomop.queries.condition

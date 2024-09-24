@@ -1,4 +1,4 @@
-inspectomop.queries.general.synonyms\_for\_concept\_ids
+﻿inspectomop.queries.general.synonyms\_for\_concept\_ids
 =======================================================
 
 .. currentmodule:: inspectomop.queries.general

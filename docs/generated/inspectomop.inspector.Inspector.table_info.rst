@@ -1,4 +1,4 @@
-inspectomop.inspector.Inspector.table\_info
+﻿inspectomop.inspector.Inspector.table\_info
 ===========================================
 
 .. currentmodule:: inspectomop.inspector

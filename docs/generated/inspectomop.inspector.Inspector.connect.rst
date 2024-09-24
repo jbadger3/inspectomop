@@ -1,6 +1,6 @@
-inspectomop.inspector.Inspector.execute
+﻿inspectomop.inspector.Inspector.connect
 =======================================
 
 .. currentmodule:: inspectomop.inspector
 
-.. automethod:: Inspector.execute
+.. automethod:: Inspector.connect

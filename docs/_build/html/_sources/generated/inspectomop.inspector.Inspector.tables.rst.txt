@@ -1,6 +1,6 @@
-inspectomop.inspector.Inspector.tables
+﻿inspectomop.inspector.Inspector.tables
 ======================================
 
 .. currentmodule:: inspectomop.inspector
 
-.. autoattribute:: Inspector.tables
+.. autoproperty:: Inspector.tables

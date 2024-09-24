@@ -1,4 +1,4 @@
-inspectomop.queries.person.patient\_counts\_by\_zip\_code
+﻿inspectomop.queries.person.patient\_counts\_by\_zip\_code
 =========================================================
 
 .. currentmodule:: inspectomop.queries.person

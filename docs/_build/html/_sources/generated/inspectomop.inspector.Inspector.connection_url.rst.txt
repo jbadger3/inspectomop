@@ -1,6 +1,6 @@
-inspectomop.inspector.Inspector.connection\_url
+﻿inspectomop.inspector.Inspector.connection\_url
 ===============================================
 
 .. currentmodule:: inspectomop.inspector
 
-.. autoattribute:: Inspector.connection_url
+.. autoproperty:: Inspector.connection_url

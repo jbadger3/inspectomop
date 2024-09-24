@@ -1,4 +1,4 @@
-inspectomop.queries.drug.ingredient\_concept\_ids\_for\_ingredient\_names
+﻿inspectomop.queries.drug.ingredient\_concept\_ids\_for\_ingredient\_names
 =========================================================================
 
 .. currentmodule:: inspectomop.queries.drug

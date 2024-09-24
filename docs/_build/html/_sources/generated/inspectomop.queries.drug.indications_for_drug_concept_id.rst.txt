@@ -1,4 +1,4 @@
-inspectomop.queries.drug.indications\_for\_drug\_concept\_id
+﻿inspectomop.queries.drug.indications\_for\_drug\_concept\_id
 ============================================================
 
 .. currentmodule:: inspectomop.queries.drug

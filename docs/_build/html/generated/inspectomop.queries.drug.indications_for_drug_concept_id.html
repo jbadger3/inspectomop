@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>inspectomop.queries.drug.indications_for_drug_concept_id &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=0f882399" />
+    <script src="../_static/documentation_options.js?v=6e0256f3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.queries.drug.ingredients_for_drug_concept_ids" href="inspectomop.queries.drug.ingredients_for_drug_concept_ids.html" />
@@ -30,7 +29,8 @@
           <a href="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.queries.drug.indications_for_drug_concept_id</a></li> 
       </ul>
     </div>  
 
@@ -39,30 +39,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="inspectomop-queries-drug-indications-for-drug-concept-id">
-<h1>inspectomop.queries.drug.indications_for_drug_concept_id<a class="headerlink" href="#inspectomop-queries-drug-indications-for-drug-concept-id" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="inspectomop.queries.drug.indications_for_drug_concept_id">
-<code class="sig-prename descclassname">inspectomop.queries.drug.</code><code class="sig-name descname">indications_for_drug_concept_id</code><span class="sig-paren">(</span><em class="sig-param">concept_id</em>, <em class="sig-param">inspector</em>, <em class="sig-param">return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.drug.indications_for_drug_concept_id" title="Permalink to this definition">¶</a></dt>
+  <section id="inspectomop-queries-drug-indications-for-drug-concept-id">
+<h1>inspectomop.queries.drug.indications_for_drug_concept_id<a class="headerlink" href="#inspectomop-queries-drug-indications-for-drug-concept-id" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="inspectomop.queries.drug.indications_for_drug_concept_id">
+<span class="sig-prename descclassname"><span class="pre">inspectomop.queries.drug.</span></span><span class="sig-name descname"><span class="pre">indications_for_drug_concept_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">concept_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inspector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_pandas_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.drug.indications_for_drug_concept_id" title="Link to this definition">¶</a></dt>
 <dd><p>Find all indications for a drug given a concept_id.  Returns matches from NDFRT, FDB, and corresponding SNOMED conditions.</p>
 <p><a href="#id1"><span class="problematic" id="id2">*</span></a>Note: The results set should be filtered by ‘c_domain_id’ == ‘Condition’</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>concept_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – </p></li>
-<li><p><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </p></li>
-<li><p><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
+<li><p><strong>concept_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>)</p></li>
+<li><p><strong>return_columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – <ul>
 <li><p>optional subset of columns to return from the query</p></li>
 <li><p>columns : [‘c_concept_id’, ‘c_concept_name’,                    ‘c_domain_id’, ‘min_levels_of_separation’,                    ‘an_concept_id’, ‘an_concept_name’,                    ‘an_vocab’, ‘de_concept_id’,                    de_concept_name’, ‘de_vocab’]</p></li>
 </ul>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>results</strong></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results">inspectomop.results.Results</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -124,9 +124,10 @@ and lower(c.concept_name) like ‘%diabet%’</p>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -138,7 +139,6 @@ and lower(c.concept_name) like ‘%diabet%’</p>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#inspector">Inspector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#results">Results</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#queries">Queries</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../api.html#care-site">Care Site</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#condition">Condition</a></li>
@@ -160,16 +160,16 @@ and lower(c.concept_name) like ‘%diabet%’</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -187,12 +187,13 @@ and lower(c.concept_name) like ‘%diabet%’</p>
           <a href="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id.html" title="inspectomop.queries.drug.drug_concepts_for_ingredient_concept_id"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.queries.drug.indications_for_drug_concept_id</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>
