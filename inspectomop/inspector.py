@@ -1,5 +1,5 @@
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy import create_engine,event, MetaData
+from sqlalchemy import inspect, create_engine, event, MetaData
 from sqlalchemy import select
 from sqlalchemy.engine import reflection
 from sqlalchemy.pool import StaticPool
@@ -8,7 +8,7 @@ from sqlalchemy.sql import sqltypes
 import pandas as _pd
 
 from .results import Results
-
+from .connection import Connection
 
 
 class Inspector():
@@ -88,12 +88,17 @@ class Inspector():
 
         """
         return self.__connection_url
+    
     @property
     def engine(self):
         """
         A convenience hook to the underlying sqlalchemy engine.
 
-        Use Inspector.execute for submitting queries.
+        Warnings
+        --------
+        When opening database connections use Inspector.connect rather 
+        than the engine property. Results.as_pandas and Results.as_pandas_chunks won't work with 
+        connections created from the engine property.
         """
         return self.__engine
 
@@ -102,7 +107,8 @@ class Inspector():
             #sqlalchemy requires a primary key in each table for automatic mapping to work.
             #If no primary key is found, set the default primary key to be the first column in each table.
             for table_name,table in metadata.tables.items():
-                for col_name, col in table.c.items():
+                for col_name in table.c.keys():
+                    col = table.columns.get(col_name)
                     if col_name.endswith('date'):
                         if col.type != sqltypes.DATE and self.engine.dialect.name == 'sqlite':
                             col.type = sqltypes.DATE()
@@ -120,7 +126,7 @@ class Inspector():
                 tables[table_name] = table
 
 
-        inspector = reflection.Inspector.from_engine(self.engine)
+        inspector = inspect(self.engine)
         tables = {}
 
         if self.engine.dialect.name == 'sqlite':
@@ -245,34 +251,22 @@ class Inspector():
         data = [[col.name, col.type, col.nullable, col.primary_key] for col in table.__table__.columns.values()]
         return _pd.DataFrame(data, columns=['column','type','nullable','primary_key'])
 
-
-
-    def execute(self, statement):
+    def connect(self):
         """
-        Executes an SQL query on the OMOP CDM.
-
-        Parameters
-        ----------
-        statement : sqlalchemy object or string
-            sqlalchemy objects - statements can be created using sqlalchemy objects such as select, insert, etc. and the underlying table structures from Inspector.tables
-                e.g. select([concept]).where(concept.concept_id==0)
-            strings - can be a string containing an SQL statemment such as
-                e.g. 'SELECT concept_name from concept where concept_id = 0'
+        Provides a Connection to the underlying database from the connection pool.
 
         Returns
         -------
-        results : inspectomop.Results
-            The results object is a subclass of SQLAlchemy results_proxy with extra methods for retrieving the results as
-            pandas DataFrames.  Traditional methods conforming to the python DB connection spec work as well e.g. fetchone, fetchmany, fetchall
+        inspectomop.Connection
 
         Notes
         -----
-            *** Use of raw SQL strings is not recommended as they bypass the dialect translation and security
-            provided by using SQLAlchemy ***
+        ** The connect method is meant to be used in a `with` statement to ensure that Connection.close()
+        is called and the appropriate cleanup happens after interacting with the underlying database. **
 
-        See Also
+        Examples
         --------
-        inpsectomop.Results, inspectomop.queries
+        >>> with inspector.connect() as connection:
+        >>>     results = connection.execute(statement)
         """
-        results_proxy = self.engine.execute(statement)
-        return Results(results_proxy)
+        return  Connection(self.engine)

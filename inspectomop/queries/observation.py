@@ -70,8 +70,8 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
     v = _alias(inspector.tables['vocabulary'], 'v')
     vocab_ids = ['LOINC', 'UCUM']
     standard_concept = 'S'
-    s1 = _select([c.c.concept_id,c.c.concept_name,c.c.concept_code,\
-        c.c.concept_class_id, c.c.vocabulary_id, v.c.vocabulary_name]).\
+    s1 = _select(c.c.concept_id,c.c.concept_name,c.c.concept_code,\
+        c.c.concept_class_id, c.c.vocabulary_id, v.c.vocabulary_name).\
         where(_and_(\
             c.c.vocabulary_id.in_(vocab_ids),\
             c.c.concept_class_id != None,\
@@ -82,7 +82,7 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
 
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).select_from(s1).\
+    statement = _select(*columns).select_from(s1).\
         where(_func.lower(s1.c.concept_name).ilike('%{}%'.format(keyword.lower())))
 
-    return inspector.execute(statement)
+    return statement

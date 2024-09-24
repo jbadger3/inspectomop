@@ -30,6 +30,6 @@ setuptools.setup(
 
         #requirements/dependencies
         python_requires='>=3.0',
-        install_requires=['sqlalchemy>=1.2','pandas'],
+        install_requires=['sqlalchemy>=2.0','pandas'],
 
         )

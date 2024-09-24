@@ -8,7 +8,7 @@ Adapted from: https://github.com/OHDSI/OMOP-Queries
 from sqlalchemy import select as _select, join as _join,\
     union as _union, union_all as _union_all, \
     distinct as _distinct, between as  _between, alias as _alias, \
-    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func, subquery as _subquery
+    and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
 
 def ingredients_for_drug_concept_ids(concept_ids, inspector, return_columns=None):
