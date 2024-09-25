@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools >= 68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inspectomop"
+authors = [
+    {name = "Jonathan Badger", email = "jonathancbadger@gmail.com"},
+]
+description = "Database query tool for the OMOP Common Data Model"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["data science", "healthcare", "ehr", "OMOP", "OHDSI", "cdm"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Development Status :: 4 - Beta"
+]
+dependencies = [
+    "sqlalchemy>=2.0",
+    "pandas"
+]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {file = "inspectomop/VERSION.txt"}  # any module attribute compatible with ast.literal_eval
+
+[tool.setuptools]
+packages = ["inspectomop", "inspectomop.queries"]
+
+[project.urls]
+Documentation = "https://inpsectomop.readthedocs.io/en/master/"
+Repository = "https://github.com/jbadger3/inspectomop"

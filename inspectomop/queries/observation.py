@@ -24,7 +24,7 @@ def observation_concepts_for_keyword(keyword, inspector,return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----

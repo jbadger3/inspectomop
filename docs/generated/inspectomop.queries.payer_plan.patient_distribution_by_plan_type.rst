@@ -1,4 +1,4 @@
-inspectomop.queries.payer\_plan.patient\_distribution\_by\_plan\_type
+﻿inspectomop.queries.payer\_plan.patient\_distribution\_by\_plan\_type
 =====================================================================
 
 .. currentmodule:: inspectomop.queries.payer_plan

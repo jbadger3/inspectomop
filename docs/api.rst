@@ -39,9 +39,33 @@ Methods
    :toctree: generated/
 
    Inspector.attach_sqlite_db
-   Inspector.execute
+   Inspector.connect
    Inspector.table_info
 
+Connection
+----------
+`inspectomop.Connection`
+
+Constructor
+~~~~~~~~~~~
+
+.. currentmodule:: inspectomop.connection
+
+.. autosummary::
+   :toctree: generated/
+
+   Connection
+
+.. warning::
+
+  Although a public constructor exists, `Connection` objects are meant to be instantiated indirectly from calls to `Inspector.connect()`
+
+Methods
+~~~~~~~
+.. autosummary::
+   :toctree: generated/
+
+   Connection.execute
 
 Results
 -------
@@ -59,7 +83,7 @@ Constructor
 
 .. warning::
 
-  Although a public constructor exists, `Results` objects are meant to be instantiated indirectly from calls to `inspector.execute()`
+  Although a public constructor exists, `Results` objects are meant to be instantiated indirectly from calls to `Connection.execute()`
 
 Methods
 ~~~~~~~
@@ -69,11 +93,9 @@ Methods
 
    Results.as_pandas
    Results.as_pandas_chunks
-   Results.fetchone
-   Results.fetchmany
-   Results.fetchall
 
 .. _queries:
+
 
 Queries
 -------

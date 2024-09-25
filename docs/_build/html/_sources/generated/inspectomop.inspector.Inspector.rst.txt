@@ -1,4 +1,4 @@
-inspectomop.inspector.Inspector
+﻿inspectomop.inspector.Inspector
 ===============================
 
 .. currentmodule:: inspectomop.inspector
@@ -15,7 +15,7 @@ inspectomop.inspector.Inspector
    
       ~Inspector.__init__
       ~Inspector.attach_sqlite_db
-      ~Inspector.execute
+      ~Inspector.connect
       ~Inspector.table_info
    
    

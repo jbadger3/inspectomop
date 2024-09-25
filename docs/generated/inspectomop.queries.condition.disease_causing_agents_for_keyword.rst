@@ -1,4 +1,4 @@
-inspectomop.queries.condition.disease\_causing\_agents\_for\_keyword
+﻿inspectomop.queries.condition.disease\_causing\_agents\_for\_keyword
 ====================================================================
 
 .. currentmodule:: inspectomop.queries.condition

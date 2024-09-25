@@ -1,6 +1,0 @@
-inspectomop.results.Results.fetchall
-====================================
-
-.. currentmodule:: inspectomop.results
-
-.. automethod:: Results.fetchall

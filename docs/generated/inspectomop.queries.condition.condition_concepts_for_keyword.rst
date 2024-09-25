@@ -1,4 +1,4 @@
-inspectomop.queries.condition.condition\_concepts\_for\_keyword
+﻿inspectomop.queries.condition.condition\_concepts\_for\_keyword
 ===============================================================
 
 .. currentmodule:: inspectomop.queries.condition

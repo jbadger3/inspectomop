@@ -26,5 +26,5 @@ From Source
 Dependencies
 ~~~~~~~~~~~~
 * `python <https://www.python.org/downloads/>`__: version 3.0 or higher
-* `sqlalchemy <https://www.sqlalchemy.org>`__: version 1.2.1 or higher
+* `sqlalchemy <https://www.sqlalchemy.org>`__: version 2.0 or higher
 * `pandas <https://pandas.pydata.org>`__: version 0.22.0 or higher

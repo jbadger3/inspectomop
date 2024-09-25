@@ -1,4 +1,4 @@
-inspectomop.results.Results.fetchall
+﻿inspectomop.results.Results.fetchall
 ====================================
 
 .. currentmodule:: inspectomop.results

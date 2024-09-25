@@ -1,4 +1,4 @@
-inspectomop.queries.observation.observation\_concepts\_for\_keyword
+﻿inspectomop.queries.observation.observation\_concepts\_for\_keyword
 ===================================================================
 
 .. currentmodule:: inspectomop.queries.observation

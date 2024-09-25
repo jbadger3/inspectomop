@@ -1,23 +1,22 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <title>inspectomop.inspector.Inspector &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>inspectomop.inspector.Inspector &#8212; InspectOMOP 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=0f882399" />
+    <script src="../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.inspector.Inspector.connection_url" href="inspectomop.inspector.Inspector.connection_url.html" />
     <link rel="prev" title="API Reference" href="../api.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -29,8 +28,9 @@
         <li class="right" >
           <a href="../api.html" title="API Reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.inspector.Inspector</a></li> 
       </ul>
     </div>  
 
@@ -39,24 +39,20 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="inspectomop-inspector-inspector">
-<h1>inspectomop.inspector.Inspector<a class="headerlink" href="#inspectomop-inspector-inspector" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="inspectomop.inspector.Inspector">
-<em class="property">class </em><code class="sig-prename descclassname">inspectomop.inspector.</code><code class="sig-name descname">Inspector</code><span class="sig-paren">(</span><em class="sig-param">connection_url</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector" title="Permalink to this definition">¶</a></dt>
+  <section id="inspectomop-inspector-inspector">
+<h1>inspectomop.inspector.Inspector<a class="headerlink" href="#inspectomop-inspector-inspector" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="inspectomop.inspector.Inspector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspectomop.inspector.</span></span><span class="sig-name descname"><span class="pre">Inspector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector" title="Link to this definition">¶</a></dt>
 <dd><p>Creates an Inspector object which can be used to run OMOP data queries</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>connection_url</strong> (<em>string</em>) – A connection url of form ‘dialect+driver://username:password&#64;host:port/database’.
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspectomop.inspector.Inspector.connection_url">
+<span class="sig-name descname"><span class="pre">connection_url</span></span><a class="headerlink" href="#inspectomop.inspector.Inspector.connection_url" title="Link to this definition">¶</a></dt>
+<dd><p>A connection url of form ‘dialect+driver://username:password&#64;host:port/database’.
 The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).</p>
-</dd>
-</dl>
-<dl class="attribute">
-<dt id="inspectomop.inspector.Inspector.connection_url">
-<code class="sig-name descname">connection_url</code><a class="headerlink" href="#inspectomop.inspector.Inspector.connection_url" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -65,32 +61,27 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
 <p>SQLite DBs require an additional ‘/’ as in ‘sqlite:///foo.db’ for a relative path and ‘sqlite:////abs/path/to/foo.db’ for an absolute path.</p>
 <p>See <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/engines.html">http://docs.sqlalchemy.org/en/latest/core/engines.html</a> for more information about connection URLs and supported dialects.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspectomop</span> <span class="k">as</span> <span class="nn">iomop</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspectomop</span> <span class="k">as</span> <span class="nn">iomop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">connection_url</span> <span class="o">=</span> <span class="s1">&#39;sqlite:///:memory:&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iomop</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="n">connection_url</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="inspectomop.inspector.Inspector.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">connection_url</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="inspectomop.inspector.Inspector.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.inspector.Inspector.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#inspectomop.inspector.Inspector.__init__" title="inspectomop.inspector.Inspector.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(connection_url)</p></td>
-<td><p>Initialize self.</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.attach_sqlite_db.html#inspectomop.inspector.Inspector.attach_sqlite_db" title="inspectomop.inspector.Inspector.attach_sqlite_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_sqlite_db</span></code></a>(db_file, schema_name)</p></td>
 <td><p>For SQLite backends, attaches an additional sqlite database file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.execute.html#inspectomop.inspector.Inspector.execute" title="inspectomop.inspector.Inspector.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">execute</span></code></a>(statement)</p></td>
-<td><p>Executes an SQL query on the OMOP CDM.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.connect.html#inspectomop.inspector.Inspector.connect" title="inspectomop.inspector.Inspector.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a>()</p></td>
+<td><p>Provides a Connection to the underlying database from the connection pool.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.table_info.html#inspectomop.inspector.Inspector.table_info" title="inspectomop.inspector.Inspector.table_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">table_info</span></code></a>(table_name)</p></td>
 <td><p>Return a Pandas DataFrame describing the fields and properties of a table.</p></td>
@@ -98,17 +89,13 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.clinical_tables.html#inspectomop.inspector.Inspector.clinical_tables" title="inspectomop.inspector.Inspector.clinical_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clinical_tables</span></code></a></p></td>
 <td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Clinical</span></code> OMOP CDM tables in the connected database.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.connection_url.html#inspectomop.inspector.Inspector.connection_url" title="inspectomop.inspector.Inspector.connection_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection_url</span></code></a></p></td>
-<td><p><a class="reference external" href="mailto:password&#37;&#52;&#48;host">password<span>&#64;</span>host</a>:port/database’ used to specify the dialect, location, etc.</p></td>
+<td><p><a class="reference external" href="mailto:password&#37;&#52;&#48;host">password<span>&#64;</span>host</a>:port/database' used to specify the dialect, location, etc.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.inspector.Inspector.derived_elements_tables.html#inspectomop.inspector.Inspector.derived_elements_tables" title="inspectomop.inspector.Inspector.derived_elements_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">derived_elements_tables</span></code></a></p></td>
 <td><p>A dictionary containing all of the <code class="docutils literal notranslate"><span class="pre">Derived</span> <span class="pre">Elements</span></code> OMOP CDM tables in the connected database.</p></td>
@@ -135,13 +122,14 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
@@ -154,6 +142,7 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
 <li class="toctree-l3"><a class="reference internal" href="../api.html#methods">Methods</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#connection">Connection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#results">Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#queries">Queries</a></li>
 </ul>
@@ -167,21 +156,21 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -193,13 +182,14 @@ The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgres
         <li class="right" >
           <a href="../api.html" title="API Reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.inspector.Inspector</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>

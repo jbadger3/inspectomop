@@ -1,23 +1,22 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <title>inspectomop.queries.general.synonyms_for_concept_ids &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>inspectomop.queries.general.synonyms_for_concept_ids &#8212; InspectOMOP 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=0f882399" />
+    <script src="../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.queries.general.standard_vocab_for_source_code" href="inspectomop.queries.general.standard_vocab_for_source_code.html" />
     <link rel="prev" title="inspectomop.queries.general.siblings_for_concept_id" href="inspectomop.queries.general.siblings_for_concept_id.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -29,8 +28,9 @@
         <li class="right" >
           <a href="inspectomop.queries.general.siblings_for_concept_id.html" title="inspectomop.queries.general.siblings_for_concept_id"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.queries.general.synonyms_for_concept_ids</a></li> 
       </ul>
     </div>  
 
@@ -39,29 +39,29 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="inspectomop-queries-general-synonyms-for-concept-ids">
-<h1>inspectomop.queries.general.synonyms_for_concept_ids<a class="headerlink" href="#inspectomop-queries-general-synonyms-for-concept-ids" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="inspectomop.queries.general.synonyms_for_concept_ids">
-<code class="sig-prename descclassname">inspectomop.queries.general.</code><code class="sig-name descname">synonyms_for_concept_ids</code><span class="sig-paren">(</span><em class="sig-param">concept_ids</em>, <em class="sig-param">inspector</em>, <em class="sig-param">return_columns=None</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.general.synonyms_for_concept_ids" title="Permalink to this definition">¶</a></dt>
+  <section id="inspectomop-queries-general-synonyms-for-concept-ids">
+<h1>inspectomop.queries.general.synonyms_for_concept_ids<a class="headerlink" href="#inspectomop-queries-general-synonyms-for-concept-ids" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="inspectomop.queries.general.synonyms_for_concept_ids">
+<span class="sig-prename descclassname"><span class="pre">inspectomop.queries.general.</span></span><span class="sig-name descname"><span class="pre">synonyms_for_concept_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">concept_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inspector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.queries.general.synonyms_for_concept_ids" title="Link to this definition">¶</a></dt>
 <dd><p>Returns concept information for a list of concept_ids</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>concept_ids</strong> (<em>list of int</em>) – </p></li>
-<li><p><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>) – </p></li>
-<li><p><strong>return_columns</strong> (<em>list of str</em><em>, </em><em>optional</em>) – <ul>
+<li><p><strong>concept_ids</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>inspector</strong> (<a class="reference internal" href="inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><em>inspectomop.inspector.Inspector</em></a>)</p></li>
+<li><p><strong>return_columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – <ul>
 <li><p>optional subset of columns to return from the query</p></li>
 <li><p>columns : [‘concept_id’, ‘concept_synonym_name’]</p></li>
 </ul>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>results</strong></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results">inspectomop.results.Results</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Executable" title="(in SQLAlchemy v2.0)">sqlalchemy.sql.expression.Executable</a></p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -83,13 +83,14 @@
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
@@ -97,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#inspector">Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#connection">Connection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#results">Results</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#queries">Queries</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../api.html#care-site">Care Site</a></li>
@@ -119,21 +121,21 @@
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -145,13 +147,14 @@
         <li class="right" >
           <a href="inspectomop.queries.general.siblings_for_concept_id.html" title="inspectomop.queries.general.siblings_for_concept_id"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.queries.general.synonyms_for_concept_ids</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>

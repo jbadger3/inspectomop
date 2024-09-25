@@ -1,4 +1,4 @@
-inspectomop.results.Results.as\_pandas
+﻿inspectomop.results.Results.as\_pandas
 ======================================
 
 .. currentmodule:: inspectomop.results

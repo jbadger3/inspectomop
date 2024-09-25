@@ -1,23 +1,22 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <title>inspectomop.results.Results &#8212; InspectOMOP 0.1.6 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>inspectomop.results.Results &#8212; InspectOMOP 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=0f882399" />
+    <script src="../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inspectomop.results.Results.as_pandas" href="inspectomop.results.Results.as_pandas.html" />
-    <link rel="prev" title="inspectomop.inspector.Inspector.table_info" href="inspectomop.inspector.Inspector.table_info.html" /> 
+    <link rel="prev" title="inspectomop.connection.Connection.execute" href="inspectomop.connection.Connection.execute.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -27,10 +26,11 @@
           <a href="inspectomop.results.Results.as_pandas.html" title="inspectomop.results.Results.as_pandas"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="inspectomop.inspector.Inspector.table_info.html" title="inspectomop.inspector.Inspector.table_info"
+          <a href="inspectomop.connection.Connection.execute.html" title="inspectomop.connection.Connection.execute"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.results.Results</a></li> 
       </ul>
     </div>  
 
@@ -39,132 +39,194 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="inspectomop-results-results">
-<h1>inspectomop.results.Results<a class="headerlink" href="#inspectomop-results-results" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="inspectomop.results.Results">
-<em class="property">class </em><code class="sig-prename descclassname">inspectomop.results.</code><code class="sig-name descname">Results</code><span class="sig-paren">(</span><em class="sig-param">results_proxy</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results" title="Permalink to this definition">¶</a></dt>
-<dd><p>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc. that can be used to retrieve rows of results from query execution.</p>
-<p>A subclass of sqlalchemy.engine.result.ResultProxy
-that adds additional methods for retreving query results as Pandas DataFrames.</p>
+  <section id="inspectomop-results-results">
+<h1>inspectomop.results.Results<a class="headerlink" href="#inspectomop-results-results" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="inspectomop.results.Results">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspectomop.results.</span></span><span class="sig-name descname"><span class="pre">Results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor_result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results" title="Link to this definition">¶</a></dt>
+<dd><p>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc. that can be
+used to retrieve rows of results from query execution.</p>
+<p>A subclass of sqlalchemy.engine.CursorResult
+that adds additional methods for retrieving query results as Pandas DataFrames.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>, <a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a></p>
+<p><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>, <a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a></p>
 </div>
-<dl class="method">
-<dt id="inspectomop.results.Results.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">results_proxy</em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="inspectomop.results.Results.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor_result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspectomop.results.Results.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#inspectomop.results.Results.__init__" title="inspectomop.results.Results.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(results_proxy)</p></td>
-<td><p>Initialize self.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#inspectomop.results.Results.__init__" title="inspectomop.results.Results.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(cursor_result)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">all</span></code>()</p></td>
+<td><p>Return all rows in a sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas</span></code></a>()</p></td>
 <td><p>Return all rows from a <cite>results</cite> object as a pandas DataFrame</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas_chunks</span></code></a>(chunksize)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas_chunks</span></code></a>(chunksize)</p></td>
 <td><p>Yields a pandas DataFrame with n_rows = chunksize</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</p></td>
-<td><p>Close this ResultProxy.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</p></td>
+<td><p>Close this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.CursorResult</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.results.Results.fetchall.html#inspectomop.results.Results.fetchall" title="inspectomop.results.Results.fetchall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchall</span></code></a>()</p></td>
-<td><p>Fetch all rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchall()</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">columns</span></code>(*col_expressions)</p></td>
+<td><p>Establish the columns that should be returned in each row.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="inspectomop.results.Results.fetchmany.html#inspectomop.results.Results.fetchmany" title="inspectomop.results.Results.fetchmany"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchmany</span></code></a>([size])</p></td>
-<td><p>Fetch many rows, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchmany(size=cursor.arraysize)</span></code>.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchall</span></code>()</p></td>
+<td><p>A synonym for the <code class="xref py py-meth docutils literal notranslate"><span class="pre">_engine.Result.all()</span></code> method.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inspectomop.results.Results.fetchone.html#inspectomop.results.Results.fetchone" title="inspectomop.results.Results.fetchone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchone</span></code></a>()</p></td>
-<td><p>Fetch one row, just like DB-API <code class="docutils literal notranslate"><span class="pre">cursor.fetchone()</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchmany</span></code>([size])</p></td>
+<td><p>Fetch many rows.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetchone</span></code>()</p></td>
+<td><p>Fetch one row.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">first</span></code>()</p></td>
-<td><p>Fetch the first row and then close the result set unconditionally.</p></td>
+<td><p>Fetch the first row or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no row is present.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</p></td>
-<td><p>Return the current set of string keys for rows.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">freeze</span></code>()</p></td>
+<td><p>Return a callable object that will produce copies of this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.Result</span></code> when invoked.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_inserted_params</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</p></td>
+<td><p>Return an iterable view which yields the string keys that would be represented by each <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.Row</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_inserted_params</span></code>()</p></td>
 <td><p>Return the collection of inserted parameters from this execution.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_updated_params</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_updated_params</span></code>()</p></td>
 <td><p>Return the collection of updated parameters from this execution.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lastrow_has_defaults</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lastrow_has_defaults</span></code>()</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">lastrow_has_defaults()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">next</span></code>()</p></td>
-<td><p>Implement the next() protocol.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mappings</span></code>()</p></td>
+<td><p>Apply a mappings filter to returned rows, returning an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.MappingResult</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">postfetch_cols</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">memoized_instancemethod</span></code>(fn)</p></td>
+<td><p>Decorate a method memoize its return value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code>(*others)</p></td>
+<td><p>Merge this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.Result</span></code> with other compatible result objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one</span></code>()</p></td>
+<td><p>Return exactly one row or raise an exception.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_or_non</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_or_none</span></code>()</p></td>
+<td><p>Return at most one result or raise an exception.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">partitions</span></code>([size])</p></td>
+<td><p>Iterate through sub-lists of rows of the size given.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">postfetch_cols</span></code>()</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">postfetch_cols()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefetch_cols</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefetch_cols</span></code>()</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">prefetch_cols()</span></code> from the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionContext</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_rows</span></code>(rows)</p></td>
-<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalar</span></code>()</p></td>
 <td><p>Fetch the first column of the first row, and close the result set.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_multi_rowcount</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalar_one</span></code>()</p></td>
+<td><p>Return exactly one scalar result or raise an exception.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalar_one_or_none</span></code>()</p></td>
+<td><p>Return exactly one scalar result or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalars</span></code>()</p></td>
+<td><p>Return a <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.ScalarResult</span></code> filtering object which will return single elements rather than <code class="xref py py-class docutils literal notranslate"><span class="pre">_row.Row</span></code> objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">splice_horizontally</span></code>(other)</p></td>
+<td><p>Return a new <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code> that &quot;horizontally splices&quot; together the rows of this <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code> with that of another <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">splice_vertically</span></code>(other)</p></td>
+<td><p>Return a new <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code> that &quot;vertically splices&quot;, i.e. &quot;extends&quot;, the rows of this <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code> with that of another <code class="xref py py-class docutils literal notranslate"><span class="pre">CursorResult</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_multi_rowcount</span></code>()</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">supports_sane_multi_rowcount</span></code> from the dialect.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_rowcount</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">supports_sane_rowcount</span></code>()</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">supports_sane_rowcount</span></code> from the dialect.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuples</span></code>()</p></td>
+<td><p>Apply a &quot;typed tuple&quot; typing filter to returned rows.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code>([strategy])</p></td>
+<td><p>Apply unique filtering to the objects returned by this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.Result</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">yield_per</span></code>(num)</p></td>
+<td><p>Configure the row-fetching strategy to fetch <code class="docutils literal notranslate"><span class="pre">num</span></code> rows at a time.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">closed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">context</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inserted_primary_key</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dialect</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_strategy</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">closed</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inserted_primary_key</span></code></p></td>
 <td><p>Return the primary key for the row just inserted.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inserted_primary_key_rows</span></code></p></td>
+<td><p>Return the value of <code class="xref py py-attr docutils literal notranslate"><span class="pre">_engine.CursorResult.inserted_primary_key</span></code> as a row contained within a list; some dialects may support a multiple row form as well.</p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_insert</span></code></p></td>
-<td><p>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">ResultProxy</span></code> is the result of a executing an expression language compiled <code class="xref py py-func docutils literal notranslate"><span class="pre">expression.insert()</span></code> construct.</p></td>
+<td><p>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.CursorResult</span></code> is the result of a executing an expression language compiled <code class="xref py py-func docutils literal notranslate"><span class="pre">_expression.insert()</span></code> construct.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lastrowid</span></code></p></td>
-<td><p>return the ‘lastrowid’ accessor on the DBAPI cursor.</p></td>
+<td><p>Return the 'lastrowid' accessor on the DBAPI cursor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_parameters</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">returned_defaults</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">returned_defaults</span></code></p></td>
 <td><p>Return the values of default columns that were fetched using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">ValuesBase.return_defaults()</span></code> feature.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">returned_defaults_rows</span></code></p></td>
+<td><p>Return a list of rows each containing the values of default columns that were fetched using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">ValuesBase.return_defaults()</span></code> feature.</p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">returns_rows</span></code></p></td>
-<td><p>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">ResultProxy</span></code> returns rows.</p></td>
+<td><p>True if this <code class="xref py py-class docutils literal notranslate"><span class="pre">_engine.CursorResult</span></code> returns zero or more rows.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rowcount</span></code></p></td>
-<td><p>Return the ‘rowcount’ for this result.</p></td>
+<td><p>Return the 'rowcount' for this result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p>Apply a &quot;typed tuple&quot; typing filter to returned rows.</p></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
@@ -172,9 +234,10 @@ that adds additional methods for retreving query results as Pandas DataFrames.</
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#inspector">Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#connection">Connection</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#results">Results</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#id1">Constructor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#id2">Methods</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#id3">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#id4">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#queries">Queries</a></li>
@@ -189,21 +252,21 @@ that adds additional methods for retreving query results as Pandas DataFrames.</
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -213,15 +276,16 @@ that adds additional methods for retreving query results as Pandas DataFrames.</
           <a href="inspectomop.results.Results.as_pandas.html" title="inspectomop.results.Results.as_pandas"
              >next</a> |</li>
         <li class="right" >
-          <a href="inspectomop.inspector.Inspector.table_info.html" title="inspectomop.inspector.Inspector.table_info"
+          <a href="inspectomop.connection.Connection.execute.html" title="inspectomop.connection.Connection.execute"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">inspectomop.results.Results</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Jonathan Badger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    &#169; Copyright 2024, Jonathan Badger.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>

@@ -10,6 +10,8 @@ from sqlalchemy import select as _select, join as _join,\
     distinct as _distinct, between as  _between, alias as _alias, \
     and_ as _and_, or_ as _or_, literal_column as _literal_column, func as _func
 
+import pandas as _pd
+
 def facility_counts_by_type(inspector, return_columns=None):
     """
     Returns facility counts by type in the OMOP CDM i.e. # Inpatient Hospitals, Offices, etc.
@@ -23,8 +25,7 @@ def facility_counts_by_type(inspector, return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
-        a cursor-like object with methods such as fetchone(), fetchmany() etc.
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -43,17 +44,17 @@ def facility_counts_by_type(inspector, return_columns=None):
 
     c = _alias(inspector.tables['concept'],'c')
     cs = _alias(inspector.tables['care_site'], 'cs')
-    columns = [c.c.concept_name.label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('facility_count')]
+    columns = [_func.any_value(c.c.concept_name).label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('facility_count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(c.c.concept_id == cs.c.place_of_service_concept_id).\
                 group_by(cs.c.place_of_service_concept_id)
-    return inspector.execute(statement)
+    return statement
 
 def patient_counts_by_care_site_type(inspector, return_columns=None):
     """
-    Returns pateints counts by facility type.
+    Returns patients counts by facility type.
 
     Parameters
     ----------
@@ -64,7 +65,7 @@ def patient_counts_by_care_site_type(inspector, return_columns=None):
 
     Returns
     -------
-    results : inspectomop.results.Results
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -88,11 +89,12 @@ def patient_counts_by_care_site_type(inspector, return_columns=None):
     c = _alias(inspector.tables['concept'],'c')
     cs = _alias(inspector.tables['care_site'], 'cs')
     p = _alias(inspector.tables['person'], 'p')
-    columns = [c.c.concept_name.label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('patient_count')]
+    columns = [_func.any_value(c.c.concept_name).label('place_of_service'), cs.c.place_of_service_concept_id, _func.count(cs.c.place_of_service_concept_id).label('patient_count')]
     if return_columns:
         columns = [col for col in columns if col.name in return_columns]
-    statement = _select(columns).\
+    statement = _select(*columns).\
                 where(_and_(\
+                    c.c.concept_id == cs.c.place_of_service_concept_id,\
                     p.c.care_site_id == cs.c.care_site_id)).\
                 group_by(cs.c.place_of_service_concept_id)
-    return inspector.execute(statement)
+    return statement

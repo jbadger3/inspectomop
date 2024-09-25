@@ -1,4 +1,4 @@
-inspectomop.results.Results.as\_pandas\_chunks
+﻿inspectomop.results.Results.as\_pandas\_chunks
 ==============================================
 
 .. currentmodule:: inspectomop.results

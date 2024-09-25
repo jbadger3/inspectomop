@@ -15,15 +15,11 @@ class Inspector():
     """
     Creates an Inspector object which can be used to run OMOP data queries
 
-    Parameters
-    ----------
-    connection_url : string
-        A connection url of form 'dialect+driver://username:password@host:port/database'.
-        The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).
-
     Attributes
     ----------
     connection_url : str
+        A connection url of form 'dialect+driver://username:password@host:port/database'.
+        The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).
 
     Notes
     -----
@@ -40,8 +36,10 @@ class Inspector():
 
     def __init__(self,connection_url):
         self.__connection_url = connection_url
-        if connection_url.startswith('sqlite'):
-            self.__engine = create_engine(self.connection_url,poolclass=StaticPool)
+        if connection_url.startswith("sqlite"):
+            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
+        elif connection_url.startswith("duckdb"):
+            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
         else:
             self.__engine = create_engine(self.connection_url)
 
@@ -85,7 +83,6 @@ class Inspector():
     def connection_url(self):
         """
         A URL of the form 'dialect+driver://username:password@host:port/database' used to specify the dialect, location, etc. of the database.
-
         """
         return self.__connection_url
     
@@ -104,8 +101,8 @@ class Inspector():
 
     def _extract_table_classes(self):
         def add_tables(metadata):
-            #sqlalchemy requires a primary key in each table for automatic mapping to work.
-            #If no primary key is found, set the default primary key to be the first column in each table.
+            # sqlalchemy requires a primary key in each table for automatic mapping to work.
+            # If no primary key is found, set the default primary key to be the first column in each table.
             for table_name,table in metadata.tables.items():
                 for col_name in table.c.keys():
                     col = table.columns.get(col_name)
@@ -117,7 +114,6 @@ class Inspector():
                             col.type = sqltypes.DATETIME()
                 if len(table.primary_key) == 0:
                     table.primary_key._reload([table.c[table.c.keys()[0]]])
-
 
             Base = automap_base(metadata=metadata)
             Base.prepare(engine=self.engine,reflect=True)
@@ -199,8 +195,6 @@ class Inspector():
         table_names = ['cohort','cohort_attribute','drug_era','dose_era','condition_era']
         return {table_name:table for table_name,table in self.tables.items() if table_name in table_names}
 
-
-
     def attach_sqlite_db(self,db_file, schema_name):
         """
         For SQLite backends, attaches an additional sqlite database file. Uses 'ATTACH DATABSE db_file AS schema_name'
@@ -229,8 +223,6 @@ class Inspector():
             self._sqlite_attach_list.append((db_file, schema_name))
         self.__tables = None #attaching a new database should force the tables to reload
         self.__engine = create_engine(self.connection_url, creator=connect)
-
-
 
     def table_info(self,table_name):
         """
