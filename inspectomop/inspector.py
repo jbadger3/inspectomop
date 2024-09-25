@@ -15,15 +15,11 @@ class Inspector():
     """
     Creates an Inspector object which can be used to run OMOP data queries
 
-    Parameters
-    ----------
-    connection_url : string
-        A connection url of form 'dialect+driver://username:password@host:port/database'.
-        The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).
-
     Attributes
     ----------
     connection_url : str
+        A connection url of form 'dialect+driver://username:password@host:port/database'.
+        The driver can be any currently supported by sqlalchemy (sqlite, mysql, postgresql, etc.).
 
     Notes
     -----
@@ -41,6 +37,8 @@ class Inspector():
     def __init__(self,connection_url):
         self.__connection_url = connection_url
         if connection_url.startswith("sqlite"):
+            self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
+        elif connection_url.startswith("duckdb"):
             self.__engine = create_engine(self.connection_url, poolclass=StaticPool)
         else:
             self.__engine = create_engine(self.connection_url)
@@ -85,7 +83,6 @@ class Inspector():
     def connection_url(self):
         """
         A URL of the form 'dialect+driver://username:password@host:port/database' used to specify the dialect, location, etc. of the database.
-
         """
         return self.__connection_url
     
@@ -246,7 +243,6 @@ class Inspector():
         data = [[col.name, col.type, col.nullable, col.primary_key] for col in table.__table__.columns.values()]
         return _pd.DataFrame(data, columns=['column','type','nullable','primary_key'])
 
-    def connect(self):
     def connect(self):
         """
         Provides a Connection to the underlying database from the connection pool.

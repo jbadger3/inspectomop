@@ -42,6 +42,60 @@ Methods
    Inspector.connect
    Inspector.table_info
 
+Connection
+----------
+`inspectomop.Connection`
+
+Constructor
+~~~~~~~~~~~
+
+.. currentmodule:: inspectomop.connection
+
+.. autosummary::
+   :toctree: generated/
+
+   Connection
+
+.. warning::
+
+  Although a public constructor exists, `Connection` objects are meant to be instantiated indirectly from calls to `Inspector.connect()`
+
+Methods
+~~~~~~~
+.. autosummary::
+   :toctree: generated/
+
+   Connection.execute
+
+Results
+-------
+`inspectomop.Results`
+
+Constructor
+~~~~~~~~~~~
+
+.. currentmodule:: inspectomop.results
+
+.. autosummary::
+   :toctree: generated/
+
+   Results
+
+.. warning::
+
+  Although a public constructor exists, `Results` objects are meant to be instantiated indirectly from calls to `Connection.execute()`
+
+Methods
+~~~~~~~
+.. currentmodule:: inspectomop.results
+.. autosummary::
+   :toctree: generated/
+
+   Results.as_pandas
+   Results.as_pandas_chunks
+
+.. _queries:
+
 
 Queries
 -------

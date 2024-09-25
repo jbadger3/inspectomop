@@ -7,7 +7,7 @@ Usage
 There is a tiny SQLite database (1.4 MB) included with **inspectomop** to give first-time users a limited experimental playground and the ability to run code from the examples below.
 
 .. note::
-   Inspectomop does **NOT** contain EHR data from real patients.  The data are entirely synthetic and come from the `SynPUF <https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html>`__ dataset released by Centers for Medicaid and Medicare Services (CMS).
+   InspectOMOP does **NOT** contain EHR data from real patients.  The data are entirely synthetic and come from the `SynPUF <https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html>`__ dataset released by Centers for Medicaid and Medicare Services (CMS).
 
 Connecting to a database
 ========================
@@ -99,7 +99,11 @@ There are a variety of built in queries available in the :ref:`queries` submodul
 
    concept_ids = [2, 3, 4, 7, 8, 10, 46287342, 46271022]
    return_columns = ['concept_name', 'concept_id']
-   concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns, as_pandas_df=True)
+   statement = concepts_for_concept_ids(concept_ids, inspector, return_columns=return_columns)
+
+   with inspector.connect() as connection:
+      results = connection.execute(statement).all()
+   results
 
 .. note::
 
@@ -108,16 +112,18 @@ There are a variety of built in queries available in the :ref:`queries` submodul
 Specifying how results are returned
 ===================================
 
-By default all queries return a :py:class:`sqlalchemy.sql.expression.Executable` statement.
-This statement may be evaluated in a connection context returned from :py:meth:`.Inspector.connect`.
+By default all queries return an :py:class:`sqlalchemy.sql.expression.Executable` statement that can be evaluated in a connection context 
+from :py:meth:`.Inspector.connect` in a fashion identical to SQLAlchemy. 
+
+See the `SQLAlchemy Unified Tutorial <https://docs.sqlalchemy.org/en/20/tutorial/index.html>`_.
 
 Working directly with statements
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. ipython:: python
 
    statement = concepts_for_concept_ids(concept_ids, inspector)
-   with inspector.connect() as con:
-      results = con.execute(statement)
+   with inspector.connect() as connection:
+      results = connection.execute(statement)
       #get the return column names
       results.keys()
       #get one row
@@ -127,18 +133,29 @@ Working directly with statements
       len(two_results)
 
       #iterating over rows
-      for row in results:
+      for row in two_results:
          print(row[:2])
 
-Returning results as pandas DataFrames
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Query methods also provide an option `as_pandas_df`, for returning results as pandas DataFrames
-(evaluated by creating a one-off connection).
+Returning results as Pandas DataFrames
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In addition to the typical database cursor methods like .fetchone() and .fetchall() :py:class:`inspectomop.Results` objects
+also have two handy methods, .as_pandas() and .as_pandas_chunks() for returning results as pandas DataFrames.
 
 .. ipython:: python
 
-   results = concepts_for_concept_ids(concept_ids, inspector, as_pandas_df=True)
+   #return the results as as a dataframe
+   with inspector.connect() as connection:
+      results = connection.execute(concepts_for_concept_ids(concept_ids, inspector)).as_pandas()
    results[['concept_name','vocabulary_id']]
+
+   #return the results in chunks
+   chunksize = 3
+   with inspector.connect() as connection:
+      results = connection.execute(concepts_for_concept_ids(concept_ids, inspector)).as_pandas_chunks(chunksize)
+      for num, chunk in enumerate(results):
+         print('chunk {}'.format(num + 1))
+         print(chunk['concept_name'])
 
 Creating custom queries
 =======================
@@ -147,7 +164,7 @@ From SQLAlchemy SQL Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Statements built out of constructs from SQLAlchemy's *SQL Expression API* make queries backend-neutral paving the way for sharable code that can be used in a plug-and-play fashion.  While there is no guarantee that `every` query will work with `every` backend, most of the basic selects, joins, etc should run without issue.
 
-SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the `SQL Expression Language Tutorial <https://docs.sqlalchemy.org/en/rel_1_2/core/tutorial.html>`__ and note the warning below.
+SQLAlchemy is extremely powerful, but like any software package, has a bit of a learning curve.  It is highly recommended that users read the `SQLAlchemy Unified Tutorial <https://docs.sqlalchemy.org/en/20/tutorial/index.html>`__ and note the warning below.
 
 Below are a few simple examples of using SQLAlchemy expression language constructs for running queries on the OMOP CDM.
 
@@ -180,7 +197,7 @@ Select all of the conditions for person 1:
 .. ipython:: python
 
    from sqlalchemy import select, and_
-   import pandas as pd
+   
    c = inspector.tables['concept']
    co = inspector.tables['condition_occurrence']
    person_id = 1
@@ -189,14 +206,15 @@ Select all of the conditions for person 1:
                    co.person_id == person_id,\
                    co.condition_concept_id == c.concept_id))
    print(statement)
-   pd.read_sql(statement, con=inspector.connect()) 
+   with inspector.connect() as con:
+      results = con.execute(statement).as_pandas()
+   results 
 
 Count the number of inpatient and outpatient visits for each person broken down by visit type and sorted by person_id:
 
 .. ipython:: python
 
    from sqlalchemy import join, func
-   import pandas as pd
 
    vo = inspector.tables['visit_occurrence']
    j = join(vo, c, vo.visit_concept_id == c.concept_id)
@@ -208,7 +226,9 @@ Count the number of inpatient and outpatient visits for each person broken down 
                where(c.concept_name.in_(visit_types)).\
                group_by(p.person_id, c.concept_name).\
                order_by(p.person_id)
-   pd.read_sql(statement, con=inspector.connect()) 
+   with inspector.connect() as con:
+      results = con.execute(statement).as_pandas()
+   results
 
 From Strings
 ~~~~~~~~~~~~
@@ -222,8 +242,11 @@ Example:
 
 .. ipython:: python
 
-   import pandas as pd
-   pd.read_sql('select person_id from person',inspector.connect())
+   from sqlalchemy import text
+   statement = text('select person_id from person')
+   with inspector.connect() as con:
+      results = con.execute(statement).as_pandas()
+   results
 
 Sharing custom queries as functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -232,9 +255,7 @@ Custom queries that may prove useful to the OMOP CDM community can easily be sha
 In general, consider the following:
 
 * appropriately named query functions should begin with the data you intend to return and end with the data/parameters you expect as input. E.g. `concepts_for_concept_ids`
-* the return value for a query should `always` be a :py:class:`sqlalchemy.sql.expression.Executable` object `or` a :py:class:`pandas.DataFrame`
-object depending on the value of a boolean argument `as_pandas_df` (defaulting to `False`).
-This provides consistency and gives the end-user control over how to process the results.
+* the return value for a query should `always` be a :py:class:`sqlalchemy.sql.expression.Executable`.  In most cases this will be :py:class:`sqlalchemy.sql.expression.Select`
 * write a docstring following the `numpydoc docstring guide <https://numpydoc.readthedocs.io/en/latest/format.html>`__ to accompany your code.
 
 Prototype:
@@ -243,7 +264,7 @@ Prototype:
 
   import pandas as pd
   
-  def output_for_input(inputs, inspector, return_columns=None, as_pandas_df=False):
+  def output_for_input(inputs, inspector, return_columns=None):
       """
       Short description.
 
@@ -260,7 +281,7 @@ Prototype:
 
       Returns
       -------
-      results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+      results : sqlalchemy.sql.expression.Executable
 
       Notes
       -----
@@ -274,4 +295,4 @@ Prototype:
 
       statement = select(*columns).where(inputs == criteria)
 
-      return pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+      return statement

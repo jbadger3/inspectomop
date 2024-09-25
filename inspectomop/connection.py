@@ -11,7 +11,7 @@ class Connection(_AlchemyConnection):
 
     See Also
     --------
-    inpsectomop.Results
+    inspectomop.results.Results
     """
 
 

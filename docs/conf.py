@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.abspath('../sphinxext'))
 project = 'InspectOMOP'
 year = datetime.date.today().year
 copyright = '{}, Jonathan Badger'.format(year)
-author = 'Jonathan Badger'
+author = 'Jonathan Badger PharmD, MS'
 
 # The short X.Y version
 version = str(inspectomop.__version__)
@@ -72,7 +72,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -167,7 +167,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'InspectOMOP', 'InspectOMOP Documentation',
-     author, 'InspectOMOP', 'One line description of project.',
+     author, 'InspectOMOP', 'A utility package for working with OHDSI databases.',
      'Miscellaneous'),
 ]
 
@@ -177,4 +177,5 @@ texinfo_documents = [
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
+                        'sqlalchemy': ('https://docs.sqlalchemy.org/',None)}

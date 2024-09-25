@@ -5,17 +5,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to InspectOMOP! &#8212; InspectOMOP 0.1.6 documentation</title>
+    <title>Welcome to InspectOMOP! &#8212; InspectOMOP 0.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
-    <script src="_static/documentation_options.js?v=6e0256f3"></script>
+    <script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -24,7 +24,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">InspectOMOP 0.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to InspectOMOP!</a></li> 
       </ul>
     </div>  
@@ -36,7 +36,7 @@
             
   <section id="welcome-to-inspectomop">
 <h1>Welcome to InspectOMOP!<a class="headerlink" href="#welcome-to-inspectomop" title="Link to this heading">¶</a></h1>
-<p><strong>Date</strong>: Apr 30, 2024 <strong>Version</strong>: 0.1.6</p>
+<p><strong>Date</strong>: Sep 25, 2024 <strong>Version</strong>: 0.2.0</p>
 <p><strong>inspecotmop</strong> is a database agnostic lightweight <a class="reference external" href="https://www.python.org">python 3</a> package that assists with abstracting data from electronic health record (EHR) databases that follow the OMOP common data model (CDM).  The <a class="reference external" href="https://github.com/jbadger3/inspectomop">source</a> is available on GitHub.  Feel free to contribute or fork!</p>
 <ul class="simple">
 <li><p>OHDSI: Observational Health Data Sciences and Informatics</p></li>
@@ -76,7 +76,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#specifying-how-results-are-returned">Specifying how results are returned</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="usage.html#working-directly-with-statements">Working directly with statements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="usage.html#returning-results-as-pandas-dataframes">Returning results as pandas DataFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#returning-results-as-pandas-dataframes">Returning results as Pandas DataFrames</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#creating-custom-queries">Creating custom queries</a><ul>
@@ -92,6 +92,16 @@
 <li class="toctree-l3"><a class="reference internal" href="api.html#constructor">Constructor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#attributes">Attributes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#connection">Connection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#id1">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#id2">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#results">Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#id3">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#id4">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#queries">Queries</a><ul>
@@ -134,7 +144,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h3><a href="#">Table of Contents</a></h3>
 <ul>
@@ -164,7 +174,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -173,13 +183,13 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">InspectOMOP 0.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to InspectOMOP!</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2024, Jonathan Badger.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>

@@ -24,7 +24,7 @@ def concepts_for_concept_ids(concept_ids, inspector, return_columns=None):
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -63,7 +63,7 @@ def concepts_for_concept_ids(concept_ids, inspector, return_columns=None):
     return statement
 
 
-def synonyms_for_concept_ids(concept_ids, inspector, return_columns=None, as_pandas_df=False):
+def synonyms_for_concept_ids(concept_ids, inspector, return_columns=None):
     """
     Returns concept information for a list of concept_ids
 
@@ -77,7 +77,7 @@ def synonyms_for_concept_ids(concept_ids, inspector, return_columns=None, as_pan
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -110,9 +110,9 @@ def synonyms_for_concept_ids(concept_ids, inspector, return_columns=None, as_pan
         columns = [col for col in columns if col.key in filtered_col_names]
 
     statement = _select(*columns).where(concept.concept_id.in_(list(concept_ids))).where(concept.concept_id == concept_synonym.concept_id).where(concept.vocabulary_id==vocabulary.vocabulary_id)
-    return inspector.execute(statement)
+    return statement
 
-def standard_vocab_for_source_code(source_code, source_vocab_id, inspector, return_columns=None, as_pandas_df=False):
+def standard_vocab_for_source_code(source_code, source_vocab_id, inspector, return_columns=None):
     """
     Convert source code to all mapped standard vocabulary concepts.
 
@@ -130,7 +130,7 @@ def standard_vocab_for_source_code(source_code, source_vocab_id, inspector, retu
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -180,10 +180,10 @@ def standard_vocab_for_source_code(source_code, source_vocab_id, inspector, retu
                     cr.c.relationship_id == relationship_id,\
                     c1.c.concept_code == source_code,\
                     c1.c.vocabulary_id == source_vocab_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
 
-def related_concepts_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def related_concepts_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all concepts related to a concept_id.
 
@@ -198,7 +198,7 @@ def related_concepts_for_concept_id(concept_id, inspector, return_columns=None, 
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -281,9 +281,9 @@ def related_concepts_for_concept_id(concept_id, inspector, return_columns=None, 
             d.c.vocabulary_id == vs.c.vocabulary_id, cr.c.relationship_id == rt.c.relationship_id, \
             d.c.concept_id == concept_id))
     statement = _union_all(relates_to,related_by)
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def ancestors_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def ancestors_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all ancestor concepts for a concept_id.
 
@@ -298,7 +298,7 @@ def ancestors_for_concept_id(concept_id, inspector, return_columns=None, as_pand
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -341,9 +341,9 @@ def ancestors_for_concept_id(concept_id, inspector, return_columns=None, as_pand
                     a.c.descendant_concept_id == concept_id)).\
                     order_by(c.c.vocabulary_id, a.c.min_levels_of_separation)
 
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def descendants_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def descendants_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all descendant concepts for a concept_id.
 
@@ -358,7 +358,7 @@ def descendants_for_concept_id(concept_id, inspector, return_columns=None, as_pa
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -401,9 +401,9 @@ def descendants_for_concept_id(concept_id, inspector, return_columns=None, as_pa
                     a.c.ancestor_concept_id != a.c.descendant_concept_id, \
                     a.c.ancestor_concept_id == concept_id)). \
                     order_by(c.c.vocabulary_id, a.c.min_levels_of_separation)
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def parents_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def parents_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all parent concepts for a concept_id.  (Ancestors whose level of separation is 1)
 
@@ -418,7 +418,7 @@ def parents_for_concept_id(concept_id, inspector, return_columns=None, as_pandas
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -464,9 +464,9 @@ def parents_for_concept_id(concept_id, inspector, return_columns=None, as_pandas
                     a.c.vocabulary_id == va.c.vocabulary_id,\
                     ca.c.descendant_concept_id == d.c.concept_id))
 
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def children_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def children_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all child concepts for a concept_id.
 
@@ -481,7 +481,7 @@ def children_for_concept_id(concept_id, inspector, return_columns=None, as_panda
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -523,10 +523,10 @@ def children_for_concept_id(concept_id, inspector, return_columns=None, as_panda
                     ca.c.descendant_concept_id == d.c.concept_id,\
                     d.c.vocabulary_id == vs.c.vocabulary_id))
 
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
 
-def siblings_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def siblings_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Find all sibling concepts for a concept_id i.e.(concepts that share common parents).
     This may or may not result in concepts that have a close clinical relationship, especially if
@@ -545,7 +545,7 @@ def siblings_for_concept_id(concept_id, inspector, return_columns=None, as_panda
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -595,4 +595,4 @@ def siblings_for_concept_id(concept_id, inspector, return_columns=None, as_panda
                     ca2.c.ancestor_concept_id == ca.c.ancestor_concept_id,\
                     s.c.concept_id == ca2.c.descendant_concept_id)
                     )
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement

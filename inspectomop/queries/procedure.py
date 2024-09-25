@@ -10,7 +10,7 @@ from sqlalchemy import select as _select, join as _join,\
 
 import pandas as _pd
 
-def procedure_concepts_for_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
+def procedure_concepts_for_keyword(keyword, inspector, return_columns=None):
     """
     Search for all concepts in the procedure domain (includes SNOMED-CT procedures, ICD9 procedures, CPT procedures and HCPCS procedures)
     for a given keyword.
@@ -26,7 +26,7 @@ def procedure_concepts_for_keyword(keyword, inspector, return_columns=None, as_p
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -81,4 +81,4 @@ def procedure_concepts_for_keyword(keyword, inspector, return_columns=None, as_p
         where(\
             _func.lower(s1.c.concept_name).ilike('%{}%'.format(keyword.lower())))
 
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement

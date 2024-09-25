@@ -12,7 +12,7 @@ from sqlalchemy import select as _select, join as _join,\
 
 import pandas as _pd
 
-def facility_counts_by_type(inspector, return_columns=None, as_pandas_df=False):
+def facility_counts_by_type(inspector, return_columns=None):
     """
     Returns facility counts by type in the OMOP CDM i.e. # Inpatient Hospitals, Offices, etc.
 
@@ -25,7 +25,7 @@ def facility_counts_by_type(inspector, return_columns=None, as_pandas_df=False):
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -50,9 +50,9 @@ def facility_counts_by_type(inspector, return_columns=None, as_pandas_df=False):
     statement = _select(*columns).\
                 where(c.c.concept_id == cs.c.place_of_service_concept_id).\
                 group_by(cs.c.place_of_service_concept_id)
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def patient_counts_by_care_site_type(inspector, return_columns=None, as_pandas_df=False):
+def patient_counts_by_care_site_type(inspector, return_columns=None):
     """
     Returns patients counts by facility type.
 
@@ -65,7 +65,7 @@ def patient_counts_by_care_site_type(inspector, return_columns=None, as_pandas_d
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -97,4 +97,4 @@ def patient_counts_by_care_site_type(inspector, return_columns=None, as_pandas_d
                     c.c.concept_id == cs.c.place_of_service_concept_id,\
                     p.c.care_site_id == cs.c.care_site_id)).\
                 group_by(cs.c.place_of_service_concept_id)
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement

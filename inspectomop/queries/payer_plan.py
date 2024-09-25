@@ -51,7 +51,7 @@ def counts_by_years_of_coverage(inspector):
     return results
 
 
-def patient_distribution_by_plan_type(inspector, as_pandas_df=False):
+def patient_distribution_by_plan_type(inspector):
     """
     Returns counts of payer coverage by plan type.
 
@@ -88,4 +88,4 @@ def patient_distribution_by_plan_type(inspector, as_pandas_df=False):
     p = _alias(inspector.tables['payer_plan_period'], 'p')
     columns = [p.c.plan_source_value, _func.count(p.c.plan_source_value).label('count')]
     statement = _select(*columns).group_by(p.c.plan_source_value)
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement

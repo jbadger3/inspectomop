@@ -8,7 +8,7 @@ from sqlalchemy import select as _select, join as _join,\
 
 import pandas as _pd
 
-def condition_concept_for_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def condition_concept_for_concept_id(concept_id, inspector, return_columns=None):
     """
     Retrieves the condition concept for a condition_concept_id.
 
@@ -22,7 +22,7 @@ def condition_concept_for_concept_id(concept_id, inspector, return_columns=None,
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -69,10 +69,9 @@ def condition_concept_for_concept_id(concept_id, inspector, return_columns=None,
                     c.c.vocabulary_id == v.c.vocabulary_id,\
                     c.c.domain_id == domain_id,\
                     c.c.standard_concept == standard_concept))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-
-def condition_concepts_for_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
+def condition_concepts_for_keyword(keyword, inspector, return_columns=None):
     """
     Retrieves standard concepts for a condition/keyword.
 
@@ -86,7 +85,7 @@ def condition_concepts_for_keyword(keyword, inspector, return_columns=None, as_p
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -145,9 +144,9 @@ def condition_concepts_for_keyword(keyword, inspector, return_columns=None, as_p
                 _or_(_func.lower(c.concept_name).ilike('%{}%'.format(keyword.lower())),\
                     _func.lower(cs.concept_synonym_name).ilike('%{}%'.format(keyword.lower())))))\
                 .distinct()
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def condition_concepts_for_source_codes(source_codes, inspector, return_columns=None, as_pandas_df=False):
+def condition_concepts_for_source_codes(source_codes, inspector, return_columns=None):
     """
     Retrieves standard condition concepts for source codes.  Ex ICD-9-CM --> SNOMED-CT
 
@@ -167,7 +166,7 @@ def condition_concepts_for_source_codes(source_codes, inspector, return_columns=
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -236,9 +235,9 @@ def condition_concepts_for_source_codes(source_codes, inspector, return_columns=
                     c1.c.concept_code.in_(source_codes),\
                     c2.c.vocabulary_id == vocab_id))\
                 .distinct()
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def source_codes_for_concept_ids(concept_ids, inspector, return_columns=None, as_pandas_df=False):
+def source_codes_for_concept_ids(concept_ids, inspector, return_columns=None):
     """
     Retreives source condition concepts for OMOP concept_ids.  i.e SNOMED-CT --> ICD-9-CM, ICD-10-CM
 
@@ -258,7 +257,7 @@ def source_codes_for_concept_ids(concept_ids, inspector, return_columns=None, as
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     Notes
     -----
@@ -327,9 +326,9 @@ def source_codes_for_concept_ids(concept_ids, inspector, return_columns=None, as
                     c1.c.concept_id.in_(concept_ids),\
                     c2.c.vocabulary_id == vocab_id))\
                 .distinct()
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def pathogen_concept_for_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
+def pathogen_concept_for_keyword(keyword, inspector, return_columns=None):
     """
     Retrieves pathogen concepts based on a keyword with 'Organsim' as the concept_class_id.
 
@@ -345,7 +344,7 @@ def pathogen_concept_for_keyword(keyword, inspector, return_columns=None, as_pan
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -389,9 +388,9 @@ def pathogen_concept_for_keyword(keyword, inspector, return_columns=None, as_pan
                     c.c.concept_class_id == concept_class_id,\
                     _func.lower(c.c.concept_name).ilike('%{}%'.format(keyword.lower())),\
                     c.c.vocabulary_id == v.c.vocabulary_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def disease_causing_agents_for_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
+def disease_causing_agents_for_keyword(keyword, inspector, return_columns=None):
     """
     Retrieves disease causing agents by keyword.  The concept_class_id can be any of: 'Pharmaceutical / biologic product',\
     'Physical object', 'Special concept', 'Event', 'Physical force', or 'Substance'.
@@ -412,7 +411,7 @@ def disease_causing_agents_for_keyword(keyword, inspector, return_columns=None, 
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -456,9 +455,9 @@ def disease_causing_agents_for_keyword(keyword, inspector, return_columns=None, 
                     _func.lower(c.c.concept_class_id).in_(concept_class_ids),\
                     _func.lower(c.c.concept_name).ilike('%{}%'.format(keyword.lower())),\
                     c.c.vocabulary_id == v.c.vocabulary_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def conditions_caused_by_pathogen_or_causative_agent_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def conditions_caused_by_pathogen_or_causative_agent_concept_id(concept_id, inspector, return_columns=None):
     """
     Retreives all conditions caused by a pathogen or other causative agent concept_id.
 
@@ -477,7 +476,7 @@ def conditions_caused_by_pathogen_or_causative_agent_concept_id(concept_id, insp
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -543,11 +542,11 @@ def conditions_caused_by_pathogen_or_causative_agent_concept_id(concept_id, insp
                     cr.c.concept_id_2 == d.c.concept_id,\
                     d.c.concept_id == concept_id,\
                     d.c.vocabulary_id == vs.c.vocabulary_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def anatomical_site_by_keyword(keyword, inspector, return_columns=None, as_pandas_df=False):
+def anatomical_site_by_keyword(keyword, inspector, return_columns=None):
     """
-    Retrieves anitomical site concepts given a keyword.  Results of this query are useful for `condition_concepts_occurring_at_anatomical_site_concept_id`
+    Retrieves anatomical site concepts given a keyword.  Results of this query are useful for `condition_concepts_occurring_at_anatomical_site_concept_id`
 
     Parameters
     ----------
@@ -560,7 +559,7 @@ def anatomical_site_by_keyword(keyword, inspector, return_columns=None, as_panda
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -603,9 +602,9 @@ def anatomical_site_by_keyword(keyword, inspector, return_columns=None, as_panda
                     c.c.concept_class_id == concept_class_id,\
                     _func.lower(c.c.concept_name).ilike('%{}%'.format(keyword.lower())),\
                     c.c.vocabulary_id == v.c.vocabulary_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
-def condition_concepts_occurring_at_anatomical_site_concept_id(concept_id, inspector, return_columns=None, as_pandas_df=False):
+def condition_concepts_occurring_at_anatomical_site_concept_id(concept_id, inspector, return_columns=None):
     """
     Retrieves condition concepts that occur at a given anatomical site.  Input concept_id should be a concept of
     class 'Body Structure'
@@ -625,7 +624,7 @@ def condition_concepts_occurring_at_anatomical_site_concept_id(concept_id, inspe
 
     Returns
     -------
-    results : pandas.DataFrame if as_pandas_df else sqlalchemy.sql.expression.Executable
+    results : sqlalchemy.sql.expression.Executable
 
     See Also
     --------
@@ -690,11 +689,11 @@ def condition_concepts_occurring_at_anatomical_site_concept_id(concept_id, inspe
                     cr.c.concept_id_2 == d.c.concept_id,\
                     d.c.concept_id == concept_id,\
                     d.c.vocabulary_id == vs.c.vocabulary_id))
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement
 
 
 
-def place_of_service_counts_for_condition_concept_id(condition_concept_id, inspector, return_columns=None, as_pandas_df=False):
+def place_of_service_counts_for_condition_concept_id(condition_concept_id, inspector, return_columns=None):
     """
     Provides counts of conditions stratified by place_of_service (Office, Inpatient Hospital, etc.)
 
@@ -766,4 +765,4 @@ def place_of_service_counts_for_condition_concept_id(condition_concept_id, inspe
          select_from(j2).\
          where(_and_(c_place.c.concept_id == j2.c.cs_place_of_service_concept_id, c.c.concept_id == condition_concept_id)).group_by(c.c.concept_name)
 
-    return _pd.read_sql(statement,con=inspector.connect()) if as_pandas_df else statement
+    return statement

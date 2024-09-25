@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>API Reference &#8212; InspectOMOP 0.1.6 documentation</title>
+    <title>API Reference &#8212; InspectOMOP 0.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
-    <script src="_static/documentation_options.js?v=6e0256f3"></script>
+    <script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -16,7 +16,7 @@
     <link rel="next" title="inspectomop.inspector.Inspector" href="generated/inspectomop.inspector.Inspector.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API Reference</a></li> 
       </ul>
     </div>  
@@ -95,7 +95,7 @@
 <td><p>For SQLite backends, attaches an additional sqlite database file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.connect.html#inspectomop.inspector.Inspector.connect" title="inspectomop.inspector.Inspector.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.connect</span></code></a>()</p></td>
-<td><p>Returns a connection from the underlying SQLAlchemy engine</p></td>
+<td><p>Provides a Connection to the underlying database from the connection pool.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.inspector.Inspector.table_info.html#inspectomop.inspector.Inspector.table_info" title="inspectomop.inspector.Inspector.table_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Inspector.table_info</span></code></a>(table_name)</p></td>
 <td><p>Return a Pandas DataFrame describing the fields and properties of a table.</p></td>
@@ -104,8 +104,67 @@
 </table>
 </section>
 </section>
+<section id="connection">
+<h2>Connection<a class="headerlink" href="#connection" title="Link to this heading">¶</a></h2>
+<p><cite>inspectomop.Connection</cite></p>
+<section id="id1">
+<h3>Constructor<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.connection.Connection.html#inspectomop.connection.Connection" title="inspectomop.connection.Connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Connection</span></code></a>(engine[, connection, ...])</p></td>
+<td><p>A subclass of sqlalchemy.engine.Connection.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Although a public constructor exists, <cite>Connection</cite> objects are meant to be instantiated indirectly from calls to <cite>Inspector.connect()</cite></p>
+</div>
+</section>
+<section id="id2">
+<h3>Methods<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.connection.Connection.execute.html#inspectomop.connection.Connection.execute" title="inspectomop.connection.Connection.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Connection.execute</span></code></a>(statement[, parameters, ...])</p></td>
+<td><p>Executes an SQL query on the OMOP CDM.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h2>
+<p><cite>inspectomop.Results</cite></p>
+<section id="id3">
+<h3>Constructor<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.html#inspectomop.results.Results" title="inspectomop.results.Results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results</span></code></a>(cursor_result)</p></td>
+<td><p>A cursor-like object with methods such as <cite>fetchone</cite>, <cite>fetchmany</cite> etc.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Although a public constructor exists, <cite>Results</cite> objects are meant to be instantiated indirectly from calls to <cite>Connection.execute()</cite></p>
+</div>
+</section>
+<section id="id4">
+<h3>Methods<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas.html#inspectomop.results.Results.as_pandas" title="inspectomop.results.Results.as_pandas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas</span></code></a>()</p></td>
+<td><p>Return all rows from a <cite>results</cite> object as a pandas DataFrame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.results.Results.as_pandas_chunks.html#inspectomop.results.Results.as_pandas_chunks" title="inspectomop.results.Results.as_pandas_chunks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Results.as_pandas_chunks</span></code></a>(chunksize)</p></td>
+<td><p>Yields a pandas DataFrame with n_rows = chunksize</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="queries">
-<h2>Queries<a class="headerlink" href="#queries" title="Link to this heading">¶</a></h2>
+<span id="id5"></span><h2>Queries<a class="headerlink" href="#queries" title="Link to this heading">¶</a></h2>
 <p><cite>inspectomop.queries</cite></p>
 <section id="care-site">
 <h3>Care Site<a class="headerlink" href="#care-site" title="Link to this heading">¶</a></h3>
@@ -116,7 +175,7 @@
 <td><p>Returns facility counts by type in the OMOP CDM i.e. # Inpatient Hospitals, Offices, etc.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.care_site.patient_counts_by_care_site_type.html#inspectomop.queries.care_site.patient_counts_by_care_site_type" title="inspectomop.queries.care_site.patient_counts_by_care_site_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patient_counts_by_care_site_type</span></code></a>(inspector)</p></td>
-<td><p>Returns pateints counts by facility type.</p></td>
+<td><p>Returns patients counts by facility type.</p></td>
 </tr>
 </tbody>
 </table>
@@ -127,7 +186,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.anatomical_site_by_keyword.html#inspectomop.queries.condition.anatomical_site_by_keyword" title="inspectomop.queries.condition.anatomical_site_by_keyword"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anatomical_site_by_keyword</span></code></a>(keyword, inspector)</p></td>
-<td><p>Retrieves anitomical site concepts given a keyword.</p></td>
+<td><p>Retrieves anatomical site concepts given a keyword.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/inspectomop.queries.condition.condition_concept_for_concept_id.html#inspectomop.queries.condition.condition_concept_for_concept_id" title="inspectomop.queries.condition.condition_concept_for_concept_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition_concept_for_concept_id</span></code></a>(concept_id, ...)</p></td>
 <td><p>Retrieves the condition concept for a condition_concept_id.</p></td>
@@ -273,7 +332,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
@@ -284,6 +343,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#constructor">Constructor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connection">Connection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#queries">Queries</a><ul>
@@ -321,7 +390,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -333,13 +402,13 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.1.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">InspectOMOP 0.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API Reference</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2024, Jonathan Badger.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>
