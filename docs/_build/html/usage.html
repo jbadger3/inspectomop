@@ -80,7 +80,7 @@
 <h3>Accessing tables<a class="headerlink" href="#accessing-tables" title="Link to this heading">¶</a></h3>
 <p>The tables property of an <a class="reference internal" href="generated/inspectomop.inspector.Inspector.html#inspectomop.inspector.Inspector" title="inspectomop.inspector.Inspector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inspector</span></code></a> contains a dictionary of associated OMOP tables that are accessible by table name.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="gh">Out[6]: </span><span class="go">dict_keys([&#39;concept_relationship&#39;, &#39;condition_occurrence&#39;, &#39;concept_ancestor&#39;, &#39;device_exposure&#39;, &#39;relationship&#39;, &#39;cohort&#39;, &#39;location&#39;, &#39;concept_synonym&#39;, &#39;concept&#39;, &#39;cohort_attribute&#39;, &#39;cohort_definition&#39;, &#39;concept_class&#39;, &#39;person&#39;, &#39;visit_occurrence&#39;, &#39;drug_era&#39;, &#39;fact_relationship&#39;, &#39;note&#39;, &#39;vocabulary&#39;, &#39;care_site&#39;, &#39;source_to_concept_map&#39;, &#39;death&#39;, &#39;payer_plan_period&#39;, &#39;attribute_definition&#39;, &#39;domain&#39;, &#39;procedure_occurrence&#39;, &#39;observation&#39;, &#39;specimen&#39;, &#39;dose_era&#39;, &#39;drug_strength&#39;, &#39;provider&#39;, &#39;drug_exposure&#39;, &#39;note_nlp&#39;, &#39;condition_era&#39;, &#39;measurement&#39;, &#39;cost&#39;, &#39;observation_period&#39;, &#39;cdm_source&#39;])</span>
+<span class="gh">Out[6]: </span><span class="go">dict_keys([&#39;attribute_definition&#39;, &#39;cost&#39;, &#39;cohort_attribute&#39;, &#39;payer_plan_period&#39;, &#39;vocabulary&#39;, &#39;concept_synonym&#39;, &#39;dose_era&#39;, &#39;concept_class&#39;, &#39;device_exposure&#39;, &#39;drug_strength&#39;, &#39;fact_relationship&#39;, &#39;visit_occurrence&#39;, &#39;concept_ancestor&#39;, &#39;location&#39;, &#39;domain&#39;, &#39;concept_relationship&#39;, &#39;cdm_source&#39;, &#39;relationship&#39;, &#39;procedure_occurrence&#39;, &#39;note&#39;, &#39;provider&#39;, &#39;concept&#39;, &#39;drug_exposure&#39;, &#39;person&#39;, &#39;condition_occurrence&#39;, &#39;observation&#39;, &#39;cohort_definition&#39;, &#39;measurement&#39;, &#39;observation_period&#39;, &#39;note_nlp&#39;, &#39;care_site&#39;, &#39;drug_era&#39;, &#39;specimen&#39;, &#39;condition_era&#39;, &#39;source_to_concept_map&#39;, &#39;cohort&#39;, &#39;death&#39;])</span>
 
 <span class="gp">In [7]: </span><span class="n">person</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">]</span>
 </pre></div>
@@ -272,12 +272,12 @@ also have two handy methods, .as_pandas() and .as_pandas_chunks() for returning 
 <span class="gh">Out[34]: </span><span class="go">sqlalchemy.ext.automap.person</span>
 
 <span class="gp">In [35]: </span><span class="n">p</span><span class="o">.</span><span class="n">person_id</span>
-<span class="gh">Out[35]: </span><span class="go">&lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x11ece4fe0&gt;</span>
+<span class="gh">Out[35]: </span><span class="go">&lt;sqlalchemy.orm.attributes.InstrumentedAttribute at 0x1147a2660&gt;</span>
 
 <span class="go"># p_alias is an Alias object.</span>
 <span class="go"># Columns must be accessed using .c.column</span>
 <span class="gp">In [36]: </span><span class="n">p_alias</span>
-<span class="gh">Out[36]: </span><span class="go">&lt;sqlalchemy.sql.selectable.Alias at 0x11ee5e750; p_alias&gt;</span>
+<span class="gh">Out[36]: </span><span class="go">&lt;sqlalchemy.sql.selectable.Alias at 0x1148d9790; p_alias&gt;</span>
 
 <span class="gp">In [37]: </span><span class="n">p_alias</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">person_id</span>
 <span class="gh">Out[37]: </span><span class="go">Column(&#39;person_id&#39;, INTEGER(), table=&lt;p_alias&gt;, primary_key=True, nullable=False)</span>
