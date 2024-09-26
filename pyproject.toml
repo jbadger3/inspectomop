@@ -30,6 +30,9 @@ version = {file = "inspectomop/VERSION.txt"}  # any module attribute compatible 
 [tool.setuptools]
 packages = ["inspectomop", "inspectomop.queries", "inspectomop.test"]
 
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
 [project.urls]
 Documentation = "https://inpsectomop.readthedocs.io/en/master/"
 Repository = "https://github.com/jbadger3/inspectomop"
