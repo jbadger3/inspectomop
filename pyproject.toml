@@ -28,7 +28,7 @@ dynamic = ["version"]
 version = {file = "inspectomop/VERSION.txt"}  # any module attribute compatible with ast.literal_eval
 
 [tool.setuptools]
-packages = ["inspectomop", "inspectomop.queries"]
+packages = ["inspectomop", "inspectomop.queries", "inspectomop.test"]
 
 [project.urls]
 Documentation = "https://inpsectomop.readthedocs.io/en/master/"
